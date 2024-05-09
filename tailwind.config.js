@@ -6,7 +6,13 @@ export default {
     './node_modules/flowbite/**/*.js',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        mainColor: '#F5EDE8',
+        mainTextColor: '#9C6B4A',
+        subColor: '#F58D42',
+      },
+    },
   },
   plugins: [],
 };
