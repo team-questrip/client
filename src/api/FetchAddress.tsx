@@ -1,4 +1,8 @@
-const FetchAddress = () => {
+const FetchAddress = (): Promise<{
+  address: string;
+  latitude: number;
+  longitude: number;
+}> => {
   return new Promise((resolve, reject) => {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -11,7 +15,7 @@ const FetchAddress = () => {
             .then(response => response.json())
             .then(data => {
               if (data.status === 'OK') {
-                const addressData: string = data.results[4].formatted_address;
+                const addressData: string = data.results[0].formatted_address;
                 const commaIndex = addressData.indexOf(',');
                 const secondCommaIndex = addressData.indexOf(
                   ',',
@@ -21,8 +25,7 @@ const FetchAddress = () => {
                   0,
                   secondCommaIndex
                 );
-
-                resolve(addressResult);
+                resolve({ address: addressResult, latitude, longitude });
               } else {
                 reject('주소를 가져오는 데 문제가 발생했습니다.');
               }
@@ -32,6 +35,7 @@ const FetchAddress = () => {
             });
         },
         error => {
+          console.log(error);
           reject('위치 정보를 가져오는 데 문제가 발생했습니다.');
         }
       );
