@@ -1,5 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import FetchAddress from '../api/FetchAddress';
+import { useEffect } from 'react';
+import { axiosInstance } from '../api/axiosInstance';
+
+interface getPlaceProps {
+  data: object;
+  message: string;
+  status: string;
+}
 
 const Home = () => {
   const { data, isPending, isError } = useQuery({
@@ -8,6 +16,8 @@ const Home = () => {
   });
 
   let content;
+  let latitude: number = 0;
+  let longitude: number = 0;
 
   if (isPending) {
     content = <div>Loading...</div>;
@@ -18,8 +28,30 @@ const Home = () => {
   }
 
   if (data) {
-    content = <div>{data as string}</div>;
+    content = <div>{data.address}</div>;
+    latitude = data.latitude;
+    longitude = data.longitude;
   }
+
+  useEffect(() => {
+    if (latitude !== 0 && longitude !== 0) {
+      const getPlaceAPI = async () => {
+        try {
+          const response = await axiosInstance.get(
+            `api/v1/place?latitude=${latitude}&longitude=${longitude}&page=0&size=10`
+          );
+          getPlace(response.data);
+        } catch (error) {
+          console.error('API 요청 중 오류 발생:', error);
+        }
+      };
+      getPlaceAPI();
+    }
+  }, [latitude, longitude]);
+
+  const getPlace = (data: getPlaceProps) => {
+    console.log(data);
+  };
 
   return (
     <div>
@@ -34,4 +66,5 @@ const Home = () => {
     </div>
   );
 };
+
 export default Home;
