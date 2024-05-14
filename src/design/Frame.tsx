@@ -6,7 +6,7 @@ const Frame = ({ children }: FrameProps) => {
   return (
     <div className="flex justify-center h-screen w-screen bg-white">
       <div
-        className="h-screen no-scrollbar overflow-y-scroll p-4 bg-white"
+        className="h-screen no-scrollbar overflow-y-scroll p-4 bg-white relative"
         style={{ width: '375px' }}
       >
         {children}
