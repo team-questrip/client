@@ -1,17 +1,26 @@
+import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
 import './App.css';
-import Home from './Pages/Home';
+import Home from './pages/Home';
 import Frame from './design/Frame';
 
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import DetailPage from './pages/DetailPage';
 
 const queryClient = new QueryClient();
 
 function App() {
+  const placeId = useParams();
+
   return (
     <QueryClientProvider client={queryClient}>
-      <Frame>
-        <Home />
-      </Frame>
+      <BrowserRouter>
+        <Frame>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/:placeId" element={<DetailPage />} />
+          </Routes>
+        </Frame>
+      </BrowserRouter>
     </QueryClientProvider>
   );
 }
