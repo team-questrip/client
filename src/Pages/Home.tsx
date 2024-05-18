@@ -1,47 +1,16 @@
+import { useDispatch } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
 import FetchAddress from '../api/FetchAddress';
-import { useEffect, useState } from 'react';
-import { axiosInstance } from '../api/axiosInstance';
-import PlaceCard from '../Components/PlaceCard';
 
-export interface ImagesItem {
-  sequence: number;
-  url: string;
-}
+import PlaceCard from '../components/PlaceCard';
 
-export interface ContentItem {
-  activity: string;
-  recommendationReason: string;
-}
-
-export interface PlaceContentItem {
-  content: ContentItem;
-  distance: number;
-  formattedAddress: string;
-  googlePlaceId: string;
-  id: string;
-  images: ImagesItem[];
-  location: string;
-  openNow: string;
-  openingHours: string[];
-  placeName: string;
-  primaryType: string;
-}
-
-export interface getPlaceProps {
-  data: {
-    content: PlaceContentItem[];
-    hasNext: boolean;
-    numberOfElements: number;
-    page: number;
-    size: number;
-  };
-  message: string;
-  status: string;
-}
+import { setAddressData } from '../store/addressData';
+import FetchPlace from '../api/FetchPlace';
 
 const Home = () => {
-  const { data, isPending, isError } = useQuery({
+  const dispatch = useDispatch();
+
+  const { data, isPending, isError, error } = useQuery({
     queryKey: ['address'],
     queryFn: FetchAddress,
   });
@@ -55,6 +24,7 @@ const Home = () => {
   }
 
   if (isError) {
+    console.log(error);
     content = <div>error</div>;
   }
 
@@ -62,25 +32,34 @@ const Home = () => {
     content = <div>{data.address}</div>;
     latitude = data.latitude;
     longitude = data.longitude;
+
+    dispatch(setAddressData({ address: data.address, latitude, longitude }));
+
+    localStorage.setItem('latitude', latitude.toString());
+    localStorage.setItem('longitude', longitude.toString());
   }
 
-  const [placeData, setPlaceData] = useState<getPlaceProps | null>(null);
+  const {
+    data: placeDatas,
+    isPending: placeIsPending,
+    isError: placeIsError,
+    error: placeError,
+  } = useQuery({
+    queryKey: ['place'],
+    queryFn: FetchPlace,
+  });
 
-  useEffect(() => {
-    if (latitude !== 0 && longitude !== 0) {
-      const getPlaceAPI = async () => {
-        try {
-          const response = await axiosInstance.get(
-            `api/v1/place?latitude=${latitude}&longitude=${longitude}&page=0&size=10`
-          );
-          setPlaceData(response.data);
-        } catch (error) {
-          console.error('API 요청 중 오류 발생:', error);
-        }
-      };
-      getPlaceAPI();
-    }
-  }, [latitude, longitude]);
+  if (placeDatas) {
+    console.log(placeDatas);
+  }
+
+  if (placeIsPending) {
+    console.log('pending');
+  }
+
+  if (placeIsError) {
+    console.log(placeError);
+  }
 
   return (
     <div>
@@ -95,7 +74,7 @@ const Home = () => {
       <div className="font-semibold pt-1 text-lg">
         Quests conquered<p>by others near you</p>
       </div>
-      <PlaceCard placeData={placeData} />
+      <PlaceCard placeData={placeDatas} />
     </div>
   );
 };
