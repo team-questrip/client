@@ -1,9 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { getPlaceProps } from '../Pages/Home';
-
-interface PlaceCardProps {
-  placeData: getPlaceProps | null;
-}
+import { PlaceCardProps } from '../interface/props';
 
 const PlaceCard: React.FC<PlaceCardProps> = ({ placeData }) => {
   const navigate = useNavigate();
