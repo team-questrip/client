@@ -1,5 +1,10 @@
 import SearchForm from "../components/SearchForm";
 
+const textareaStyle =
+  "resize-none block w-full h-[158px] border focus:border-subColor focus:outline-none rounded-xl p-6 text-sm";
+const characterLimiterStyle = "absolute right-6 bottom-3 text-xs opacity-50";
+const formH2Style = "text-subColor mb-3";
+
 const SearchResults = () => {
   return (
     <div className="h-full overflow-scroll pb-20">
@@ -23,27 +28,23 @@ const SearchResults = () => {
         </div>
       </div>
       <form>
-        <h2 className="text-subColor mb-3">Why we recommend it</h2>
+        <h2 className={formH2Style}>Why we recommend it</h2>
         <div className="relative mb-5">
           <textarea
-            className="resize-none block w-full h-[158px] border focus:border-subColor focus:outline-none rounded-xl p-6  text-sm"
+            className={textareaStyle}
             placeholder="Please write the reason for your recommendation"
           ></textarea>
-          <span className="absolute right-6 bottom-3 text-xs opacity-50">
-            0/500
-          </span>
+          <span className={characterLimiterStyle}>0/500</span>
         </div>
-        <h2 className="text-subColor mb-3">Must do</h2>
+        <h2 className={formH2Style}>Must do</h2>
         <div className="relative mb-5">
           <textarea
-            className="resize-none block w-full h-[158px] border focus:border-subColor focus:outline-none rounded-xl p-6 text-sm"
+            className={textareaStyle}
             placeholder="Please write the reason for your recommendation"
           ></textarea>
-          <span className="absolute right-6 bottom-3 text-xs opacity-50">
-            0/500
-          </span>
+          <span className={characterLimiterStyle}>0/500</span>
         </div>
-        <h2 className="text-subColor mb-3">Select Image</h2>
+        <h2 className={formH2Style}>Select Image</h2>
         <div>
           <label
             htmlFor="image-file"
