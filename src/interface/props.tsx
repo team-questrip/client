@@ -1,9 +1,4 @@
-import GetPlaceProps from '../pages/Home';
 import { PlaceContentItem } from './Item';
-
-export interface PlaceCardProps {
-  placeData: GetPlaceProps | null;
-}
 
 export interface GetPlaceProps {
   data: {
@@ -15,4 +10,8 @@ export interface GetPlaceProps {
   };
   message: string;
   status: string;
+}
+
+export interface PlaceCardProps {
+  placeData: GetPlaceProps['data'];
 }
