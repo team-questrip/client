@@ -1,4 +1,5 @@
 import { ChangeEvent, forwardRef } from "react";
+import "./SearchForm.css";
 
 interface SearchFormProps {
   onChange?: (e?: ChangeEvent<HTMLInputElement>) => void;

@@ -1,4 +1,4 @@
-import SearchForm from "../components/SearchForm";
+import SearchForm from "../components/SearchForm/SearchForm";
 
 const textareaStyle =
   "resize-none block w-full h-[158px] border focus:border-subColor focus:outline-none rounded-xl p-6 text-sm";

@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import SearchForm from "./SearchForm";
+import SearchForm from "./SearchForm/SearchForm";
 import CurrentLocation from "./CurrentLocation";
 
 interface SearchProps {
