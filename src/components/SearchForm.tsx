@@ -1,11 +1,19 @@
-import { forwardRef } from "react";
+import { ChangeEvent, forwardRef } from "react";
 
-interface SearchFormProps {}
+interface SearchFormProps {
+  onChange?: (e?: ChangeEvent<HTMLInputElement>) => void;
+}
 
-const SearchForm = forwardRef<HTMLInputElement>(
+const SearchForm = forwardRef<HTMLInputElement, SearchFormProps>(
   (props: SearchFormProps, ref) => {
+    const { onChange } = props;
     return (
-      <form className="px-1 flex">
+      <form
+        className="px-1 flex"
+        onReset={() => {
+          onChange?.();
+        }}
+      >
         <button type="reset" className="p-1 mr-3 text-lg">
           <svg
             width="22"
@@ -25,6 +33,7 @@ const SearchForm = forwardRef<HTMLInputElement>(
         </button>
         <input
           ref={ref}
+          onChange={onChange}
           type="text"
           className="border rounded-2xl px-2 py-1 block w-[90%] focus:outline-none focus:border-subColor"
         />

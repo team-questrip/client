@@ -1,11 +1,26 @@
-import { useEffect, useRef } from "react";
-import SearchForm from "../components/SearchForm";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { initAutocomplete } from "../service/map-api-load";
 import { defaultBounds } from "../common/map";
+import Search from "../components/Search";
 
-const Search = () => {
+const SearchPage = () => {
+  const [showCurrentLocation, setShowCurrentLocation] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
   const eventId = useRef<google.maps.MapsEventListener>();
+
+  const handleChange = (e?: ChangeEvent<HTMLInputElement>) => {
+    if (!e) {
+      setShowCurrentLocation(true);
+      return;
+    }
+
+    if (!e.target.value) {
+      setShowCurrentLocation(true);
+      return;
+    }
+
+    setShowCurrentLocation(false);
+  };
 
   useEffect(() => {
     initAutocomplete().then(() => {
@@ -38,7 +53,12 @@ const Search = () => {
 
   return (
     <>
-      <SearchForm ref={inputRef} />
+      <Search>
+        <>
+          <Search.Form ref={inputRef} onChange={handleChange} />
+          <Search.CurrentLocation show={showCurrentLocation} />
+        </>
+      </Search>
       <section>
         <p className="mt-10 px-10 text-center opacity-40">
           Please enter the travel destination you would like to recommend.
@@ -48,4 +68,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default SearchPage;
