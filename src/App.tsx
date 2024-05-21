@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import Frame from "./design/Frame";
+import RecommendedPlaceSearch from "./pages/RecommendedPlaceSearch";
 
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import DetailPage from "./pages/DetailPage";
