@@ -7,7 +7,10 @@ const CurrentLocation = ({ show = true }: CurrentLocationProps) => {
     // to do: 현재 위치 넘겨주기.
   };
   return (
-    <div hidden={!show} className="absolute left-0 top-[8.5%]">
+    <div
+      hidden={!show}
+      className="absolute left-0 top-[8.5%] h-screen w-[375px] z-10 bg-white"
+    >
       <button onClick={handleClick} className="opacity-50">
         Use Current Location
       </button>
