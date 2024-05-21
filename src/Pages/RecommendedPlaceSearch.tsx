@@ -1,24 +1,24 @@
 import { useRef } from "react";
 import SearchForm from "../components/SearchForm/SearchForm";
 import useAutoComplete from "../hooks/useAutoComplete";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const RecommendedPlaceSearch = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const onPlaceChanged = (autocomplete: google.maps.places.Autocomplete) => {
     const place = autocomplete.getPlace();
-    // navigate("/search-results", {
-    //   state: {
-    //     place,
-    //   },
-    // });
-    console.log(place);
+    navigate("/search-results", {
+      state: {
+        place,
+      },
+    });
   };
   useAutoComplete({
     inputRef,
     onPlaceChanged,
     fields: ["formatted_address", "name"],
+    types: ["establishment"],
   });
   return (
     <>

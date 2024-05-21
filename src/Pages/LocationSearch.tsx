@@ -1,10 +1,12 @@
 import { ChangeEvent, useRef, useState } from "react";
 import Search from "../components/Search";
 import useAutoComplete from "../hooks/useAutoComplete";
+import { useNavigate } from "react-router-dom";
 
 const LocationSearch = () => {
   const [showCurrentLocation, setShowCurrentLocation] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   const handleChange = (e?: ChangeEvent<HTMLInputElement>) => {
     if (!e) {
@@ -22,8 +24,12 @@ const LocationSearch = () => {
 
   const onPlaceChanged = (autocomplete: google.maps.places.Autocomplete) => {
     const place = autocomplete.getPlace();
-    console.log(place.geometry?.location?.toJSON());
-    // To Do : 위도, 경도 전달.
+
+    navigate("/", {
+      state: {
+        location: place.geometry?.location?.toJSON(),
+      },
+    });
   };
 
   useAutoComplete({ inputRef, onPlaceChanged });
