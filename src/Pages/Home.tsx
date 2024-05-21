@@ -1,64 +1,59 @@
-import { useDispatch } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
 import FetchAddress from '../api/FetchAddress';
-
+import fetchPlaceData from '../api/FetchPlace';
 import PlaceCard from '../components/PlaceCard';
-
-import { setAddressData } from '../store/addressData';
-import FetchPlace from '../api/FetchPlace';
+import { GetPlaceProps } from '../interface/props';
 
 const Home = () => {
-  const dispatch = useDispatch();
-
-  const { data, isPending, isError, error } = useQuery({
+  const {
+    data: addressData,
+    isLoading: isAddressLoading,
+    isError: isAddressError,
+    error: addressError,
+  } = useQuery({
     queryKey: ['address'],
     queryFn: FetchAddress,
   });
 
   let content;
-  let latitude: number = 0;
-  let longitude: number = 0;
+  let latitude;
+  let longitude;
 
-  if (isPending) {
+  if (isAddressLoading) {
     content = <div>Loading...</div>;
   }
 
-  if (isError) {
-    console.log(error);
-    content = <div>error</div>;
+  if (isAddressError) {
+    content = <div>{addressError.message}</div>;
   }
 
-  if (data) {
-    content = <div>{data.address}</div>;
-    latitude = data.latitude;
-    longitude = data.longitude;
-
-    dispatch(setAddressData({ address: data.address, latitude, longitude }));
+  if (addressData) {
+    content = <div>{addressData.address}</div>;
+    latitude = addressData.latitude;
+    longitude = addressData.longitude;
 
     localStorage.setItem('latitude', latitude.toString());
     localStorage.setItem('longitude', longitude.toString());
   }
 
   const {
-    data: placeDatas,
-    isPending: placeIsPending,
-    isError: placeIsError,
+    data: placeData,
+    isLoading: isPlaceLoading,
+    isError: isPlaceError,
     error: placeError,
-  } = useQuery({
+  } = useQuery<GetPlaceProps['data']>({
     queryKey: ['place'],
-    queryFn: FetchPlace,
+    queryFn: fetchPlaceData,
+    enabled: !!latitude && !!longitude,
   });
 
-  if (placeDatas) {
-    console.log(placeDatas);
-  }
-
-  if (placeIsPending) {
-    console.log('pending');
-  }
-
-  if (placeIsError) {
-    console.log(placeError);
+  let placeContent;
+  if (isPlaceLoading) {
+    placeContent = <div>Loading...</div>;
+  } else if (isPlaceError) {
+    placeContent = <div>{placeError.message}</div>;
+  } else if (placeData) {
+    placeContent = <PlaceCard placeData={placeData} />;
   }
 
   return (
@@ -74,7 +69,7 @@ const Home = () => {
       <div className="font-semibold pt-1 text-lg">
         Quests conquered<p>by others near you</p>
       </div>
-      <PlaceCard placeData={placeDatas} />
+      {placeContent}
     </div>
   );
 };
