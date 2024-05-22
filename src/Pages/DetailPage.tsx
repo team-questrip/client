@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import FetchPlaceDetail from '../api/FetchPlaceDetail';
+import FetchPlaceDetail from '../api/FetchPlaceDetailData';
 import { IoArrowBack } from 'react-icons/io5';
 import PlaceDetail from '../components/PlaceDetail';
 
