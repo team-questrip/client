@@ -15,7 +15,7 @@ const FetchAddress = (): Promise<{
             .then(response => response.json())
             .then(data => {
               if (data.status === 'OK') {
-                const addressData: string = data.results[0].formatted_address;
+                const addressData: string = data.results[3].formatted_address;
                 const commaIndex = addressData.indexOf(',');
                 const secondCommaIndex = addressData.indexOf(
                   ',',
