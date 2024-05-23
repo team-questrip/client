@@ -8,6 +8,7 @@ const RecommendedPlaceSearch = () => {
   const navigate = useNavigate();
   const onPlaceChanged = (autocomplete: google.maps.places.Autocomplete) => {
     const place = autocomplete.getPlace();
+
     navigate("/search-results", {
       state: {
         place,
@@ -17,7 +18,7 @@ const RecommendedPlaceSearch = () => {
   useAutoComplete({
     inputRef,
     onPlaceChanged,
-    fields: ["formatted_address", "name"],
+    fields: ["formatted_address", "name", "place_id"],
     types: ["establishment"],
   });
   return (

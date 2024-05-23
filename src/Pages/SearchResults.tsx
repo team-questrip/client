@@ -1,4 +1,12 @@
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { axiosInstance } from "../api/axiosInstance";
+
+type FormState = {
+  activity: string;
+  recommendationReason: string;
+  images: File[];
+};
 
 const textareaStyle =
   "resize-none block w-full h-[158px] border focus:border-subColor focus:outline-none rounded-xl p-6 text-sm";
@@ -6,8 +14,37 @@ const characterLimiterStyle = "absolute right-6 bottom-3 text-xs opacity-50";
 const formH2Style = "text-subColor mb-3";
 
 const SearchResults = () => {
+  const [formState, setFormstate] = useState<FormState>({
+    activity: "",
+    recommendationReason: "",
+    images: [],
+  });
+
   const result = useLocation();
-  console.log(result);
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("activity", formState.activity);
+    formData.append("recommendationReason", formState.recommendationReason);
+    formData.append("googlePlaceId", result.state.place.place_id);
+
+    if (formState.images) {
+      Array.from(formState.images).forEach((image) => {
+        formData.append("images", image);
+      });
+    }
+
+    axiosInstance
+      .post("api/v1/place", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => console.log(res.data))
+      .catch(console.log);
+  };
+
   return (
     <div className="h-full overflow-scroll pb-20">
       <h2 className="opacity-50 mb-6">Search Results</h2>
@@ -26,37 +63,72 @@ const SearchResults = () => {
           </span>
         </div>
       </div>
-      <form>
-        <h2 className={formH2Style}>Why we recommend it</h2>
+      <form onSubmit={handleSubmit}>
+        <h2 className={formH2Style}>Why we recommend it *</h2>
         <div className="relative mb-5">
           <textarea
             className={textareaStyle}
+            name="activity"
             placeholder="Please write the reason for your recommendation"
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
+              setFormstate((prev: FormState) => ({
+                ...prev,
+                ["activity"]: e.target.value,
+              }));
+            }}
+            required
           ></textarea>
           <span className={characterLimiterStyle}>0/500</span>
         </div>
-        <h2 className={formH2Style}>Must do</h2>
+        <h2 className={formH2Style}>Must do *</h2>
         <div className="relative mb-5">
           <textarea
             className={textareaStyle}
+            name="recommendationReason"
             placeholder="Please write the reason for your recommendation"
+            required
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
+              setFormstate((prev: FormState) => ({
+                ...prev,
+                ["recommendationReason"]: e.target.value,
+              }));
+            }}
           ></textarea>
           <span className={characterLimiterStyle}>0/500</span>
         </div>
-        <h2 className={formH2Style}>Select Image</h2>
+        <h2 className={formH2Style}>Select Image *</h2>
         <div>
           <label
-            htmlFor="image-file"
+            htmlFor="images"
             className="flex justify-center items-center w-full h-[158px] border border-dashed rounded-xl"
           >
             <span className="opacity-50 text-sm">Select Image</span>
           </label>
-          <input type="file" id="image-file" className="hidden" />
+          <input
+            type="file"
+            id="images"
+            name="images"
+            className="hidden"
+            required
+            accept="image/*"
+            multiple
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              if (!e.target.files) return;
+
+              setFormstate((prev: FormState) => ({
+                ...prev,
+                ["images"]: Array.from(e.target.files as FileList),
+              }));
+            }}
+          />
         </div>
+        <button
+          className="absolute bottom-0 left-0 bg-subColor disabled:bg-[#DBDBDB] text-white block w-full py-5 font-bold"
+          type="submit"
+        >
+          registration
+        </button>
       </form>
-      <button className="absolute bottom-0 left-0 bg-subColor disabled:bg-[#DBDBDB] text-white block w-full py-5 font-bold">
-        registration
-      </button>
     </div>
   );
 };

@@ -1,11 +1,25 @@
+import { useNavigate } from "react-router-dom";
+
 interface CurrentLocationProps {
   show?: boolean;
 }
 
+const lat = localStorage.getItem("latitude");
+const lng = localStorage.getItem("longitude");
+
 const CurrentLocation = ({ show = true }: CurrentLocationProps) => {
+  const navigate = useNavigate();
   const handleClick = () => {
-    // to do: 현재 위치 넘겨주기.
+    navigate("/", {
+      state: {
+        location: {
+          lat,
+          lng,
+        },
+      },
+    });
   };
+
   return (
     <div
       hidden={!show}
