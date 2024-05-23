@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../api/axiosInstance";
 import blankImage from "../../public/blank.png";
 import "./SearchResults.css";
+import { GoogleSearchResultItem } from "../../interface/Item";
 
 type FormState = {
   activity: string;
@@ -24,6 +25,9 @@ const SearchResults = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const result = useLocation();
+  const {
+    place: { place_id, name, formatted_address },
+  } = result.state as GoogleSearchResultItem;
   const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent) => {
@@ -31,7 +35,7 @@ const SearchResults = () => {
     const formData = new FormData();
     formData.append("activity", formState.activity);
     formData.append("recommendationReason", formState.recommendationReason);
-    formData.append("googlePlaceId", result.state.place.place_id);
+    formData.append("googlePlaceId", place_id);
 
     if (formState.images) {
       Array.from(formState.images).forEach((image) => {
@@ -76,18 +80,12 @@ const SearchResults = () => {
                   ? URL.createObjectURL(formState.images[0])
                   : blankImage
               }
-              alt={
-                formState.images.length
-                  ? `${result.state.place.name} Image`
-                  : "Blank Image"
-              }
+              alt={formState.images.length ? `${name} Image` : "Blank Image"}
             />
           </div>
           <div>
-            <h3 className="font-bold">{result.state.place.name}</h3>
-            <span className="text-sm opacity-50">
-              {result.state.place.formatted_address}
-            </span>
+            <h3 className="font-bold">{name}</h3>
+            <span className="text-sm opacity-50">{formatted_address}</span>
           </div>
         </div>
         <form onSubmit={handleSubmit}>
@@ -140,9 +138,7 @@ const SearchResults = () => {
                   className="w-full h-full object-fill"
                   src={URL.createObjectURL(formState.images[0])}
                   alt={
-                    formState.images.length
-                      ? `${result.state.place.name} Image`
-                      : "Blank Image"
+                    formState.images.length ? `${name} Image` : "Blank Image"
                   }
                 />
               ) : (
