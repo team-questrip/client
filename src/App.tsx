@@ -7,7 +7,7 @@ import RecommendedPlaceSearch from "./pages/RecommendedPlaceSearch";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import DetailPage from "./pages/DetailPage";
 import LocationSearch from "./pages/LocationSearch";
-import SearchResults from "./pages/SearchResults";
+import SearchResults from "./pages/SearchResults/SearchResults";
 
 const queryClient = new QueryClient();
 
