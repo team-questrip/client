@@ -1,38 +1,43 @@
-const FetchAddress = (): Promise<{
+const FetchAddress = (): // lati?: number,
+// longi?: number
+Promise<{
   address: string;
   latitude: number;
   longitude: number;
 }> => {
   return new Promise((resolve, reject) => {
-    if ('geolocation' in navigator) {
+    const fetchAddressFromCoords = (latitude: number, longitude: number) => {
+      const apiKey = import.meta.env.VITE_Google_API_KEY;
+      fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}&language=en`
+      )
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'OK') {
+            const addressData: string = data.results[3].formatted_address;
+            const commaIndex = addressData.indexOf(',');
+            const secondCommaIndex = addressData.indexOf(',', commaIndex + 1);
+            const addressResult = addressData.substring(0, secondCommaIndex);
+            resolve({ address: addressResult, latitude, longitude });
+          } else {
+            reject('주소를 가져오는 데 문제가 발생했습니다.');
+          }
+        })
+        .catch(error => {
+          reject(error);
+        });
+    };
+
+    if (lati && longi) {
+      const latitude = lati;
+      const longitude = longi;
+      fetchAddressFromCoords(latitude, longitude);
+      console.log('라티 롱티 있음');
+    } else if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
         position => {
           const { latitude, longitude } = position.coords;
-          const apiKey = import.meta.env.VITE_Google_API_KEY;
-          fetch(
-            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}&language=en`
-          )
-            .then(response => response.json())
-            .then(data => {
-              if (data.status === 'OK') {
-                const addressData: string = data.results[3].formatted_address;
-                const commaIndex = addressData.indexOf(',');
-                const secondCommaIndex = addressData.indexOf(
-                  ',',
-                  commaIndex + 1
-                );
-                const addressResult = addressData.substring(
-                  0,
-                  secondCommaIndex
-                );
-                resolve({ address: addressResult, latitude, longitude });
-              } else {
-                reject('주소를 가져오는 데 문제가 발생했습니다.');
-              }
-            })
-            .catch(error => {
-              reject(error);
-            });
+          fetchAddressFromCoords(latitude, longitude);
         },
         error => {
           console.log(error);
