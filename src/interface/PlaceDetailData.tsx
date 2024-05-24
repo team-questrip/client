@@ -16,7 +16,10 @@ export interface PlaceDetailData {
           url: string;
         }
       ];
-      location: Location;
+      location: {
+        latitude: number;
+        longitude: number;
+      };
       openNow: string;
       openingHours: [];
       placeName: string;
