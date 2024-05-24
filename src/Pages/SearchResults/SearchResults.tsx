@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../api/axiosInstance";
 import blankImage from "../../public/blank.png";
 import "./SearchResults.css";
-import { GoogleSearchResultItem } from "../../interface/Item";
+import { GoogleSearchResultItem } from "../../interface/google";
 
 type FormState = {
   activity: string;
