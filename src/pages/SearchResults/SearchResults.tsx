@@ -83,7 +83,7 @@ const SearchResults = () => {
               alt={formState.images.length ? `${name} Image` : "Blank Image"}
             />
           </div>
-          <div>
+          <div className="basis-9/12">
             <h3 className="font-bold">{name}</h3>
             <span className="text-sm opacity-50">{formatted_address}</span>
           </div>
