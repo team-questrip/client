@@ -1,6 +1,5 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { useEffect, useRef, useCallback, useState } from 'react';
-import FetchAddress from '../api/FetchAddress';
+import { useEffect, useRef, useCallback } from 'react';
 import FetchPlaceData from '../api/FetchPlaceData';
 import PlaceCard from '../components/PlaceCard';
 import { IoMdSettings } from 'react-icons/io';
