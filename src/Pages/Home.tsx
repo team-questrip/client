@@ -1,14 +1,31 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 import FetchAddress from '../api/FetchAddress';
 import FetchPlaceData from '../api/FetchPlaceData';
 import PlaceCard from '../components/PlaceCard';
 import { IoMdSettings } from 'react-icons/io';
+import { useLocation, useNavigate } from 'react-router-dom';
+import getAddressData from '../api/FetchAddress';
 
 const Home = () => {
   const handleSetting = () => {
     alert('개발중입니다. 조금만 기다려주세요!');
   };
+
+  const navigate = useNavigate();
+
+  const handleGoToSearchLocation = () => {
+    navigate('/location-search');
+  };
+
+  let content;
+  let latitude: number = 0;
+  let longitude: number = 0;
+
+  const location = useLocation();
+
+  const changedLatitude = location?.state?.location?.lat || undefined;
+  const changedLongitude = location?.state?.location?.lng || undefined;
 
   const {
     data: addressData,
@@ -16,13 +33,9 @@ const Home = () => {
     isError: isAddressError,
     error: addressError,
   } = useQuery({
-    queryKey: ['address'],
-    queryFn: FetchAddress,
+    queryKey: ['address', location.state],
+    queryFn: () => getAddressData(changedLatitude, changedLongitude),
   });
-
-  let content;
-  let latitude;
-  let longitude;
 
   if (isAddressLoading) {
     content = <div>Loading...</div>;
@@ -49,8 +62,12 @@ const Home = () => {
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery({
-    queryKey: ['place'],
-    queryFn: ({ pageParam }) => FetchPlaceData(pageParam),
+    queryKey: [
+      'place',
+      localStorage.getItem('latitude'),
+      localStorage.getItem('longitude'),
+    ],
+    queryFn: ({ pageParam }) => FetchPlaceData(pageParam, latitude, longitude),
     enabled: !!latitude && !!longitude,
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {
@@ -108,7 +125,10 @@ const Home = () => {
       <h1 className="font-bold text-3xl">Questrip</h1>
       <div className="flex justify-between items-center my-5">
         {content}
-        <button className="ml-2 bg-mainColor rounded-xl text-center w-20 p-1 cursor-pointer hover:scale-105">
+        <button
+          className="ml-2 bg-mainColor rounded-xl text-center w-20 p-1 cursor-pointer hover:scale-105"
+          onClick={handleGoToSearchLocation}
+        >
           Change
         </button>
       </div>
