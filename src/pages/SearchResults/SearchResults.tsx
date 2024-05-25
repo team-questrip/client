@@ -94,18 +94,18 @@ const SearchResults = () => {
             <textarea
               className={textareaStyle}
               maxLength={500}
-              name="activity"
+              name="recommendationReason"
               placeholder="Please write the reason for your recommendation"
               onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
                 setFormstate((prev: FormState) => ({
                   ...prev,
-                  ["activity"]: e.target.value,
+                  ["recommendationReason"]: e.target.value,
                 }));
               }}
               required
             ></textarea>
             <span className={characterLimiterStyle}>
-              {formState.activity.length}/500
+              {formState.recommendationReason.length}/500
             </span>
           </div>
           <h2 className={formH2Style}>Must do *</h2>
@@ -113,18 +113,18 @@ const SearchResults = () => {
             <textarea
               className={textareaStyle}
               maxLength={500}
-              name="recommendationReason"
-              placeholder="Please write the reason for your recommendation"
+              name="activity"
+              placeholder="Please write about things to do at this place"
               required
               onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
                 setFormstate((prev: FormState) => ({
                   ...prev,
-                  ["recommendationReason"]: e.target.value,
+                  ["activity"]: e.target.value,
                 }));
               }}
             ></textarea>
             <span className={characterLimiterStyle}>
-              {formState.recommendationReason.length}/500
+              {formState.activity.length}/500
             </span>
           </div>
           <h2 className={formH2Style}>Select Image *</h2>
