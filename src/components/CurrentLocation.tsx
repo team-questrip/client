@@ -1,22 +1,14 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 interface CurrentLocationProps {
   show?: boolean;
 }
 
-const lat = localStorage.getItem("latitude");
-const lng = localStorage.getItem("longitude");
-
 const CurrentLocation = ({ show = true }: CurrentLocationProps) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/", {
-      state: {
-        location: {
-          lat,
-          lng,
-        },
-      },
+    navigate('/', {
+      state: {},
     });
   };
 
