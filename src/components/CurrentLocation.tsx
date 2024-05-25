@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 interface CurrentLocationProps {
   show?: boolean;
@@ -7,7 +7,7 @@ interface CurrentLocationProps {
 const CurrentLocation = ({ show = true }: CurrentLocationProps) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate('/', {
+    navigate("/", {
       state: {},
     });
   };
@@ -15,7 +15,7 @@ const CurrentLocation = ({ show = true }: CurrentLocationProps) => {
   return (
     <div
       hidden={!show}
-      className="absolute left-0 top-[8.5%] h-screen w-[375px] z-10 bg-white"
+      className="absolute left-0 top-[50px] h-screen w-[375px] z-10 bg-white"
     >
       <button onClick={handleClick} className="opacity-50">
         Use Current Location
