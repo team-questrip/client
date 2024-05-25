@@ -23,7 +23,7 @@ const RecommendedPlaceSearch = () => {
   });
   return (
     <>
-      <SearchForm ref={inputRef} />
+      <SearchForm ref={inputRef} onReset={() => navigate("/")} />
       <section>
         <p className="mt-10 px-10 text-center opacity-40">
           Please enter the travel destination you would like to recommend.

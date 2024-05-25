@@ -38,7 +38,11 @@ const LocationSearch = () => {
     <>
       <Search>
         <>
-          <Search.Form ref={inputRef} onChange={handleChange} />
+          <Search.Form
+            ref={inputRef}
+            onChange={handleChange}
+            onReset={() => navigate("/")}
+          />
           <Search.CurrentLocation show={showCurrentLocation} />
         </>
       </Search>
