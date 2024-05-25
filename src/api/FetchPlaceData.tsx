@@ -1,11 +1,12 @@
 import PlaceData from '../interface/PlaceData';
 import { axiosInstance } from './axiosInstance';
 
-const FetchPlaceData = async (pageParam: number): Promise<PlaceData> => {
-  const latitude = localStorage.getItem('latitude');
-  const longitude = localStorage.getItem('longitude');
-
-  if (!latitude || !longitude) {
+const FetchPlaceData = async (
+  pageParam: number,
+  latitude: number,
+  longitude: number
+): Promise<PlaceData> => {
+  if (latitude === null || longitude === null) {
     throw new Error('위치 정보가 없습니다.');
   }
 
