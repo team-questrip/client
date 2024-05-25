@@ -1,5 +1,6 @@
 import { ChangeEvent, forwardRef } from "react";
 import "./SearchForm.css";
+import { useNavigate } from "react-router-dom";
 
 interface SearchFormProps {
   onChange?: (e?: ChangeEvent<HTMLInputElement>) => void;
@@ -8,11 +9,12 @@ interface SearchFormProps {
 const SearchForm = forwardRef<HTMLInputElement, SearchFormProps>(
   (props: SearchFormProps, ref) => {
     const { onChange } = props;
+    const navigate = useNavigate();
     return (
       <form
         className="px-1 flex"
         onReset={() => {
-          onChange?.();
+          navigate(-1);
         }}
       >
         <button type="reset" className="p-1 mr-3 text-lg">
