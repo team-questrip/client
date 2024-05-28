@@ -25,7 +25,7 @@ jobs:
         run: |
           touch .env
           echo VITE_SERVER_URL=${{secrets.VITE_SERVER_URL}} >> .env
-          echo VITE_Google_API_KEY=${{secrets.VITE_Google_API_KEY}} >> .env
+          echo VITE_Google_API_KEY=${{secrets.VITE_GOOGLE_API_KEY}} >> .env
           cat .env
 
       - name: Build project
