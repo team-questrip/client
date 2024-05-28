@@ -1,3 +1,6 @@
+import { Address } from '../interface/PlaceData';
+import { axiosInstance } from './axiosInstance';
+
 // 위치 정보를 가져오는 함수
 const getPosition = (): Promise<GeolocationPosition> => {
   return new Promise((resolve, reject) => {
@@ -9,21 +12,14 @@ const getPosition = (): Promise<GeolocationPosition> => {
 const fetchAddress = async (
   latitude: number,
   longitude: number
-): Promise<string> => {
-  const apiKey = import.meta.env.VITE_Google_API_KEY;
-  const response = await fetch(
-    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}&language=en`
+): Promise<Address> => {
+  const response = await axiosInstance.get(
+    `/api/v1/place/reverseGeocode?latitude=${latitude}&longitude=${longitude}`
   );
-  const data = await response.json();
 
-  if (data.status === 'OK') {
-    const addressData: string = data.results[4].formatted_address;
-    const commaIndex = addressData.indexOf(',');
-    const secondCommaIndex =
-      addressData.indexOf(',', commaIndex + 1) ||
-      addressData.indexOf(',', commaIndex + 2);
-    const addressResult = addressData.substring(0, secondCommaIndex);
-    return addressResult;
+  if (response.data.status === 'SUCCESS') {
+    console.log(response.data);
+    return response.data;
   } else {
     throw new Error('주소를 가져오는 데 문제가 발생했습니다.');
   }
@@ -34,7 +30,7 @@ const getAddressData = async (
   changedLat?: number,
   changedLng?: number
 ): Promise<{
-  address: string;
+  address: Address;
   latitude: number;
   longitude: number;
 }> => {
