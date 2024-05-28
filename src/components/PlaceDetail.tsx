@@ -3,6 +3,16 @@ import { MdOutlinePlace, MdOutlineRecommend } from 'react-icons/md';
 import { RxTriangleDown } from 'react-icons/rx';
 import { PlaceDetailData } from '../interface/PlaceDetailData';
 
+import { Navigation } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
 interface PlaceDetailProps {
   detailPlaceData: PlaceDetailData;
 }
@@ -28,7 +38,26 @@ const PlaceDetail = ({ detailPlaceData }: PlaceDetailProps) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <img src={detailPlaceData.data.place.images[0].url} alt="장소 이미지" />
+      <div>
+        <Swiper
+          modules={[Navigation, Pagination]}
+          slidesPerView={1}
+          navigation
+          pagination={{ clickable: true }}
+          loop={true}
+        >
+          {detailPlaceData.data.place.images.map(image => (
+            <SwiperSlide>
+              <img
+                key={image.url}
+                src={image.url}
+                className="w-[343px] h-[400px]"
+                alt="장소 이미지"
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
       <div className="flex justify-between text-lg font-bold items-center">
         <div className="text-wrap whitespace-normal w-2/3">
           {detailPlaceData.data.place.placeName}
