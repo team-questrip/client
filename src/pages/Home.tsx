@@ -45,7 +45,7 @@ const Home = () => {
   }
 
   if (addressData) {
-    content = <div>{addressData.address}</div>;
+    content = <div>{addressData.address.data.formattedAddress}</div>;
     latitude = addressData.latitude;
     longitude = addressData.longitude;
 
@@ -125,7 +125,7 @@ const Home = () => {
       <div className="flex justify-between items-center my-5">
         {content}
         <button
-          className="ml-2 bg-mainColor rounded-xl text-center w-20 p-1 cursor-pointer hover:scale-105"
+          className=" bg-mainColor rounded-full text-center w-20 p-2 cursor-pointer hover:scale-105"
           onClick={handleGoToSearchLocation}
         >
           Change

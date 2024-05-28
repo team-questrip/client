@@ -33,4 +33,12 @@ export interface Place {
   distance: number;
 }
 
+export interface Address {
+  status: string;
+  message: string;
+  data: {
+    formattedAddress: string;
+  };
+}
+
 export default PlaceData;
