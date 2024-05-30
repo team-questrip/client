@@ -47,9 +47,8 @@ const PlaceDetail = ({ detailPlaceData }: PlaceDetailProps) => {
           loop={true}
         >
           {detailPlaceData.data.place.images.map(image => (
-            <SwiperSlide>
+            <SwiperSlide key={image.url}>
               <img
-                key={image.url}
                 src={image.url}
                 className="w-[343px] h-[400px]"
                 alt="장소 이미지"
