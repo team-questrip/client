@@ -1,14 +1,15 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.css";
-import Home from "./pages/Home";
-import Frame from "./design/Frame";
-import RecommendedPlaceSearch from "./pages/RecommendedPlaceSearch";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './App.css';
+import Home from './pages/Home';
+import Frame from './design/Frame';
+import RecommendedPlaceSearch from './pages/RecommendedPlaceSearch';
 
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import DetailPage from './pages/DetailPage';
 import LocationSearch from './pages/LocationSearch';
 import SearchResults from './pages/SearchResults/SearchResults';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import Survey from './pages/Survey';
 import Inquiry from './pages/Inquiry';
 
 const queryClient = new QueryClient();
