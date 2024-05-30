@@ -1,8 +1,8 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
-import Home from './pages/Home';
-import Frame from './design/Frame';
-import RecommendedPlaceSearch from './pages/RecommendedPlaceSearch';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import Home from "./pages/Home";
+import Frame from "./design/Frame";
+import RecommendedPlaceSearch from "./pages/RecommendedPlaceSearch";
 
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import DetailPage from './pages/DetailPage';
@@ -28,6 +28,7 @@ function App() {
             />
             <Route path="/search-results" element={<SearchResults />} />
             <Route path="/inquiry" element={<Inquiry />} />
+            <Route path="/survey" element={<Survey />} />
           </Routes>
         </Frame>
       </BrowserRouter>
