@@ -22,7 +22,7 @@ const Inquiry = () => {
         throw new Error('An error occurred while submitting the inquiry.');
       }
     } catch (error) {
-      console.error('Error message:', error.message);
+      console.error('Error message:', error);
     }
   };
 
