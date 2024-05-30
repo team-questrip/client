@@ -9,12 +9,11 @@ import DetailPage from './pages/DetailPage';
 import LocationSearch from './pages/LocationSearch';
 import SearchResults from './pages/SearchResults/SearchResults';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import Inquiry from './pages/Inquiry';
 
 const queryClient = new QueryClient();
 
 function App() {
-  // const placeId = useParams();
-
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
@@ -28,6 +27,7 @@ function App() {
               element={<RecommendedPlaceSearch />}
             />
             <Route path="/search-results" element={<SearchResults />} />
+            <Route path="/inquiry" element={<Inquiry />} />
           </Routes>
         </Frame>
       </BrowserRouter>
