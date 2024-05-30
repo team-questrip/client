@@ -34,9 +34,8 @@ const PlaceCard = ({ placeData }: PlaceDataProps) => {
               loop={true}
             >
               {place.images.slice(0, 3).map(image => (
-                <SwiperSlide>
+                <SwiperSlide key={image.url}>
                   <img
-                    key={image.url}
                     src={image.url}
                     className="w-full h-[400px]"
                     alt="장소 이미지"

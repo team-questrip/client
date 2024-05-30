@@ -1,8 +1,8 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import FetchPlaceDetail from '../api/FetchPlaceDetailData';
-import { IoArrowBack } from 'react-icons/io5';
 import PlaceDetail from '../components/PlaceDetail';
+import Header from '../components/Header';
 
 const DetailPage = () => {
   const { placeId } = useParams<{ placeId: string }>();
@@ -17,12 +17,6 @@ const DetailPage = () => {
     queryFn: () => FetchPlaceDetail({ placeId: placeId! }),
     enabled: !!placeId,
   });
-
-  const navigate = useNavigate();
-
-  const handleBackPage = () => {
-    navigate(-1);
-  };
 
   let content;
 
@@ -40,12 +34,7 @@ const DetailPage = () => {
 
   return (
     <div>
-      <header className="pb-3">
-        <IoArrowBack
-          onClick={handleBackPage}
-          className=" cursor-pointer size-6 hover:scale-125"
-        />
-      </header>
+      <Header text="Detail Information" />
       <div>{content}</div>
     </div>
   );

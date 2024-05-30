@@ -4,18 +4,16 @@ import Home from "./pages/Home";
 import Frame from "./design/Frame";
 import RecommendedPlaceSearch from "./pages/RecommendedPlaceSearch";
 
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import DetailPage from "./pages/DetailPage";
-import LocationSearch from "./pages/LocationSearch";
-import SearchResults from "./pages/SearchResults/SearchResults";
-import Survey from "./pages/Survey";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import DetailPage from './pages/DetailPage';
+import LocationSearch from './pages/LocationSearch';
+import SearchResults from './pages/SearchResults/SearchResults';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import Inquiry from './pages/Inquiry';
 
 const queryClient = new QueryClient();
 
 function App() {
-  // const placeId = useParams();
-
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
@@ -29,6 +27,7 @@ function App() {
               element={<RecommendedPlaceSearch />}
             />
             <Route path="/search-results" element={<SearchResults />} />
+            <Route path="/inquiry" element={<Inquiry />} />
             <Route path="/survey" element={<Survey />} />
           </Routes>
         </Frame>
