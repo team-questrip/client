@@ -2,16 +2,16 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useCallback } from 'react';
 import FetchPlaceData from '../api/FetchPlaceData';
 import PlaceCard from '../components/PlaceCard';
-import { IoMdSettings } from 'react-icons/io';
+import { SlSpeech } from 'react-icons/sl';
 import { useLocation, useNavigate } from 'react-router-dom';
 import getAddressData from '../api/FetchAddress';
 
 const Home = () => {
-  const handleSetting = () => {
-    alert('개발중입니다. 조금만 기다려주세요!');
-  };
-
   const navigate = useNavigate();
+
+  const handleGoToInquiry = () => {
+    navigate('/inquiry');
+  };
 
   const handleGoToSearchLocation = () => {
     navigate('/location-search');
@@ -116,9 +116,9 @@ const Home = () => {
   return (
     <div>
       <div className="flex">
-        <IoMdSettings
-          className="cursor-pointer size-6 ml-auto hover:scale-125"
-          onClick={handleSetting}
+        <SlSpeech
+          className="cursor-pointer size-6 ml-auto hover:scale-110"
+          onClick={handleGoToInquiry}
         />
       </div>
       <h1 className="font-bold text-3xl">Questrip</h1>
