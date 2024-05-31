@@ -43,15 +43,17 @@ const Nav = () => {
   );
 
   return (
-    <div className="flex justify-around text-mainTextColor bg-white p-5 border-t-[1px] fixed bottom-0 left-0 z-50 w-full">
-      {renderButton('home', <GoHomeFill />, <GoHome />, 'Home')}
-      {renderButton('recommend', <GoHeartFill />, <GoHeart />, 'Recommend')}
-      {renderButton(
-        'mypage',
-        <HiUserCircle />,
-        <HiOutlineUserCircle />,
-        'My Page'
-      )}
+    <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 bg-white py-5 border-t-[1px] w-[375px] z-50">
+      <div className="flex justify-around text-mainTextColor">
+        {renderButton('home', <GoHomeFill />, <GoHome />, 'Home')}
+        {renderButton('recommend', <GoHeartFill />, <GoHeart />, 'Recommend')}
+        {renderButton(
+          'mypage',
+          <HiUserCircle />,
+          <HiOutlineUserCircle />,
+          'My Page'
+        )}
+      </div>
     </div>
   );
 };
