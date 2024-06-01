@@ -11,6 +11,9 @@ import SearchResults from './pages/SearchResults/SearchResults';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Survey from './pages/Survey';
 import Inquiry from './pages/Inquiry';
+import RecommendPage from './pages/RecommendPage';
+import NavLayout from './design/NavLayout';
+import Mypage from './pages/Mypage';
 
 const queryClient = new QueryClient();
 
@@ -20,7 +23,6 @@ function App() {
       <BrowserRouter>
         <Frame>
           <Routes>
-            <Route path="/" element={<Home />} />
             <Route path="/:placeId" element={<DetailPage />} />
             <Route path="/location-search" element={<LocationSearch />} />
             <Route
@@ -30,6 +32,11 @@ function App() {
             <Route path="/search-results" element={<SearchResults />} />
             <Route path="/inquiry" element={<Inquiry />} />
             <Route path="/survey" element={<Survey />} />
+            <Route element={<NavLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/recommend" element={<RecommendPage />} />
+              <Route path="/mypage" element={<Mypage />} />
+            </Route>
           </Routes>
         </Frame>
       </BrowserRouter>
