@@ -16,7 +16,6 @@ const Nav = () => {
 
   const handleNavigation = (tab: string) => {
     navigate(tab === 'home' ? '/' : `/${tab}`);
-    setActiveTab(tab);
   };
 
   const renderButton = (

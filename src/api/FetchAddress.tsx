@@ -18,7 +18,6 @@ const fetchAddress = async (
   );
 
   if (response.data.status === 'SUCCESS') {
-    console.log(response.data);
     return response.data;
   } else {
     throw new Error('주소를 가져오는 데 문제가 발생했습니다.');
