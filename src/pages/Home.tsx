@@ -130,10 +130,10 @@ const Home = () => {
         />
       </div>
       <h1 className="font-bold text-3xl">Questrip</h1>
-      <div className="flex justify-between items-center my-5">
+      <div className="flex justify-between items-center my-5 gap-2 h-12">
         {content}
         <button
-          className=" bg-mainColor rounded-full text-center w-20 p-2 cursor-pointer hover:scale-105"
+          className=" bg-mainColor rounded-full text-center p-2 px-3 cursor-pointer hover:scale-105"
           onClick={handleGoToSearchLocation}
         >
           Change
