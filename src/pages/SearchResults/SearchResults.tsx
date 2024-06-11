@@ -46,8 +46,6 @@ const SearchResults = () => {
     document.body.classList.add('upload');
     try {
       await addRecommendation(formData);
-      setIsLoading(false);
-      document.body.classList.remove('upload');
       navigate('/');
     } catch (error) {
       alert('오류가 발생했습니다.');
