@@ -1,46 +1,46 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { SURVEY_FORM } from "../common/survey";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { SURVEY_FORM } from '../common/survey';
 
 const Survey = () => {
-  const [language, setLanguage] = useState<string>("English");
+  const [language, setLanguage] = useState<string>('English');
   const navigate = useNavigate();
   const handleButtonClick = () => {
     if (language) {
       const url = getSurveyUrl(language);
-      window.open(url, "_blank");
-      navigate("/");
+      window.open(url, '_blank');
+      navigate('/');
     }
   };
 
   const getSurveyUrl = (language: string) => {
     switch (language) {
-      case "English":
+      case 'English':
         return SURVEY_FORM.english;
-      case "中文":
+      case '中文':
         return SURVEY_FORM.chinese;
-      case "日本語":
+      case '日本語':
         return SURVEY_FORM.japanese;
-      case "臺語":
+      case '臺語':
         return SURVEY_FORM.taiwanese;
-      case "廣東話":
+      case '廣東話':
         return SURVEY_FORM.cantonese;
-      case "ภาษาไทย":
+      case 'ภาษาไทย':
         return SURVEY_FORM.thai;
-      case "tiếng Việt":
+      case 'tiếng Việt':
         return SURVEY_FORM.vietnamese;
-      case "العربية":
+      case 'العربية':
         return SURVEY_FORM.arabic;
-      case "Русский":
+      case 'Русский':
         return SURVEY_FORM.russian;
-      case "Français":
+      case 'Français':
         return SURVEY_FORM.french;
-      case "Español":
+      case 'Español':
         return SURVEY_FORM.spanish;
-      case "Deutsch":
+      case 'Deutsch':
         return SURVEY_FORM.german;
       default:
-        return "#";
+        return '#';
     }
   };
 
@@ -70,7 +70,7 @@ const Survey = () => {
             <option value="Deutsch">Deutsch</option>
           </select>
           <button
-            className="w-full h-[56px] bg-primary-orange text-white bg-blue-500 px-4 py-2 rounded-xl hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-primary-orange"
+            className="w-full h-[56px] bg-subColor text-white px-4 py-2 rounded-xl hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-primary-orange"
             onClick={handleButtonClick}
           >
             Start Survey
