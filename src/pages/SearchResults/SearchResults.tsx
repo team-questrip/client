@@ -1,9 +1,9 @@
-import { ChangeEvent, FormEvent, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { axiosInstance } from "../../api/axiosInstance";
-import blankImage from "../../public/blank.png";
-import "./SearchResults.css";
-import { GoogleSearchResultItem } from "../../interface/google";
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import blankImage from '../../public/blank.png';
+import './SearchResults.css';
+import { GoogleSearchResultItem } from '../../interface/google';
+import { addRecommendation } from '../../api/recommendation';
 
 type FormState = {
   activity: string;
@@ -12,14 +12,14 @@ type FormState = {
 };
 
 const textareaStyle =
-  "resize-none block w-full h-[158px] border focus:border-subColor focus:outline-none rounded-xl p-6 text-sm";
-const characterLimiterStyle = "absolute right-6 bottom-3 text-xs opacity-50";
-const formH2Style = "text-subColor mb-3";
+  'resize-none block w-full h-[158px] border focus:border-subColor focus:outline-none rounded-xl p-6 text-sm';
+const characterLimiterStyle = 'absolute right-6 bottom-3 text-xs opacity-50';
+const formH2Style = 'text-subColor mb-3';
 
 const SearchResults = () => {
   const [formState, setFormstate] = useState<FormState>({
-    activity: "",
-    recommendationReason: "",
+    activity: '',
+    recommendationReason: '',
     images: [],
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -33,32 +33,32 @@ const SearchResults = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("activity", formState.activity);
-    formData.append("recommendationReason", formState.recommendationReason);
-    formData.append("googlePlaceId", place_id);
+    formData.append('activity', formState.activity);
+    formData.append('recommendationReason', formState.recommendationReason);
+    formData.append('googlePlaceId', place_id);
 
     if (formState.images) {
       Array.from(formState.images).forEach((image) => {
-        formData.append("images", image);
+        formData.append('images', image);
       });
     }
-
     setIsLoading(true);
-    document.body.classList.add("upload");
+    document.body.classList.add('upload');
     try {
-      await axiosInstance.post("api/v1/place", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await addRecommendation(formData);
       setIsLoading(false);
-      document.body.classList.remove("upload");
-      navigate("/");
+      document.body.classList.remove('upload');
+      navigate('/');
     } catch (error) {
-      console.log(error);
+      alert('오류가 발생했습니다.');
     } finally {
       setIsLoading(false);
-      document.body.classList.remove("upload");
+      document.body.classList.remove('upload');
+      setFormstate({
+        activity: '',
+        recommendationReason: '',
+        images: [],
+      });
     }
   };
 
@@ -80,7 +80,7 @@ const SearchResults = () => {
                   ? URL.createObjectURL(formState.images[0])
                   : blankImage
               }
-              alt={formState.images.length ? `${name} Image` : "Blank Image"}
+              alt={formState.images.length ? `${name} Image` : 'Blank Image'}
             />
           </div>
           <div className="basis-9/12">
@@ -99,7 +99,7 @@ const SearchResults = () => {
               onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
                 setFormstate((prev: FormState) => ({
                   ...prev,
-                  ["recommendationReason"]: e.target.value,
+                  ['recommendationReason']: e.target.value,
                 }));
               }}
               required
@@ -119,7 +119,7 @@ const SearchResults = () => {
               onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
                 setFormstate((prev: FormState) => ({
                   ...prev,
-                  ["activity"]: e.target.value,
+                  ['activity']: e.target.value,
                 }));
               }}
             ></textarea>
@@ -138,7 +138,7 @@ const SearchResults = () => {
                   className="w-full h-full object-fill"
                   src={URL.createObjectURL(formState.images[0])}
                   alt={
-                    formState.images.length ? `${name} Image` : "Blank Image"
+                    formState.images.length ? `${name} Image` : 'Blank Image'
                   }
                 />
               ) : (
@@ -158,7 +158,7 @@ const SearchResults = () => {
 
                 setFormstate((prev: FormState) => ({
                   ...prev,
-                  ["images"]: Array.from(e.target.files as FileList),
+                  ['images']: Array.from(e.target.files as FileList),
                 }));
               }}
             />
