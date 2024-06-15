@@ -10,3 +10,7 @@ export function checkEmail(email: string) {
 export function join(signUpData: AuthenticationData) {
   return axiosInstance.post('api/v1/user/join', signUpData);
 }
+
+export function login(signInData: Omit<AuthenticationData, 'username'>) {
+  return axiosInstance.post('api/v1/user/login', signInData);
+}
