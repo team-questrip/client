@@ -1,4 +1,4 @@
-import { SignUpData } from '../interface/user';
+import { AuthenticationData } from '../interface/user';
 import { axiosInstance } from './axiosInstance';
 
 export function checkEmail(email: string) {
@@ -7,6 +7,6 @@ export function checkEmail(email: string) {
   });
 }
 
-export function join(signUpData: SignUpData) {
+export function join(signUpData: AuthenticationData) {
   return axiosInstance.post('api/v1/user/join', signUpData);
 }
