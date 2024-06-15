@@ -4,6 +4,7 @@ import SignUpPassword from './SignUpPassword';
 import { useNavigate } from 'react-router-dom';
 import SignUpUsername from './SignUpUsername';
 import { SignUpData } from '../interface/user';
+import { join } from '../api/user';
 
 const SignUp = () => {
   const [signUpData, setSignUpData] = useState<SignUpData>({
@@ -50,10 +51,14 @@ const SignUp = () => {
             setStep('username');
           }}
           onNext={(password) => {
-            // fetch
-            // navigate to home
             alert(`hello ${JSON.stringify({ ...signUpData, password })}`);
-            navigate('/');
+            try {
+              join({ ...signUpData, password }).then(() => {
+                navigate('/');
+              });
+            } catch (error) {
+              console.log(error);
+            }
           }}
         />
       )}
