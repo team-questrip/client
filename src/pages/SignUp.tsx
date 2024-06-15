@@ -3,11 +3,11 @@ import SignUpEmail from './SignUpEmail';
 import SignUpPassword from './SignUpPassword';
 import { useNavigate } from 'react-router-dom';
 import SignUpUsername from './SignUpUsername';
-import { SignUpData } from '../interface/user';
+import { AuthenticationData } from '../interface/user';
 import { join } from '../api/user';
 
 const SignUp = () => {
-  const [signUpData, setSignUpData] = useState<SignUpData>({
+  const [signUpData, setSignUpData] = useState<AuthenticationData>({
     username: '',
     email: '',
     password: '',
