@@ -10,7 +10,12 @@ const FetchRecommendData = async (
   }
 
   const response = await axiosInstance.get<PlaceRecommendData>(
-    `api/v1/recommend?latitude=${latitude}&longitude=${longitude}`
+    `api/v1/recommend?latitude=${latitude}&longitude=${longitude}`,
+    {
+      headers: {
+        Authorization: import.meta.env.VITE_TEST_TOKEN,
+      },
+    }
   );
 
   if (response.status === 200) {
