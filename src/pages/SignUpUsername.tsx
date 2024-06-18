@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import GoBackHeader from '../components/GoBackHeader';
-import { validateUsername } from '../utils/user';
+import useSignUpUsername from '../hooks/useSignUpUsername';
 
 export interface SignUpUsernameProps {
   onNext: (username: string) => void;
@@ -10,7 +10,8 @@ export interface SignUpUsernameProps {
 
 const SignUpUsername = ({ onNext, onPrev, value }: SignUpUsernameProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [error, setError] = useState('');
+  const { error, onRegisterUsername } = useSignUpUsername();
+
   return (
     <>
       <GoBackHeader onBack={onPrev} />
@@ -27,13 +28,7 @@ const SignUpUsername = ({ onNext, onPrev, value }: SignUpUsernameProps) => {
         className="w-full"
         onClick={() => {
           if (inputRef.current) {
-            try {
-              validateUsername(inputRef.current.value);
-              onNext(inputRef.current.value);
-            } catch (error) {
-              const errorObj = error as Error;
-              setError(errorObj.message);
-            }
+            onRegisterUsername(inputRef.current.value, onNext);
           }
         }}
       >

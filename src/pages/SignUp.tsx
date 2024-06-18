@@ -51,13 +51,13 @@ const SignUp = () => {
             setStep('username');
           }}
           onNext={(password) => {
-            alert(`hello ${JSON.stringify({ ...signUpData, password })}`);
             try {
               join({ ...signUpData, password }).then(() => {
                 navigate('/');
               });
             } catch (error) {
               console.log(error);
+              // todo: 에러 핸들링
             }
           }}
         />
