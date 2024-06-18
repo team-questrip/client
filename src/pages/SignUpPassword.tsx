@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import GoBackHeader from '../components/GoBackHeader';
-import { validatePassword } from '../utils/user';
+import useSignUpPassword from '../hooks/useSignUpPassword';
 
 export interface SignUpPasswordProps {
   onNext: (password: string) => void;
@@ -10,7 +10,8 @@ export interface SignUpPasswordProps {
 
 const SignUpPassword = ({ onNext, onPrev, value }: SignUpPasswordProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [error, setError] = useState('');
+  const { error, onRegisterPassword } = useSignUpPassword();
+
   return (
     <>
       <GoBackHeader onBack={onPrev} />
@@ -27,13 +28,7 @@ const SignUpPassword = ({ onNext, onPrev, value }: SignUpPasswordProps) => {
         className="w-full"
         onClick={() => {
           if (inputRef.current) {
-            try {
-              validatePassword(inputRef.current.value);
-              onNext(inputRef.current.value);
-            } catch (error) {
-              const errorObj = error as Error;
-              setError(errorObj.message);
-            }
+            onRegisterPassword(inputRef.current.value, onNext);
           }
         }}
       >
