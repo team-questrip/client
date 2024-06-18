@@ -52,7 +52,9 @@ const SignUp = () => {
           }}
           onNext={(password) => {
             try {
+              // todo: 바로 로그인 시켜야 함. (UI적으로)
               join({ ...signUpData, password }).then(() => {
+                // 응답 데이터: 로그인 시에 받아오는 데이터랑 똑같음
                 navigate('/');
               });
             } catch (error) {
