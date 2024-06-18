@@ -3,6 +3,8 @@ import GoBackHeader from '../components/GoBackHeader';
 import { FormEvent, useState } from 'react';
 import { AuthenticationData } from '../interface/user';
 import { login } from '../api/user';
+import Button from '../components/Button';
+import SignInInput from '../components/SignInInput';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -33,8 +35,8 @@ const SignIn = () => {
           navigate('/');
         }}
       />
-      <h2>Welcome back!</h2>
-      <input
+      <h2 className="font-bold text-lg mb-1">Welcome back!</h2>
+      <SignInInput
         type="email"
         placeholder="E-mail address"
         name="email"
@@ -44,8 +46,9 @@ const SignIn = () => {
             [e.target.name]: e.target.value,
           }));
         }}
+        className="mb-4"
       />
-      <input
+      <SignInInput
         type="password"
         placeholder="Password"
         name="password"
@@ -55,10 +58,9 @@ const SignIn = () => {
             [e.target.name]: e.target.value,
           }));
         }}
+        className="mb-4"
       />
-      <button type="submit" className="w-full">
-        Sign In
-      </button>
+      <Button type="submit" text="Sign In" />
     </form>
   );
 };

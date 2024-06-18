@@ -6,7 +6,7 @@ interface GoBackHeaderProps {
 
 const GoBackHeader = ({ onBack }: GoBackHeaderProps) => {
   return (
-    <header>
+    <header className="mb-5">
       <button
         onClick={() => {
           onBack();

@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import GoBackHeader from '../components/GoBackHeader';
 import useSignUpUsername from '../hooks/useSignUpUsername';
+import SignUpInput from '../components/SignUpInput';
+import Button from '../components/Button';
 
 export interface SignUpUsernameProps {
   onNext: (username: string) => void;
@@ -15,25 +17,24 @@ const SignUpUsername = ({ onNext, onPrev, value }: SignUpUsernameProps) => {
   return (
     <>
       <GoBackHeader onBack={onPrev} />
-      <h2>Create a username</h2>
-      <p>Create a username</p>
-      <input
+      <h2 className="font-bold text-lg mb-1">Create a username</h2>
+      <p className="text-center mb-4 opacity-60">Create a username</p>
+      <SignUpInput
         type="text"
         placeholder="Username"
         ref={inputRef}
         defaultValue={value}
+        className="mb-2"
       />
-      {Boolean(error) && <p>{error}</p>}
-      <button
-        className="w-full"
+      {Boolean(error) && <p className="text-red-500">{error}</p>}
+      <Button
         onClick={() => {
           if (inputRef.current) {
             onRegisterUsername(inputRef.current.value, onNext);
           }
         }}
-      >
-        Continue
-      </button>
+        text="Continue"
+      />
     </>
   );
 };

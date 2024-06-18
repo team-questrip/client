@@ -3,6 +3,7 @@ import GoBackHeader from '../components/GoBackHeader';
 import Button from '../components/Button';
 
 import useSignUpEmail from '../hooks/useSignUpEmail';
+import SignUpInput from '../components/SignUpInput';
 
 export interface SignUpEmailProps {
   onNext: (email: string) => void;
@@ -16,18 +17,18 @@ const SignUpEmail = ({ onNext, onPrev, value }: SignUpEmailProps) => {
   return (
     <>
       <GoBackHeader onBack={onPrev} />
-      <h2>Create your account</h2>
-      <p>
-        To create a new account, you will need to verify your email address. We
-        will send you an email with a confirmation code.
+      <h2 className="font-bold text-lg mb-1">Create your account</h2>
+      <p className="text-center mb-4 opacity-60">
+        To create a new account, you will need to verify your email address.
       </p>
-      <input
+      <SignUpInput
         type="email"
         placeholder="E-mail address"
         ref={inputRef}
         defaultValue={value}
+        className="mb-2"
       />
-      {Boolean(error) && <p>{error}</p>}
+      {Boolean(error) && <p className="text-red-500">{error}</p>}
       <Button
         onClick={() => {
           if (inputRef.current) {
