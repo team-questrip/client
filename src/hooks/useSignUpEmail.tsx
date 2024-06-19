@@ -13,10 +13,8 @@ const useSignUpEmail = () => {
       validateEmail(value);
       await checkEmail(value);
       onNext(value);
-    } catch (error) {
-      const errorObj = error as Error;
-      // todo: check email api 를 통해 통신을 해서 에러를 받으면 해당 에러 메시지가 잘 표시가 돠는지 확인
-      setError(errorObj.message);
+    } catch {
+      setError('Duplicate email.');
     }
   };
 
