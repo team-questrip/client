@@ -14,6 +14,7 @@ import Inquiry from './pages/Inquiry';
 import RecommendPage from './pages/RecommendPage';
 import NavLayout from './design/NavLayout';
 import Mypage from './pages/Mypage';
+import NotFound from './pages/NotFound';
 
 const queryClient = new QueryClient();
 
@@ -23,7 +24,7 @@ function App() {
       <BrowserRouter>
         <Frame>
           <Routes>
-            <Route path="/:placeId" element={<DetailPage />} />
+            <Route path="/detail/:placeId" element={<DetailPage />} />
             <Route path="/location-search" element={<LocationSearch />} />
             <Route
               path="/recommended-place-search"
@@ -37,6 +38,7 @@ function App() {
               <Route path="/recommend" element={<RecommendPage />} />
               <Route path="/mypage" element={<Mypage />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Frame>
       </BrowserRouter>
