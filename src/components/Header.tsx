@@ -9,7 +9,7 @@ const Header = ({ text }: HeaderText) => {
   const navigate = useNavigate();
 
   const handleBackPage = () => {
-    navigate(-1);
+    navigate('/');
   };
 
   return (
