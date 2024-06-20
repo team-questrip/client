@@ -1,10 +1,11 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, lazy, Suspense } from 'react';
 import FetchPlaceData from '../api/FetchPlaceData';
-import PlaceCard from '../components/PlaceCard';
 import { SlSpeech } from 'react-icons/sl';
 import { useLocation, useNavigate } from 'react-router-dom';
 import getAddressData from '../api/FetchAddress';
+
+const PlaceCard = lazy(() => import('../components/PlaceCard'));
 
 const Home = () => {
   const navigate = useNavigate();
@@ -23,20 +24,21 @@ const Home = () => {
 
   const location = useLocation();
 
-  const changedLatitude = location?.state?.location?.lat || undefined;
-  const changedLongitude = location?.state?.location?.lng || undefined;
+  const changedLatitude = location?.state?.location?.lat;
+  const changedLongitude = location?.state?.location?.lng;
 
   const {
     data: addressData,
     isLoading: isAddressLoading,
     isError: isAddressError,
+    isFetching: isAddressFetching,
     error: addressError,
   } = useQuery({
     queryKey: ['address', location.state],
     queryFn: () => getAddressData(changedLatitude, changedLongitude),
   });
 
-  if (isAddressLoading) {
+  if (isAddressLoading || isAddressFetching) {
     content = <div>Loading...</div>;
   }
 
@@ -85,8 +87,13 @@ const Home = () => {
         <div className="font-semibold pt-1 text-lg">
           Quests conquered<p>by others near you</p>
         </div>
-        {placeData.pages.map((page, index) => (
-          <PlaceCard key={index} placeData={page} />
+        {placeData.pages.map(page => (
+          <Suspense
+            key={page.data.content[0].id}
+            fallback={<div>Loading...</div>}
+          >
+            <PlaceCard placeData={page} />
+          </Suspense>
         ))}
       </div>
     );
@@ -109,6 +116,7 @@ const Home = () => {
         threshold: 1.0,
       });
       observer.observe(observerRef.current);
+
       return () => observer.disconnect();
     }
   }, [observerRef, observerCallback]);
@@ -122,17 +130,17 @@ const Home = () => {
         />
       </div>
       <h1 className="font-bold text-3xl">Questrip</h1>
-      <div className="flex justify-between items-center my-5">
+      <div className="flex justify-between items-center my-5 gap-2 h-12">
         {content}
         <button
-          className=" bg-mainColor rounded-full text-center w-20 p-2 cursor-pointer hover:scale-105"
+          className=" bg-mainColor rounded-full text-center p-2 px-3 cursor-pointer hover:scale-105"
           onClick={handleGoToSearchLocation}
         >
           Change
         </button>
       </div>
       {placeContent}
-      <div ref={observerRef} />
+      <div ref={observerRef} className="pb-14" />
     </div>
   );
 };

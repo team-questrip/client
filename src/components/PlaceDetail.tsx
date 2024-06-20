@@ -46,8 +46,8 @@ const PlaceDetail = ({ detailPlaceData }: PlaceDetailProps) => {
           pagination={{ clickable: true }}
           loop={true}
         >
-          {detailPlaceData.data.place.images.map(image => (
-            <SwiperSlide key={image.url}>
+          {detailPlaceData.data.place.images.map((image, index) => (
+            <SwiperSlide key={index}>
               <img
                 src={image.url}
                 className="w-[343px] h-[400px]"
@@ -82,8 +82,8 @@ const PlaceDetail = ({ detailPlaceData }: PlaceDetailProps) => {
         {isToggleOpen &&
           (detailPlaceData.data.place.openingHours?.length > 0 ? (
             <ul className="text-left ">
-              {detailPlaceData.data.place.openingHours.map(v => (
-                <li key={detailPlaceData.data.place.id} className="text-sm">
+              {detailPlaceData.data.place.openingHours.map((v, index) => (
+                <li key={index} className="text-sm">
                   {v}
                 </li>
               ))}

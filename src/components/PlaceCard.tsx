@@ -18,7 +18,7 @@ const PlaceCard = ({ placeData }: PlaceDataProps) => {
   const navigate = useNavigate();
 
   const handleGoToDetail = (id: string) => {
-    navigate(`/${id}`);
+    navigate(`/detail/${id}`);
   };
 
   return (
