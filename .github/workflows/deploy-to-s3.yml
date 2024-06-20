@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "20"
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install
@@ -52,3 +52,10 @@ jobs:
           AWS_S3_BUCKET: ${{ secrets.AWS_STAGING_BUCKET_NAME }}
         run: |
           aws s3 sync ./dist s3://$AWS_S3_BUCKET --delete
+
+      - name: CloudFront Invalidation
+        env:
+          CLOUD_FRONT_ID: ${{ secrets.AWS_CLOUDFRONT_ID}}
+        run: |
+          aws cloudfront create-invalidation \
+          --distribution-id $CLOUD_FRONT_ID --paths /*

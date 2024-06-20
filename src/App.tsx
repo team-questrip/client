@@ -15,6 +15,9 @@ import RecommendPage from './pages/RecommendPage';
 import NavLayout from './design/NavLayout';
 import Mypage from './pages/Mypage';
 import NotFound from './pages/NotFound';
+import Welcome from './pages/Welcome';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 
 const queryClient = new QueryClient();
 
@@ -38,6 +41,9 @@ function App() {
               <Route path="/recommend" element={<RecommendPage />} />
               <Route path="/mypage" element={<Mypage />} />
             </Route>
+            <Route path="/welcome" element={<Welcome />} />
+            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/sign-up" element={<SignUp />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Frame>
