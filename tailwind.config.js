@@ -9,7 +9,9 @@ export default {
     extend: {
       colors: {
         mainColor: '#F5EDE8',
+        mainColorLight: '#FCFAF7',
         mainTextColor: '#9C6B4A',
+        mainInputBorderColor: '#E8D9CF',
         subColor: '#F58D42',
       },
     },

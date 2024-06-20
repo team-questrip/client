@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import FetchPlaceDetail from '../api/FetchPlaceDetailData';
 import PlaceDetail from '../components/PlaceDetail';
 import Header from '../components/Header';
+import NotFound from './NotFound';
 
 const DetailPage = () => {
   const { placeId } = useParams<{ placeId: string }>();
@@ -25,7 +26,11 @@ const DetailPage = () => {
   }
 
   if (isDetailPlaceError) {
-    content = <div>{detailPlaceError.message}</div>;
+    content = <NotFound />;
+  }
+
+  if (detailPlaceError) {
+    content = <NotFound />;
   }
 
   if (detailPlaceData) {
