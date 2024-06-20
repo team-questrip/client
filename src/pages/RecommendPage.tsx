@@ -43,7 +43,7 @@ const RecommendPage = () => {
         alert(`Recommendation ${status} successfully.`);
         queryClient.invalidateQueries({ queryKey: ['recommend'] });
         if (status === 'ACCEPTED') {
-          navigate(`/${placeId}`);
+          navigate(`/detail/${placeId}`);
         }
       }
     } catch (error) {
