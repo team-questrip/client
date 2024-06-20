@@ -25,7 +25,7 @@ axiosInstance.interceptors.response.use(
       // 토큰이 만료되었거나 유효하지 않음
       localStorage.removeItem('accessToken');
       localStorage.removeItem('userInfo');
-      window.location.href = '/login'; // 로그인 페이지로 리다이렉트
+      window.location.href = '/sign-in'; // 로그인 페이지로 리다이렉트
     }
     return Promise.reject(error);
   }
