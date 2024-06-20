@@ -19,8 +19,13 @@ const SignIn = () => {
     e.preventDefault();
     try {
       const response = await login(signInData);
-      console.log(response.data);
-      // todo: 유저정보저장
+      const {
+        accessToken,
+        user: { email, username },
+      } = response.data.data;
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('userInfo', JSON.stringify({ email, username }));
+      navigate('/');
     } catch (error) {
       console.log(error);
       // todo: 에러 핸들링
