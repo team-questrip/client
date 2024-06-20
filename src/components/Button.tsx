@@ -4,13 +4,25 @@ interface ButtonProps {
   onClick?: () => void;
   text: string;
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
+  variant?: 'primary' | 'secondary';
+  className?: string;
 }
 
-const Button = ({ onClick, text, type = 'button' }: ButtonProps) => {
+const Button = ({
+  onClick,
+  text,
+  type = 'button',
+  variant = 'primary',
+  className,
+}: ButtonProps) => {
   return (
     <button
       type={type}
-      className="w-full bg-subColor text-white py-2 rounded-lg"
+      className={`w-full  py-2 rounded-lg  ${
+        variant === 'primary'
+          ? 'bg-subColor text-white'
+          : 'bg-mainColor text-black'
+      } ${className}`}
       onClick={onClick}
     >
       {text}

@@ -24,7 +24,7 @@ const SignUp = () => {
         <SignUpEmail
           value={signUpData.email}
           onPrev={() => {
-            navigate('/');
+            navigate(-1);
           }}
           onNext={(email) => {
             setSignUpData((prev) => ({ ...prev, email }));

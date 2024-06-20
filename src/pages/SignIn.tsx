@@ -37,7 +37,7 @@ const SignIn = () => {
     <form onSubmit={handleSubmit}>
       <GoBackHeader
         onBack={() => {
-          navigate('/');
+          navigate(-1);
         }}
       />
       <h2 className="font-bold text-lg mb-1">Welcome back!</h2>
