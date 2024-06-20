@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import blankImage from '../../public/blank.png';
+import blankImage from '/img/blank.png';
 import './SearchResults.css';
 import { GoogleSearchResultItem } from '../../interface/google';
 import { addRecommendation } from '../../api/recommendation';

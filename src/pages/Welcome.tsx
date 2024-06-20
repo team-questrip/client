@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
-import welcomeImage from '../public/welcome.webp';
+import welcomeImage from '/img/welcome.webp';
 
 const Welcome = () => {
   const navigate = useNavigate();
