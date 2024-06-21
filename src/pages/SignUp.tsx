@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SignUpEmail from './SignUpEmail';
 import SignUpPassword from './SignUpPassword';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SignUpUsername from './SignUpUsername';
 import { AuthenticationData } from '../interface/user';
 import { join } from '../api/user';
@@ -64,6 +64,15 @@ const SignUp = () => {
           }}
         />
       )}
+      <p className="font-light mt-2">
+        Already have an account?{' '}
+        <Link
+          to={'/sign-in'}
+          className="text-mainTextColor font-semibold underline"
+        >
+          Sign in
+        </Link>
+      </p>
     </form>
   );
 };

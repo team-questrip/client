@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import GoBackHeader from '../components/GoBackHeader';
 import { FormEvent, useState } from 'react';
 import { AuthenticationData } from '../interface/user';
@@ -45,6 +45,7 @@ const SignIn = () => {
 
   // todo: input 쓰는 상호작용 부분을 hook으로 추상화할 수 있어보임.
   return (
+    <>
     <form onSubmit={handleSubmit}>
       <GoBackHeader
         onBack={() => {
@@ -77,7 +78,17 @@ const SignIn = () => {
         className="mb-4"
       />
       <Button type="submit" text="Sign In" />
+        <p className="font-light mt-2">
+          New To Questrips?{' '}
+          <Link
+            to={'/sign-up'}
+            className="text-mainTextColor font-semibold underline"
+          >
+            Create an account
+          </Link>
+        </p>
     </form>
+    </>
   );
 };
 
