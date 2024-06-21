@@ -5,9 +5,16 @@ import { AuthenticationData } from '../interface/user';
 import { login } from '../api/user';
 import Button from '../components/Button';
 import SignInInput from '../components/SignInInput';
+import { AxiosError } from 'axios';
+import { APIErrorResponse } from '../interface/api';
+import { storeAuthenticationResponseDataToLocalStorage } from '../utils/user';
+import { useToast } from '../hooks/useContexts';
+import useAuthenticatedRedirect from '../hooks/useAuthenticatedRedirect';
 
 const SignIn = () => {
   const navigate = useNavigate();
+
+  const { showToast } = useToast();
   const [signInData, setSignInData] = useState<
     Omit<AuthenticationData, 'username'>
   >({
@@ -27,8 +34,12 @@ const SignIn = () => {
       localStorage.setItem('userInfo', JSON.stringify({ email, username }));
       navigate('/');
     } catch (error) {
-      console.log(error);
-      // todo: 에러 핸들링
+      const errorObj = error as AxiosError<APIErrorResponse>;
+      const message = errorObj.response
+        ? errorObj.response.data.message
+        : 'Something went wrong.';
+
+      showToast(message, 'error');
     }
   };
 

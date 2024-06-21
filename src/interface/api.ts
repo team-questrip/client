@@ -3,3 +3,8 @@ export interface APIResponse<T> {
   message: string;
   status: 'SUCCESS' | 'ERROR';
 }
+
+export interface APIErrorResponse {
+  message: string;
+  [key: string]: unknown;
+}
