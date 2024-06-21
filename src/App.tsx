@@ -18,36 +18,39 @@ import NotFound from './pages/NotFound';
 import Welcome from './pages/Welcome';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import ToastProvider from './context/ToastProvider';
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Frame>
-          <Routes>
-            <Route path="/detail/:placeId" element={<DetailPage />} />
-            <Route path="/location-search" element={<LocationSearch />} />
-            <Route
-              path="/recommended-place-search"
-              element={<RecommendedPlaceSearch />}
-            />
-            <Route path="/search-results" element={<SearchResults />} />
-            <Route path="/inquiry" element={<Inquiry />} />
-            <Route path="/survey" element={<Survey />} />
-            <Route element={<NavLayout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/recommend" element={<RecommendPage />} />
-              <Route path="/mypage" element={<Mypage />} />
-            </Route>
-            <Route path="/welcome" element={<Welcome />} />
-            <Route path="/sign-in" element={<SignIn />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Frame>
-      </BrowserRouter>
+      <ToastProvider>
+        <BrowserRouter>
+          <Frame>
+            <Routes>
+              <Route path="/detail/:placeId" element={<DetailPage />} />
+              <Route path="/location-search" element={<LocationSearch />} />
+              <Route
+                path="/recommended-place-search"
+                element={<RecommendedPlaceSearch />}
+              />
+              <Route path="/search-results" element={<SearchResults />} />
+              <Route path="/inquiry" element={<Inquiry />} />
+              <Route path="/survey" element={<Survey />} />
+              <Route element={<NavLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/recommend" element={<RecommendPage />} />
+                <Route path="/mypage" element={<Mypage />} />
+              </Route>
+              <Route path="/welcome" element={<Welcome />} />
+              <Route path="/sign-in" element={<SignIn />} />
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Frame>
+        </BrowserRouter>
+      </ToastProvider>
       <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>
   );

@@ -1,3 +1,5 @@
+import { AuthenticationResponseData } from '../interface/user';
+
 export function validateEmail(email: string) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -23,4 +25,15 @@ export function validatePassword(password: string) {
   if (!letterAndNumberCheck.test(password)) {
     throw new Error('Password is not valid.');
   }
+}
+
+export function storeAuthenticationResponseDataToLocalStorage(
+  data: AuthenticationResponseData
+) {
+  const {
+    accessToken,
+    user: { email, username },
+  } = data;
+  localStorage.setItem('accessToken', accessToken);
+  localStorage.setItem('userInfo', JSON.stringify({ email, username }));
 }

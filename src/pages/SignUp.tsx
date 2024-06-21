@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import SignUpEmail from './SignUpEmail';
 import SignUpPassword from './SignUpPassword';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SignUpUsername from './SignUpUsername';
 import { AuthenticationData } from '../interface/user';
 import { join } from '../api/user';
+import { storeAuthenticationResponseDataToLocalStorage } from '../utils/user';
+import useAuthenticatedRedirect from '../hooks/useAuthenticatedRedirect';
 
 const SignUp = () => {
+  useAuthenticatedRedirect();
   const [signUpData, setSignUpData] = useState<AuthenticationData>({
     username: '',
     email: '',
@@ -52,9 +55,10 @@ const SignUp = () => {
           }}
           onNext={(password) => {
             try {
-              // todo: 바로 로그인 시켜야 함. (UI적으로)
-              join({ ...signUpData, password }).then(() => {
-                // 응답 데이터: 로그인 시에 받아오는 데이터랑 똑같음
+              join({ ...signUpData, password }).then((response) => {
+                storeAuthenticationResponseDataToLocalStorage(
+                  response.data.data
+                );
                 navigate('/');
               });
             } catch (error) {
@@ -64,6 +68,15 @@ const SignUp = () => {
           }}
         />
       )}
+      <p className="font-light mt-2">
+        Already have an account?{' '}
+        <Link
+          to={'/sign-in'}
+          className="text-mainTextColor font-semibold underline"
+        >
+          Sign in
+        </Link>
+      </p>
     </form>
   );
 };
