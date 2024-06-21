@@ -9,6 +9,7 @@ import { storeAuthenticationResponseDataToLocalStorage } from '../utils/user';
 import useAuthenticatedRedirect from '../hooks/useAuthenticatedRedirect';
 
 const SignUp = () => {
+  useAuthenticatedRedirect();
   const [signUpData, setSignUpData] = useState<AuthenticationData>({
     username: '',
     email: '',

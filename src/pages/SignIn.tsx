@@ -12,6 +12,7 @@ import { useToast } from '../hooks/useContexts';
 import useAuthenticatedRedirect from '../hooks/useAuthenticatedRedirect';
 
 const SignIn = () => {
+  useAuthenticatedRedirect();
   const navigate = useNavigate();
 
   const { showToast } = useToast();
@@ -41,38 +42,38 @@ const SignIn = () => {
   // todo: input 쓰는 상호작용 부분을 hook으로 추상화할 수 있어보임.
   return (
     <>
-    <form onSubmit={handleSubmit}>
-      <GoBackHeader
-        onBack={() => {
-          navigate(-1);
-        }}
-      />
-      <h2 className="font-bold text-lg mb-1">Welcome back!</h2>
-      <SignInInput
-        type="email"
-        placeholder="E-mail address"
-        name="email"
-        onChange={(e) => {
-          setSignInData((prev) => ({
-            ...prev,
-            [e.target.name]: e.target.value,
-          }));
-        }}
-        className="mb-4"
-      />
-      <SignInInput
-        type="password"
-        placeholder="Password"
-        name="password"
-        onChange={(e) => {
-          setSignInData((prev) => ({
-            ...prev,
-            [e.target.name]: e.target.value,
-          }));
-        }}
-        className="mb-4"
-      />
-      <Button type="submit" text="Sign In" />
+      <form onSubmit={handleSubmit}>
+        <GoBackHeader
+          onBack={() => {
+            navigate(-1);
+          }}
+        />
+        <h2 className="font-bold text-lg mb-1">Welcome back!</h2>
+        <SignInInput
+          type="email"
+          placeholder="E-mail address"
+          name="email"
+          onChange={(e) => {
+            setSignInData((prev) => ({
+              ...prev,
+              [e.target.name]: e.target.value,
+            }));
+          }}
+          className="mb-4"
+        />
+        <SignInInput
+          type="password"
+          placeholder="Password"
+          name="password"
+          onChange={(e) => {
+            setSignInData((prev) => ({
+              ...prev,
+              [e.target.name]: e.target.value,
+            }));
+          }}
+          className="mb-4"
+        />
+        <Button type="submit" text="Sign In" />
         <p className="font-light mt-2">
           New To Questrips?{' '}
           <Link
@@ -82,7 +83,7 @@ const SignIn = () => {
             Create an account
           </Link>
         </p>
-    </form>
+      </form>
     </>
   );
 };
