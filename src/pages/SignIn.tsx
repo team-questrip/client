@@ -26,12 +26,7 @@ const SignIn = () => {
     e.preventDefault();
     try {
       const response = await login(signInData);
-      const {
-        accessToken,
-        user: { email, username },
-      } = response.data.data;
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('userInfo', JSON.stringify({ email, username }));
+      storeAuthenticationResponseDataToLocalStorage(response.data.data);
       navigate('/');
     } catch (error) {
       const errorObj = error as AxiosError<APIErrorResponse>;
