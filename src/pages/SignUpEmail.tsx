@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import GoBackHeader from '../components/GoBackHeader';
+import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import Button from '../components/Button';
 
 import useSignUpEmail from '../hooks/useSignUpEmail';
