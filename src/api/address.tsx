@@ -1,4 +1,4 @@
-import { Address } from '../interface/PlaceData';
+import { Address } from '../interface/placeData';
 import { axiosInstance } from './axiosInstance';
 
 // 위치 정보를 가져오는 함수

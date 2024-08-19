@@ -1,7 +1,7 @@
-import { PlaceDetailData } from '../interface/PlaceDetailData';
+import { PlaceDetailData } from '../interface/placeDetailData';
 import { axiosInstance } from './axiosInstance';
 
-const FetchPlaceDetail = async ({
+const fetchPlaceDetail = async ({
   placeId,
 }: {
   placeId: string;
@@ -19,4 +19,4 @@ const FetchPlaceDetail = async ({
     throw new Error('Unexpected response status');
   }
 };
-export default FetchPlaceDetail;
+export default fetchPlaceDetail;

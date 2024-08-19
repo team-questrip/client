@@ -1,7 +1,7 @@
-import { PlaceRecommendData } from '../interface/PlaceRecommendData';
+import { PlaceRecommendData } from '../interface/placeRecommendData';
 import { axiosInstance } from './axiosInstance';
 
-const FetchRecommendData = async (
+const fetchRecommendData = async (
   latitude: number,
   longitude: number
 ): Promise<PlaceRecommendData> => {
@@ -25,4 +25,4 @@ const FetchRecommendData = async (
   }
 };
 
-export default FetchRecommendData;
+export default fetchRecommendData;

@@ -1,4 +1,4 @@
-import PlaceData from '../interface/PlaceData';
+import PlaceData from '../interface/placeData';
 import { axiosInstance } from './axiosInstance';
 
 const FetchPlaceData = async (

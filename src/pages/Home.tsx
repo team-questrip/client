@@ -1,9 +1,9 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useCallback, lazy, Suspense } from 'react';
-import FetchPlaceData from '../api/FetchPlaceData';
+import FetchPlaceData from '../api/placeData';
 import { SlSpeech } from 'react-icons/sl';
 import { useLocation, useNavigate } from 'react-router-dom';
-import getAddressData from '../api/FetchAddress';
+import getAddressData from '../api/address';
 
 const PlaceCard = lazy(() => import('../components/PlaceCard'));
 
@@ -87,7 +87,7 @@ const Home = () => {
         <div className="font-semibold pt-1 text-lg">
           Quests conquered<p>by others near you</p>
         </div>
-        {placeData.pages.map(page => (
+        {placeData.pages.map((page) => (
           <Suspense
             key={page.data.content[0].id}
             fallback={<div>Loading...</div>}

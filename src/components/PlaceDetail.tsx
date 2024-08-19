@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { MdOutlinePlace, MdOutlineRecommend } from 'react-icons/md';
 import { RxTriangleDown } from 'react-icons/rx';
-import { PlaceDetailData } from '../interface/PlaceDetailData';
+import { PlaceDetailData } from '../interface/placeDetailData';
 
 import { Navigation } from 'swiper/modules';
 import { Pagination } from 'swiper/modules';
@@ -21,7 +21,7 @@ const PlaceDetail = ({ detailPlaceData }: PlaceDetailProps) => {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
 
   const ToggleOpen = () => {
-    setIsToggleOpen(prev => !prev);
+    setIsToggleOpen((prev) => !prev);
   };
 
   const handleGoToPlace = () => {

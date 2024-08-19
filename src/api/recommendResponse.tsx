@@ -1,7 +1,7 @@
-import { RecommendResponse } from '../interface/RecommendResponse';
+import { RecommendResponse } from '../interface/recommendResponse';
 import { axiosInstance } from './axiosInstance';
 
-const PostRecommendResponse = async (
+const postRecommendResponse = async (
   placeId: string,
   status: string
 ): Promise<RecommendResponse> => {
@@ -20,4 +20,4 @@ const PostRecommendResponse = async (
   }
 };
 
-export default PostRecommendResponse;
+export default postRecommendResponse;

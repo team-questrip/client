@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { InquiryCategory, InquiryInput } from '../interface/InquiryInput';
+import { InquiryCategory, InquiryInput } from '../interface/inquiry';
 import Header from '../components/Header';
 import ErrorMessage from '../components/InquiryForm/ErrorMessage';
 import { axiosInstance } from '../api/axiosInstance';
@@ -11,7 +11,7 @@ const Inquiry = () => {
     reset,
     formState: { errors },
   } = useForm<InquiryInput>();
-  const onSubmit: SubmitHandler<InquiryInput> = async data => {
+  const onSubmit: SubmitHandler<InquiryInput> = async (data) => {
     try {
       const response = await axiosInstance.post(`/api/v1/question`, data);
 
@@ -62,7 +62,7 @@ const Inquiry = () => {
             className="text-sm"
             {...register('category', {
               required: 'Please select a category.',
-              validate: value => value !== InquiryCategory.DEFAULT,
+              validate: (value) => value !== InquiryCategory.DEFAULT,
             })}
           >
             <option value={InquiryCategory.DEFAULT} hidden>
