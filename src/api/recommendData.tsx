@@ -1,10 +1,10 @@
 import { PlaceRecommendData } from '../interface/placeRecommendData';
 import { axiosInstance } from './axiosInstance';
 
-const fetchRecommendData = async (
+async function fetchRecommendData(
   latitude: number,
   longitude: number
-): Promise<PlaceRecommendData> => {
+): Promise<PlaceRecommendData> {
   if (latitude === null || longitude === null) {
     throw new Error('위치 정보가 없습니다.');
   }
@@ -23,6 +23,6 @@ const fetchRecommendData = async (
   } else {
     throw new Error('Unexpected response status');
   }
-};
+}
 
 export default fetchRecommendData;
