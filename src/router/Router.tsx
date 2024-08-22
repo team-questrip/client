@@ -18,8 +18,16 @@ import NotFound from '../pages/NotFound';
 export default function Router() {
   return (
     <BrowserRouter>
-      <Frame>
-        <Routes>
+      <Routes>
+        <Route element={<Frame />}>
+          <Route path="/welcome" element={<Welcome />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route element={<NavLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/recommend" element={<RecommendPage />} />
+            <Route path="/mypage" element={<Mypage />} />
+          </Route>
           <Route path="/detail/:placeId" element={<DetailPage />} />
           <Route path="/location-search" element={<LocationSearch />} />
           <Route
@@ -29,17 +37,9 @@ export default function Router() {
           <Route path="/search-results" element={<SearchResults />} />
           <Route path="/inquiry" element={<Inquiry />} />
           <Route path="/survey" element={<Survey />} />
-          <Route element={<NavLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/recommend" element={<RecommendPage />} />
-            <Route path="/mypage" element={<Mypage />} />
-          </Route>
-          <Route path="/welcome" element={<Welcome />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
           <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Frame>
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }
