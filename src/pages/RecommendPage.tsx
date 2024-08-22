@@ -1,3 +1,5 @@
+// 이 페이지는 숨겨버리기로 결정함
+
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import fetchRecommendData from '../api/recommendData';
 import Header from '../components/Header';
