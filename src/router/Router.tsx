@@ -9,7 +9,7 @@ import Survey from '../pages/Survey';
 import NavLayout from '../components/ui/design/NavLayout';
 import Home from '../pages/Home';
 import RecommendPage from '../pages/RecommendPage';
-import Mypage from '../pages/Mypage';
+import MyPage from '../pages/MyPage';
 import Welcome from '../pages/Welcome';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
@@ -26,7 +26,7 @@ export default function Router() {
           <Route element={<NavLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/recommend" element={<RecommendPage />} />
-            <Route path="/mypage" element={<Mypage />} />
+            <Route path="/mypage" element={<MyPage />} />
           </Route>
           <Route path="/detail/:placeId" element={<DetailPage />} />
           <Route path="/location-search" element={<LocationSearch />} />
