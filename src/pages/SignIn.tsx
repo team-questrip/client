@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import GoBackHeader from '../components/GoBackHeader';
+import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import { FormEvent, useState } from 'react';
 import { AuthenticationData } from '../interface/user';
 import { login } from '../api/user';
