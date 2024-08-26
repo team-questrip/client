@@ -1,10 +1,11 @@
 import MockAdapter from 'axios-mock-adapter';
 import { axiosInstance } from '../api/axiosInstance';
+import { v4 } from 'uuid';
 
 const mock = new MockAdapter(axiosInstance, { delayResponse: 500 });
 
 const createPlace = () => ({
-  id: 'test',
+  id: v4(),
   googlePlaceId: 'ChIJo0gMXbOlfDURSjmLcTy52qQ',
   placeName: 'Kkochijib',
   primaryType: 'japanese_restaurant',
@@ -72,8 +73,8 @@ const createPlace = () => ({
 });
 
 const createContent = () => ({
-  id: 1,
-  userId: 1,
+  id: v4(),
+  userId: v4(),
   status: 'KEPT',
   createdAt: '2024-06-03T22:19:00',
   updatedAt: '2024-06-03T22:19:00',

@@ -11,6 +11,7 @@ const MyPage = () => {
   const navigate = useNavigate();
 
   const { hasNextPage, fetchNextPage, data } = useAcceptedRecommendQuery();
+
   const { setTarget } = useIntersectionObserver({
     hasNextPage,
     fetchNextPage,
@@ -39,29 +40,31 @@ const MyPage = () => {
       <div className="pb-20">
         <h3 className="text-2xl font-semibold mb-4">Quest History</h3>
         <ul>
-          {data
-            ? data.pages.map((content) => {
-                return (
-                  <li key={content.id}>
-                    <Link to={`/detail/${content.place.id}`} className="flex">
-                      <div className="mr-4">
-                        <h4 className="font-bold">{content.place.placeName}</h4>
-                        <span className="text-mainTextColor text-sm font-light">
-                          {content.place.formattedAddress}
-                        </span>
-                      </div>
-                      <div className="basis-1/2 h-[75px] rounded-xl overflow-hidden">
-                        <img
-                          className="w-full h-full"
-                          src={content.place.images[0].url}
-                          alt={content.place.placeName + ' photo'}
-                        />
-                      </div>
-                    </Link>
-                  </li>
-                );
-              })
-            : null}
+          {data && data.pages.length ? (
+            data.pages.map((content) => {
+              return (
+                <li key={content.id}>
+                  <Link to={`/detail/${content.place.id}`} className="flex">
+                    <div className="mr-4">
+                      <h4 className="font-bold">{content.place.placeName}</h4>
+                      <span className="text-mainTextColor text-sm font-light">
+                        {content.place.formattedAddress}
+                      </span>
+                    </div>
+                    <div className="basis-1/2 h-[75px] rounded-xl overflow-hidden">
+                      <img
+                        className="w-full h-full"
+                        src={content.place.images[0].url}
+                        alt={content.place.placeName + ' photo'}
+                      />
+                    </div>
+                  </Link>
+                </li>
+              );
+            })
+          ) : (
+            <li>There's nothing yet...</li>
+          )}
         </ul>
         <div ref={setTarget} className="h-[1rem]" />
       </div>
