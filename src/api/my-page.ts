@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { APIResponse } from '../interface/api';
-import { AcceptedRecommend } from '../interface/my-page';
+import { APIResponse } from '../types/api';
+import { AcceptedRecommend } from '../types/my-page';
 import { axiosInstance } from './axiosInstance';
 
 export async function getAcceptedRecommendList(

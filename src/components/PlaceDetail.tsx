@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { MdOutlinePlace, MdOutlineRecommend } from 'react-icons/md';
 import { RxTriangleDown } from 'react-icons/rx';
-import { PlaceDetailData } from '../interface/placeDetailData';
+import { PlaceDetailData } from '../types/place';
 
 import { Navigation } from 'swiper/modules';
 import { Pagination } from 'swiper/modules';

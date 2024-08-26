@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { UserInfo } from '../interface/user';
+import { UserInfo } from '../types/user';
 import { RootState } from './store';
 
 const userInfo = localStorage.getItem('userInfo');
