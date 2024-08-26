@@ -1,4 +1,4 @@
-import { GoHome, GoHeart, GoHomeFill, GoHeartFill } from 'react-icons/go';
+import { GoHome, GoHomeFill } from 'react-icons/go';
 import { HiUserCircle, HiOutlineUserCircle } from 'react-icons/hi2';
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -45,7 +45,7 @@ const Nav = () => {
     <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 bg-white py-5 border-t-[1px] w-[375px] z-50">
       <div className="flex justify-around text-mainTextColor">
         {renderButton('home', <GoHomeFill />, <GoHome />, 'Home')}
-        {renderButton('recommend', <GoHeartFill />, <GoHeart />, 'Recommend')}
+
         {renderButton(
           'mypage',
           <HiUserCircle />,

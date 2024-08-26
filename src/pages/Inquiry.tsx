@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { InquiryCategory, InquiryInput } from '../interface/inquiry';
+import { InquiryCategory, InquiryInput } from '../types/inquiry';
 import Header from '../components/Header';
 import ErrorMessage from '../components/InquiryForm/ErrorMessage';
 import { axiosInstance } from '../api/axiosInstance';

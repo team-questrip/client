@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import fetchPlaceDetail from '../api/placeDetailData';
+import { fetchPlaceDetail } from '../api/place';
 import PlaceDetail from '../components/PlaceDetail';
 import Header from '../components/Header';
 import NotFound from './NotFound';

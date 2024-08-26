@@ -1,10 +1,7 @@
 import { AxiosResponse } from 'axios';
-import {
-  AuthenticationData,
-  AuthenticationResponseData,
-} from '../interface/user';
+import { AuthenticationData, AuthenticationResponseData } from '../types/user';
 import { axiosInstance } from './axiosInstance';
-import { APIResponse } from '../interface/api';
+import { APIResponse } from '../types/api';
 
 export function checkEmail(
   email: string
