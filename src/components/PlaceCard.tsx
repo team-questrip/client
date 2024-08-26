@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import PlaceData from '../interface/PlaceData';
+import PlaceData from '../interface/placeData';
 import { Navigation } from 'swiper/modules';
 import { Pagination } from 'swiper/modules';
 
@@ -24,7 +24,7 @@ const PlaceCard = ({ placeData }: PlaceDataProps) => {
   return (
     <div className="font-semibold text-lg ">
       {placeData && placeData.data.content.length > 0 ? (
-        placeData.data.content.map(place => (
+        placeData.data.content.map((place) => (
           <div key={place.id} className="rounded-lg shadow-md bg-white my-8 ">
             <Swiper
               modules={[Navigation, Pagination]}
@@ -33,7 +33,7 @@ const PlaceCard = ({ placeData }: PlaceDataProps) => {
               pagination={{ clickable: true }}
               loop={true}
             >
-              {place.images.slice(0, 3).map(image => (
+              {place.images.slice(0, 3).map((image) => (
                 <SwiperSlide key={image.url}>
                   <img
                     src={image.url}

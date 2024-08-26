@@ -1,38 +1,15 @@
-import { Address } from '../interface/PlaceData';
+import { Address } from '../interface/placeData';
 import { axiosInstance } from './axiosInstance';
 
-// 위치 정보를 가져오는 함수
-const getPosition = (): Promise<GeolocationPosition> => {
-  return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(resolve, reject);
-  });
-};
-
-// 주소를 가져오는 함수
-const fetchAddress = async (
-  latitude: number,
-  longitude: number
-): Promise<Address> => {
-  const response = await axiosInstance.get(
-    `/api/v1/place/reverseGeocode?latitude=${latitude}&longitude=${longitude}`
-  );
-
-  if (response.data.status === 'SUCCESS') {
-    return response.data;
-  } else {
-    throw new Error('주소를 가져오는 데 문제가 발생했습니다.');
-  }
-};
-
 // 주소 정보를 가져오는 함수
-const getAddressData = async (
+async function getAddressData(
   changedLat?: number,
   changedLng?: number
 ): Promise<{
   address: Address;
   latitude: number;
   longitude: number;
-}> => {
+}> {
   let latitude: number;
   let longitude: number;
 
@@ -49,6 +26,29 @@ const getAddressData = async (
   // 위도와 경도를 사용하여 주소를 가져옴
   const address = await fetchAddress(latitude, longitude);
   return { address, latitude, longitude };
-};
+}
+
+// 위치 정보를 가져오는 함수
+function getPosition(): Promise<GeolocationPosition> {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+}
+
+// 주소를 가져오는 함수
+async function fetchAddress(
+  latitude: number,
+  longitude: number
+): Promise<Address> {
+  const response = await axiosInstance.get(
+    `/api/v1/place/reverseGeocode?latitude=${latitude}&longitude=${longitude}`
+  );
+
+  if (response.data.status === 'SUCCESS') {
+    return response.data;
+  } else {
+    throw new Error('주소를 가져오는 데 문제가 발생했습니다.');
+  }
+}
 
 export default getAddressData;
