@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import PlaceData from '../interface/placeData';
+import { PlaceData } from '../types/place';
 import { Navigation } from 'swiper/modules';
 import { Pagination } from 'swiper/modules';
 

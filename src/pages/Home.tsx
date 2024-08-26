@@ -1,6 +1,6 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useCallback, lazy, Suspense } from 'react';
-import FetchPlaceData from '../api/placeData';
+import { fetchPlaceData } from '../api/place';
 import { SlSpeech } from 'react-icons/sl';
 import { useLocation, useNavigate } from 'react-router-dom';
 import getAddressData from '../api/address';
@@ -68,7 +68,7 @@ const Home = () => {
       localStorage.getItem('latitude'),
       localStorage.getItem('longitude'),
     ],
-    queryFn: ({ pageParam }) => FetchPlaceData(pageParam, latitude, longitude),
+    queryFn: ({ pageParam }) => fetchPlaceData(pageParam, latitude, longitude),
     enabled: !!latitude && !!longitude,
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {

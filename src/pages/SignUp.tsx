@@ -3,7 +3,7 @@ import SignUpEmail from './SignUpEmail';
 import SignUpPassword from './SignUpPassword';
 import { Link, useNavigate } from 'react-router-dom';
 import SignUpUsername from './SignUpUsername';
-import { AuthenticationData } from '../interface/user';
+import { AuthenticationData } from '../types/user';
 import { join } from '../api/user';
 import { storeAuthenticationResponseDataToLocalStorage } from '../utils/user';
 import useAuthenticatedRedirect from '../hooks/useAuthenticatedRedirect';

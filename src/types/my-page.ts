@@ -1,4 +1,4 @@
-import { Place } from './placeData';
+import { Place } from './place';
 
 export interface AcceptedRecommendContent {
   place: Place;

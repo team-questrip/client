@@ -1,4 +1,4 @@
-import { AuthenticationResponseData } from '../interface/user';
+import { AuthenticationResponseData } from '../types/user';
 
 export function validateEmail(email: string) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
