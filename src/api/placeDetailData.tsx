@@ -1,11 +1,11 @@
-import { PlaceDetailData } from '../interface/PlaceDetailData';
+import { PlaceDetailData } from '../interface/placeDetailData';
 import { axiosInstance } from './axiosInstance';
 
-const FetchPlaceDetail = async ({
+async function fetchPlaceDetail({
   placeId,
 }: {
   placeId: string;
-}): Promise<PlaceDetailData> => {
+}): Promise<PlaceDetailData> {
   const latitude = localStorage.getItem('latitude');
   const longitude = localStorage.getItem('longitude');
 
@@ -18,5 +18,5 @@ const FetchPlaceDetail = async ({
   } else {
     throw new Error('Unexpected response status');
   }
-};
-export default FetchPlaceDetail;
+}
+export default fetchPlaceDetail;

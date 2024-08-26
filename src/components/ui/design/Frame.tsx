@@ -1,12 +1,10 @@
-interface FrameProps {
-  children: React.ReactNode;
-}
+import { Outlet } from 'react-router-dom';
 
-const Frame = ({ children }: FrameProps) => {
+const Frame = () => {
   return (
     <div className="flex justify-center w-screen h-full">
       <div className="h-full p-4 bg-white relative" style={{ width: '375px' }}>
-        {children}
+        <Outlet />
       </div>
     </div>
   );

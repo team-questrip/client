@@ -1,3 +1,5 @@
+// 이 페이지는 숨겨버리기로 결정함
+
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import blankImage from '/img/blank.png';

@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import FetchPlaceDetail from '../api/FetchPlaceDetailData';
+import fetchPlaceDetail from '../api/placeDetailData';
 import PlaceDetail from '../components/PlaceDetail';
 import Header from '../components/Header';
 import NotFound from './NotFound';
@@ -15,7 +15,7 @@ const DetailPage = () => {
     error: detailPlaceError,
   } = useQuery({
     queryKey: ['detailPlace', placeId],
-    queryFn: () => FetchPlaceDetail({ placeId: placeId! }),
+    queryFn: () => fetchPlaceDetail({ placeId: placeId! }),
     enabled: !!placeId,
   });
 

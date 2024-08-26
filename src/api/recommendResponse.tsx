@@ -1,10 +1,10 @@
-import { RecommendResponse } from '../interface/RecommendResponse';
+import { RecommendResponse } from '../interface/recommendResponse';
 import { axiosInstance } from './axiosInstance';
 
-const PostRecommendResponse = async (
+async function postRecommendResponse(
   placeId: string,
   status: string
-): Promise<RecommendResponse> => {
+): Promise<RecommendResponse> {
   const response = await axiosInstance.post<RecommendResponse>(
     `api/v1/recommend`,
     {
@@ -18,6 +18,6 @@ const PostRecommendResponse = async (
   } else {
     throw new Error('Unexpected response status');
   }
-};
+}
 
-export default PostRecommendResponse;
+export default postRecommendResponse;

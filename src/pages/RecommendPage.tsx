@@ -1,5 +1,7 @@
+// 이 페이지는 숨겨버리기로 결정함
+
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import FetchRecommendData from '../api/FetchRecommendData';
+import fetchRecommendData from '../api/recommendData';
 import Header from '../components/Header';
 
 import { MdOutlinePlace, MdOutlineRecommend } from 'react-icons/md';
@@ -22,7 +24,7 @@ const RecommendPage = () => {
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['recommend'],
-    queryFn: () => FetchRecommendData(latitude, longitude),
+    queryFn: () => fetchRecommendData(latitude, longitude),
   });
 
   let content = null;
