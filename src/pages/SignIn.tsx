@@ -1,15 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
-import GoBackHeader from "../components/GoBackHeader/GoBackHeader";
-import { FormEvent, useState } from "react";
-import { AuthenticationData } from "../types/user";
-import { login } from "../api/user";
-import Button from "../components/Button";
-import Input from "../components/Input";
-import { AxiosError } from "axios";
-import { APIErrorResponse } from "../types/api";
-import { storeAuthenticationResponseDataToLocalStorage } from "../utils/user";
-import { useToast } from "../hooks/useContexts";
-import useAuthenticatedRedirect from "../hooks/useAuthenticatedRedirect";
+import { Link, useNavigate } from 'react-router-dom';
+import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
+import { FormEvent, useState } from 'react';
+import { AuthenticationData } from '../types/user';
+import { login } from '../api/user';
+import Button from '../components/Button';
+import Input from '../components/Input';
+import { AxiosError } from 'axios';
+import { APIErrorResponse } from '../types/api';
+import { storeAuthenticationResponseDataToLocalStorage } from '../utils/user';
+import { useToast } from '../hooks/useContexts';
+import useAuthenticatedRedirect from '../hooks/useAuthenticatedRedirect';
 
 const SignIn = () => {
   useAuthenticatedRedirect();
@@ -17,10 +17,10 @@ const SignIn = () => {
 
   const { showToast } = useToast();
   const [signInData, setSignInData] = useState<
-    Omit<AuthenticationData, "username">
+    Omit<AuthenticationData, 'username'>
   >({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const handleSubmit = async (e: FormEvent) => {
@@ -28,37 +28,39 @@ const SignIn = () => {
     try {
       const response = await login(signInData);
       storeAuthenticationResponseDataToLocalStorage(response.data.data);
-      navigate("/");
+      navigate('/');
     } catch (error) {
       const errorObj = error as AxiosError<APIErrorResponse>;
       const message =
-        errorObj && errorObj.response && errorObj.response.data && errorObj.response.data.message
+        errorObj &&
+        errorObj.response &&
+        errorObj.response.data &&
+        errorObj.response.data.message
           ? errorObj.response.data.message
-          : "Something went wrong.";
+          : 'Something went wrong.';
 
       console.log(error);
-      showToast(message, "error");
+      showToast(message, 'error');
     }
   };
 
   // todo: input 쓰는 상호작용 부분을 hook으로 추상화할 수 있어보임.
   return (
     <>
+      <GoBackHeader
+        onBack={() => {
+          navigate(-1);
+        }}
+      />
       <form onSubmit={handleSubmit}>
-        <GoBackHeader
-          onBack={() => {
-            navigate(-1);
-          }}
-        />
         {/* 추가된 영역 */}
         <div className="w-full flex-col justify-start items-start gap-2.5 inline-flex">
-          <img
-            className="w-28"
-            src="/img/logo-default.png"
-          />
+          <img className="w-28" src="/img/logo-default.png" />
           <div className="w-full h-32 relative flex-col justify-start items-start gap-2.5">
             <div className="font-semibold text-2xl">Hello 👋</div>
-            <div className="font-semibold text-3xl text-secondary">Travelers</div>
+            <div className="font-semibold text-3xl text-secondary">
+              Travelers
+            </div>
             <div className="font-semibold text-2xl">Welcome back!</div>
           </div>
         </div>
@@ -74,7 +76,7 @@ const SignIn = () => {
             }));
           }}
           className="mb-4"
-          label={"Email"}
+          label={'Email'}
         />
         <Input
           type="password"
@@ -87,7 +89,7 @@ const SignIn = () => {
             }));
           }}
           className="mb-2"
-          label={"Password"}
+          label={'Password'}
         />
         <div className="mb-8 flex text-hintText text-sm justify-end items-end">
           Forgot password?
@@ -96,7 +98,7 @@ const SignIn = () => {
         <p className="text-hintText mt-6 flex items-center justify-center">
           Don't have an account?
           <Link
-            to={"/sign-up"}
+            to={'/sign-up'}
             className="text-secondary font-semibold underline ml-2"
           >
             Sign Up

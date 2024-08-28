@@ -39,12 +39,12 @@ const SignUp = () => {
 
   return (
     <>
+      <GoBackHeader
+        onBack={() => {
+          navigate(-1);
+        }}
+      />
       <form onSubmit={handleSignUp}>
-        <GoBackHeader
-          onBack={() => {
-            navigate(-1);
-          }}
-        />
         <div className="w-full">
           <img className="w-28" src="/img/logo-default.png" />
           <div className="w-full mb-3">
