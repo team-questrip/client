@@ -12,7 +12,7 @@ function Home() {
           <img src="/img/logo-horizontal.png" className="h-8" />
         </a>
       </header>
-      <div className="w-full h-full p-4 flex-col grid grid-cols-2 gap-3">
+      <div className="w-full p-4 flex-col grid grid-cols-2 gap-3">
         <HomeCard
           img={'/icons/food_and_drink.png'}
           category={'Food & Drinks'}
