@@ -1,74 +1,72 @@
-import { useSelector } from 'react-redux';
-import { selectUser } from '../store/userSlice';
+import { useNavigate } from 'react-router-dom';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
-import { Link, useNavigate } from 'react-router-dom';
-import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
-import useAcceptedRecommendQuery from '../queries/useAcceptedRecommendQuery';
+import { Avatar } from 'baseui/avatar';
+import { Select, Value } from 'baseui/select';
+import { useState } from 'react';
 
 const MyPage = () => {
-  const user = useSelector(selectUser);
-
+  const [language, setLanguage] = useState<Value>([]);
   const navigate = useNavigate();
-
-  const { hasNextPage, fetchNextPage, data } = useAcceptedRecommendQuery();
-
-  const { setTarget } = useIntersectionObserver({
-    hasNextPage,
-    fetchNextPage,
-  });
-
-  const handleBack = () => {
-    navigate(-1);
+  const handleSignOut = () => {
+    console.log('로그아웃 로직 개발 필요');
+    navigate('/sign-in');
   };
-
-  if (!user) {
-    navigate('/welcome');
-    return null;
-  }
 
   return (
     <>
-      <GoBackHeader onBack={handleBack}>
-        <GoBackHeader.Title>{'My Page'}</GoBackHeader.Title>
-      </GoBackHeader>
-      <div className="mb-8">
-        <h3 className="text-4xl">{user.username}</h3>
-        <span className="text-mainTextColor font-extralight block w-1/2 text-right text-lg">
-          {user.email}
-        </span>
+      <div>
+        <GoBackHeader
+          onBack={() => {
+            navigate(-1);
+          }}
+        />
+        <div className="w-full h-12 inline-flex justify-start items-center">
+          <div className="text-2xl text-primaryText font-bold">My Page</div>
+        </div>
       </div>
-      <div className="pb-20">
-        <h3 className="text-2xl font-semibold mb-4">Quest History</h3>
-        <ul>
-          {data && data.pages.length ? (
-            data.pages.map((content) => {
-              return (
-                <li key={content.id}>
-                  <Link to={`/detail/${content.place.id}`} className="flex">
-                    <div className="mr-4">
-                      <h4 className="font-bold">{content.place.placeName}</h4>
-                      <span className="text-mainTextColor text-sm font-light">
-                        {content.place.formattedAddress}
-                      </span>
-                    </div>
-                    <div className="basis-1/2 h-[75px] rounded-xl overflow-hidden">
-                      <img
-                        className="w-full h-full"
-                        src={content.place.images[0].url}
-                        alt={content.place.placeName + ' photo'}
-                      />
-                    </div>
-                  </Link>
-                </li>
-              );
-            })
-          ) : (
-            <li>There's nothing yet...</li>
-          )}
-        </ul>
-        <div ref={setTarget} className="h-[1rem]" />
+      <div className="w-full p-4 justify-center items-center inline-flex">
+        <div className="flex-col justify-center items-center gap-4 inline-flex">
+          <div className="flex-col justify-start items-center gap-4 flex">
+            <Avatar name="Username Goese Here" size="114px" />
+            <div className="flex-col justify-center items-center flex">
+              <div className="flex-col justify-start items-center flex">
+                <div className="text-primaryText font-bold text-xl">
+                  Username Goes Here
+                </div>
+              </div>
+              <div className="flex-col justify-start items-center flex">
+                <div className="text-secondaryText">teamquestrip@gmail.com</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+      <div className="w-full h-14 px-4 justify-between items-center inline-flex">
+        <div className="flex-col justify-start items-start inline-flex">
+          <div className="self-stretch text-sm font-normal">Language</div>
+        </div>
+        <div className="w-[170px] h-[35px] pl-[22px] pr-[13px] bg-white rounded-[10px] justify-between items-center flex">
+          <Select
+            options={[
+              { label: 'English', value: 'EN' },
+              { label: 'Chinese', value: 'CN' },
+              { label: 'Japanese', value: 'JP' },
+            ]}
+            labelKey="label"
+            valueKey="value"
+            onChange={({ value }) => setLanguage(value)}
+            value={language}
+          />
+        </div>
+      </div>
+      <button
+        className="w-full h-14 flex justify-center items-center"
+        onClick={handleSignOut}
+      >
+        <span className="text-sm font-bold">Sign Out</span>
+      </button>
     </>
   );
 };
+
 export default MyPage;

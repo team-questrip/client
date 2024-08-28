@@ -10,7 +10,7 @@ import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import NotFound from '../pages/NotFound';
 import Home from '../pages/MainHome';
-import MyPage from '../pages/My';
+import MyPage from '../pages/MyPage';
 import NPSForm from '../pages/NPS';
 
 export default function Router() {
