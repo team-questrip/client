@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import HomeCard from '../components/HomeCard';
 
 function Home() {
@@ -8,9 +9,9 @@ function Home() {
   return (
     <>
       <header className="flex justify-center h-12">
-        <a href="/">
+        <Link to="/">
           <img src="/img/logo-horizontal.png" className="h-8" />
-        </a>
+        </Link>
       </header>
       <div className="w-full p-4 flex-col grid grid-cols-2 gap-3">
         <HomeCard
