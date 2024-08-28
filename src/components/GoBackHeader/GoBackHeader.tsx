@@ -5,11 +5,16 @@ import GoBackHeaderTitle from './GoBackHeaderTitle';
 interface GoBackHeaderProps {
   onBack: () => void;
   children?: ReactNode;
+  className?: string;
 }
 
-const GoBackHeaderImpl = ({ onBack, children }: GoBackHeaderProps) => {
+const GoBackHeaderImpl = ({
+  onBack,
+  children,
+  className,
+}: GoBackHeaderProps) => {
   return (
-    <header className="mb-5 relative">
+    <header className={`relative ${className}`}>
       <button
         onClick={() => {
           onBack();
