@@ -1,12 +1,15 @@
-import { useState } from 'react';
-import SignUpEmail from './SignUpEmail';
-import SignUpPassword from './SignUpPassword';
+import { FormEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import SignUpUsername from './SignUpUsername';
 import { AuthenticationData } from '../types/user';
 import { join } from '../api/user';
 import { storeAuthenticationResponseDataToLocalStorage } from '../utils/user';
 import useAuthenticatedRedirect from '../hooks/useAuthenticatedRedirect';
+import Input from '../components/Input';
+import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
+import Button from '../components/Button';
+import { APIErrorResponse } from '../types/api';
+import { useToast } from "../hooks/useContexts";
+import { AxiosError } from 'axios';
 
 const SignUp = () => {
   useAuthenticatedRedirect();
@@ -15,69 +18,106 @@ const SignUp = () => {
     email: '',
     password: '',
   });
-  const [step, setStep] = useState<'email' | 'password' | 'username'>('email');
   const navigate = useNavigate();
+  const { showToast } = useToast();
+
+  const handleSignUp = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await join(signUpData);
+      storeAuthenticationResponseDataToLocalStorage(response.data.data);
+      navigate('/');
+    } catch (error) {
+      const errorObj = error as AxiosError<APIErrorResponse>;
+      const message = errorObj.response
+        ? errorObj.response.data.message
+        : "Something went wrong.";
+
+      showToast(message, "error");
+    }
+  }
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-    >
-      {step === 'email' && (
-        <SignUpEmail
-          value={signUpData.email}
-          onPrev={() => {
+    <>
+      <form
+        onSubmit={handleSignUp}
+      >
+        <GoBackHeader 
+          onBack={() => {
             navigate(-1);
           }}
-          onNext={(email) => {
-            setSignUpData((prev) => ({ ...prev, email }));
-            setStep('username');
-          }}
         />
-      )}
-      {step === 'username' && (
-        <SignUpUsername
-          value={signUpData.username}
-          onPrev={() => {
-            setStep('email');
+        <div className="w-full flex-col justify-start items-start gap-2.5 inline-flex">
+          <img
+            className="w-28"
+            src="/img/logo-default.png"
+          />
+          <div className="w-full h-32 relative flex-col justify-start items-start gap-2.5">
+            <div className="font-semibold text-3xl text-secondary">Sign Up</div>
+            <div className="font-semibold text-2xl">Welcome 👋</div>
+          </div>
+        </div>
+        <Input
+          type="text"
+          placeholder="Enter username"
+          name="email"
+          onChange={(e) => {
+            setSignUpData((prev) => ({
+              ...prev,
+              [e.target.name]: e.target.value,
+            }));
           }}
-          onNext={(username) => {
-            setSignUpData((prev) => ({ ...prev, username }));
-            setStep('password');
-          }}
+          className="mb-4"
+          label={"Username"}
         />
-      )}
-      {step === 'password' && (
-        <SignUpPassword
-          value={signUpData.password}
-          onPrev={() => {
-            setStep('username');
+        <Input
+          type="email"
+          placeholder="E-mail address"
+          name="email"
+          onChange={(e) => {
+            setSignUpData((prev) => ({
+              ...prev,
+              [e.target.name]: e.target.value,
+            }));
           }}
-          onNext={(password) => {
-            try {
-              join({ ...signUpData, password }).then((response) => {
-                storeAuthenticationResponseDataToLocalStorage(
-                  response.data.data
-                );
-                navigate('/');
-              });
-            } catch (error) {
-              console.log(error);
-              // todo: 에러 핸들링
-            }
-          }}
+          className="mb-4"
+          label={"Email"}
         />
-      )}
-      <p className="font-light mt-2">
-        Already have an account?{' '}
-        <Link
-          to={'/sign-in'}
-          className="text-mainTextColor font-semibold underline"
-        >
-          Sign in
-        </Link>
-      </p>
-    </form>
+        <Input
+          type="password"
+          placeholder="Password"
+          name="password"
+          onChange={(e) => {
+            setSignUpData((prev) => ({
+              ...prev,
+              [e.target.name]: e.target.value,
+            }));
+          }}
+          className="mb-4"
+          label={"Password"}
+        />
+        <div className="flex items-center mb-4">
+          <input type="checkbox" id="agreement" value="" className="w-4 h-4 text-primary bg-primaryBackground rounded border-hintText focus:ring-primary" />
+          <label htmlFor="agreement" className="ms-2 text-sm">
+            <span>I agree to the </span>
+            <span className="text-primary underline">Terms of Service</span>
+            <span> and </span>
+            <span className="text-primary underline">Privacy Policy</span>
+            <span>.</span>
+          </label>
+        </div>
+        <Button type="submit" text="Sign Up" />
+        <p className="text-hintText mt-6 flex items-center justify-center">
+            Already have an account?
+            <Link
+              to={"/sign-in"}
+              className="text-secondary font-semibold underline ml-2"
+            >
+              Sign In
+            </Link>
+          </p>
+      </form>
+    </>
   );
 };
 

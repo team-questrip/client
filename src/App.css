@@ -4,6 +4,7 @@
 
 body {
   -ms-overflow-style: none;
+  font: font-sans;
 }
 ::-webkit-scrollbar {
   display: none;
