@@ -2,8 +2,8 @@ import { Outlet } from 'react-router-dom';
 
 const Frame = () => {
   return (
-    <div className="flex justify-center w-screen h-screen">
-      <div className="h-full p-4 bg-white relative" style={{ width: '375px' }}>
+    <div className="flex justify-center w-screen">
+      <div className="w-[375px] h-full p-4 bg-white relative">
         <Outlet />
       </div>
     </div>

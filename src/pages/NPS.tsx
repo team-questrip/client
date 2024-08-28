@@ -28,8 +28,8 @@ const NPSForm = () => {
   };
 
   return (
-    <div className="relative h-full">
-      <GoBackHeader onBack={handleBack}></GoBackHeader>
+    <>
+      <GoBackHeader onBack={handleBack} className="mb-5" />
       <div className="text-xl font-bold mb-4">
         How would you introduce Questrip app to your friends who are visiting
         Korea?
@@ -67,9 +67,9 @@ const NPSForm = () => {
         onClick={handleSubmit}
         type="submit"
         text="Submit"
-        className="absolute bottom-5 left-0"
+        className="mt-32"
       />
-    </div>
+    </>
   );
 };
 

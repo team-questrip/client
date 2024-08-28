@@ -8,7 +8,7 @@ import Input from '../components/Input';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import Button from '../components/Button';
 import { APIErrorResponse } from '../types/api';
-import { useToast } from "../hooks/useContexts";
+import { useToast } from '../hooks/useContexts';
 import { AxiosError } from 'axios';
 
 const SignUp = () => {
@@ -31,28 +31,23 @@ const SignUp = () => {
       const errorObj = error as AxiosError<APIErrorResponse>;
       const message = errorObj.response
         ? errorObj.response.data.message
-        : "Something went wrong.";
+        : 'Something went wrong.';
 
-      showToast(message, "error");
+      showToast(message, 'error');
     }
-  }
+  };
 
   return (
     <>
-      <form
-        onSubmit={handleSignUp}
-      >
-        <GoBackHeader 
+      <form onSubmit={handleSignUp}>
+        <GoBackHeader
           onBack={() => {
             navigate(-1);
           }}
         />
-        <div className="w-full flex-col justify-start items-start gap-2.5 inline-flex">
-          <img
-            className="w-28"
-            src="/img/logo-default.png"
-          />
-          <div className="w-full h-32 relative flex-col justify-start items-start gap-2.5">
+        <div className="w-full">
+          <img className="w-28" src="/img/logo-default.png" />
+          <div className="w-full mb-3">
             <div className="font-semibold text-3xl text-secondary">Sign Up</div>
             <div className="font-semibold text-2xl">Welcome 👋</div>
           </div>
@@ -68,7 +63,7 @@ const SignUp = () => {
             }));
           }}
           className="mb-4"
-          label={"Username"}
+          label={'Username'}
         />
         <Input
           type="email"
@@ -81,7 +76,7 @@ const SignUp = () => {
             }));
           }}
           className="mb-4"
-          label={"Email"}
+          label={'Email'}
         />
         <Input
           type="password"
@@ -94,28 +89,32 @@ const SignUp = () => {
             }));
           }}
           className="mb-4"
-          label={"Password"}
+          label={'Password'}
         />
         <div className="flex items-center mb-4">
-          <input type="checkbox" id="agreement" value="" className="w-4 h-4 text-primary bg-primaryBackground rounded border-hintText focus:ring-primary" />
-          <label htmlFor="agreement" className="ms-2 text-sm">
-            <span>I agree to the </span>
-            <span className="text-primary underline">Terms of Service</span>
-            <span> and </span>
-            <span className="text-primary underline">Privacy Policy</span>
-            <span>.</span>
+          <input
+            type="checkbox"
+            id="agreement"
+            value=""
+            className="w-4 h-4 text-primary bg-primaryBackground rounded border-hintText focus:ring-primary"
+          />
+          <label htmlFor="agreement" className="ms-2 text-sm text-nowrap">
+            I agree to the
+            <span className="text-primary underline"> Terms of Service </span>
+            and
+            <span className="text-primary underline"> Privacy Policy</span>.
           </label>
         </div>
         <Button type="submit" text="Sign Up" />
         <p className="text-hintText mt-6 flex items-center justify-center">
-            Already have an account?
-            <Link
-              to={"/sign-in"}
-              className="text-secondary font-semibold underline ml-2"
-            >
-              Sign In
-            </Link>
-          </p>
+          Already have an account?
+          <Link
+            to={'/sign-in'}
+            className="text-secondary font-semibold underline ml-2"
+          >
+            Sign In
+          </Link>
+        </p>
       </form>
     </>
   );

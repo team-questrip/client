@@ -29,8 +29,8 @@ export default function Router() {
           <Route path="/location-search" element={<LocationSearch />} />
           <Route path="/inquiry" element={<Inquiry />} />
           <Route path="/survey" element={<Survey />} />
-          <Route path="*" element={<NotFound />} />
           <Route path="/nps" element={<NPSForm />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
