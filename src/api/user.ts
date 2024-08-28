@@ -18,7 +18,7 @@ export function checkEmail(
 export function join(
   signUpData: AuthenticationData
 ): Promise<AxiosResponse<APIResponse<AuthenticationResponseData>>> {
-  return axiosInstance.post('api/v1/user/join', signUpData);
+  return axiosInstance.post('/api/v1/user/join', signUpData);
 }
 
 export function login(

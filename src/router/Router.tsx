@@ -11,6 +11,9 @@ import Welcome from '../pages/Welcome';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import NotFound from '../pages/NotFound';
+import Main from '../pages/MainHome';
+import My from '../pages/My';
+import NPSForm from '../pages/NPS';
 
 export default function Router() {
   return (
@@ -29,6 +32,10 @@ export default function Router() {
           <Route path="/inquiry" element={<Inquiry />} />
           <Route path="/survey" element={<Survey />} />
           <Route path="*" element={<NotFound />} />
+
+          <Route path="/main-home" element={<Main />} />
+          <Route path="/my" element={<My />} />
+          <Route path="/nps" element={<NPSForm />} />
         </Route>
       </Routes>
     </BrowserRouter>

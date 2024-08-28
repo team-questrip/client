@@ -18,7 +18,7 @@ const Button = ({
   return (
     <button
       type={type}
-      className={`w-full  py-2 rounded-lg  ${
+      className={`w-full h-12 py-2 rounded-lg font-bold  ${
         variant === 'primary'
           ? 'bg-subColor text-white'
           : 'bg-mainColor text-black'
