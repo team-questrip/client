@@ -47,7 +47,7 @@ const Nav = () => {
         {renderButton('home', <GoHomeFill />, <GoHome />, 'Home')}
 
         {renderButton(
-          'mypage',
+          'my-page',
           <HiUserCircle />,
           <HiOutlineUserCircle />,
           'My Page'
