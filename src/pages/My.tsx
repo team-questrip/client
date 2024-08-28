@@ -1,16 +1,16 @@
-import { useNavigate } from "react-router-dom";
-import GoBackHeader from "../components/GoBackHeader/GoBackHeader";
-import { Avatar } from "baseui/avatar";
-import { Select, Value } from "baseui/select";
-import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
+import { Avatar } from 'baseui/avatar';
+import { Select, Value } from 'baseui/select';
+import { useState } from 'react';
 
-const My = () => {
+const MyPage = () => {
   const [language, setLanguage] = useState<Value>([]);
   const navigate = useNavigate();
   const handleSignOut = () => {
     console.log('로그아웃 로직 개발 필요');
     navigate('/sign-in');
-  }
+  };
 
   return (
     <>
@@ -48,9 +48,9 @@ const My = () => {
         <div className="w-[170px] h-[35px] pl-[22px] pr-[13px] bg-white rounded-[10px] justify-between items-center flex">
           <Select
             options={[
-              { label: "English", value: "EN" },
-              { label: "Chinese", value: "CN" },
-              { label: "Japanese", value: "JP" },
+              { label: 'English', value: 'EN' },
+              { label: 'Chinese', value: 'CN' },
+              { label: 'Japanese', value: 'JP' },
             ]}
             labelKey="label"
             valueKey="value"
@@ -59,13 +59,14 @@ const My = () => {
           />
         </div>
       </div>
-      <div className="w-full h-14 flex justify-center items-center">
-        <div className="text-sm font-bold" onClick={handleSignOut}>
-            Sign Out
-        </div>
-      </div>
+      <button
+        className="w-full h-14 flex justify-center items-center"
+        onClick={handleSignOut}
+      >
+        <span className="text-sm font-bold">Sign Out</span>
+      </button>
     </>
   );
 };
 
-export default My;
+export default MyPage;
