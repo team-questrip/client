@@ -32,14 +32,9 @@ const SignIn = () => {
       navigate('/');
     } catch (error) {
       const errorObj = error as AxiosError<APIErrorResponse>;
-      const message =
-        errorObj &&
-        errorObj.response &&
-        errorObj.response.data &&
-        errorObj.response.data.message
-          ? errorObj.response.data.message
-          : 'Something went wrong.';
-
+      const message = errorObj.response
+        ? errorObj.response.data.message
+        : 'Something went wrong.';
       showToast(message, 'error');
     }
   };
@@ -52,7 +47,6 @@ const SignIn = () => {
         }}
       />
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* 추가된 영역 */}
         <div className="w-full flex-col justify-start items-start gap-2.5 inline-flex">
           <img className="w-28" src="/img/logo-default.png" />
           <div className="w-full h-32 relative flex-col justify-start items-start gap-2.5">
@@ -63,7 +57,6 @@ const SignIn = () => {
             <div className="font-semibold text-2xl">Welcome back!</div>
           </div>
         </div>
-        {/* <h2 className="font-bold text-lg mb-1">Welcome back!</h2> */}
         <Input
           type="email"
           placeholder="E-mail address"
