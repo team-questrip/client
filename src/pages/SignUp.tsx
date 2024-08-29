@@ -1,6 +1,5 @@
-import { FormEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthenticationData } from '../types/user';
+import { UserRegistrationData } from '../types/user';
 import { join } from '../api/user';
 import { storeAuthenticationResponseDataToLocalStorage } from '../utils/user';
 import useAuthenticatedRedirect from '../hooks/useAuthenticatedRedirect';
@@ -10,21 +9,24 @@ import Button from '../components/Button';
 import { APIErrorResponse } from '../types/api';
 import { useToast } from '../hooks/useContexts';
 import { AxiosError } from 'axios';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import ErrorMessage from '../components/ErrorMessage';
 
 const SignUp = () => {
   useAuthenticatedRedirect();
-  const [signUpData, setSignUpData] = useState<AuthenticationData>({
-    username: '',
-    email: '',
-    password: '',
-  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserRegistrationData>();
+
   const navigate = useNavigate();
   const { showToast } = useToast();
 
-  const handleSignUp = async (e: FormEvent) => {
-    e.preventDefault();
+  const onSubmit: SubmitHandler<UserRegistrationData> = async (data) => {
     try {
-      const response = await join(signUpData);
+      const response = await join(data);
       storeAuthenticationResponseDataToLocalStorage(response.data.data);
       navigate('/');
     } catch (error) {
@@ -32,7 +34,6 @@ const SignUp = () => {
       const message = errorObj.response
         ? errorObj.response.data.message
         : 'Something went wrong.';
-
       showToast(message, 'error');
     }
   };
@@ -44,7 +45,7 @@ const SignUp = () => {
           navigate(-1);
         }}
       />
-      <form onSubmit={handleSignUp}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="w-full">
           <img className="w-28" src="/img/logo-default.png" />
           <div className="w-full mb-3">
@@ -55,42 +56,31 @@ const SignUp = () => {
         <Input
           type="text"
           placeholder="Enter username"
-          name="email"
-          onChange={(e) => {
-            setSignUpData((prev) => ({
-              ...prev,
-              [e.target.name]: e.target.value,
-            }));
-          }}
-          className="mb-4"
+          className="mb-2"
           label={'Username'}
+          {...register('username', {
+            required: 'This is required.',
+          })}
         />
+        <ErrorMessage message={errors.username?.message} />
         <Input
           type="email"
           placeholder="E-mail address"
-          name="email"
-          onChange={(e) => {
-            setSignUpData((prev) => ({
-              ...prev,
-              [e.target.name]: e.target.value,
-            }));
-          }}
-          className="mb-4"
+          className="mb-2"
           label={'Email'}
+          {...register('email', { required: 'This is required.' })}
         />
+        <ErrorMessage message={errors.email?.message} />
         <Input
           type="password"
           placeholder="Password"
-          name="password"
-          onChange={(e) => {
-            setSignUpData((prev) => ({
-              ...prev,
-              [e.target.name]: e.target.value,
-            }));
-          }}
-          className="mb-4"
+          className="mb-2"
           label={'Password'}
+          {...register('password', {
+            required: 'This is required.',
+          })}
         />
+        <ErrorMessage message={errors.password?.message} />
         <div className="flex items-center mb-4">
           <input
             type="checkbox"

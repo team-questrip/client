@@ -1,5 +1,8 @@
 import { AxiosResponse } from 'axios';
-import { AuthenticationData, AuthenticationResponseData } from '../types/user';
+import {
+  UserRegistrationData,
+  AuthenticationResponseData,
+} from '../types/user';
 import { axiosInstance } from './axiosInstance';
 import { APIResponse } from '../types/api';
 
@@ -16,13 +19,13 @@ export function checkEmail(
 }
 
 export function join(
-  signUpData: AuthenticationData
+  signUpData: UserRegistrationData
 ): Promise<AxiosResponse<APIResponse<AuthenticationResponseData>>> {
-  return axiosInstance.post('/api/v1/user/join', signUpData);
+  return axiosInstance.post('api/v1/user/join', signUpData);
 }
 
 export function login(
-  signInData: Omit<AuthenticationData, 'username'>
+  signInData: Omit<UserRegistrationData, 'username'>
 ): Promise<AxiosResponse<APIResponse<AuthenticationResponseData>>> {
   return axiosInstance.post('api/v1/user/login', signInData);
 }
