@@ -1,6 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
-import { FormEvent, useState } from 'react';
 import { AuthenticationData } from '../types/user';
 import { login } from '../api/user';
 import Button from '../components/Button';
@@ -10,41 +9,36 @@ import { APIErrorResponse } from '../types/api';
 import { storeAuthenticationResponseDataToLocalStorage } from '../utils/user';
 import { useToast } from '../hooks/useContexts';
 import useAuthenticatedRedirect from '../hooks/useAuthenticatedRedirect';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import ErrorMessage from '../components/ErrorMessage';
 
 const SignIn = () => {
   useAuthenticatedRedirect();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<AuthenticationData>();
+
   const navigate = useNavigate();
 
   const { showToast } = useToast();
-  const [signInData, setSignInData] = useState<
-    Omit<AuthenticationData, 'username'>
-  >({
-    email: '',
-    password: '',
-  });
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const onSubmit: SubmitHandler<AuthenticationData> = async (data) => {
     try {
-      const response = await login(signInData);
+      const response = await login(data);
       storeAuthenticationResponseDataToLocalStorage(response.data.data);
       navigate('/');
     } catch (error) {
       const errorObj = error as AxiosError<APIErrorResponse>;
-      const message =
-        errorObj &&
-        errorObj.response &&
-        errorObj.response.data &&
-        errorObj.response.data.message
-          ? errorObj.response.data.message
-          : 'Something went wrong.';
-
-      console.log(error);
+      const message = errorObj.response
+        ? errorObj.response.data.message
+        : 'Something went wrong.';
       showToast(message, 'error');
     }
   };
 
-  // todo: input 쓰는 상호작용 부분을 hook으로 추상화할 수 있어보임.
   return (
     <>
       <GoBackHeader
@@ -52,8 +46,7 @@ const SignIn = () => {
           navigate(-1);
         }}
       />
-      <form onSubmit={handleSubmit}>
-        {/* 추가된 영역 */}
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="w-full flex-col justify-start items-start gap-2.5 inline-flex">
           <img className="w-28" src="/img/logo-default.png" />
           <div className="w-full h-32 relative flex-col justify-start items-start gap-2.5">
@@ -64,33 +57,22 @@ const SignIn = () => {
             <div className="font-semibold text-2xl">Welcome back!</div>
           </div>
         </div>
-        {/* <h2 className="font-bold text-lg mb-1">Welcome back!</h2> */}
         <Input
           type="email"
           placeholder="E-mail address"
-          name="email"
-          onChange={(e) => {
-            setSignInData((prev) => ({
-              ...prev,
-              [e.target.name]: e.target.value,
-            }));
-          }}
           className="mb-4"
           label={'Email'}
+          {...register('email', { required: 'This is required.' })}
         />
+        <ErrorMessage message={errors.email?.message} />
         <Input
           type="password"
           placeholder="Password"
-          name="password"
-          onChange={(e) => {
-            setSignInData((prev) => ({
-              ...prev,
-              [e.target.name]: e.target.value,
-            }));
-          }}
           className="mb-2"
           label={'Password'}
+          {...register('password', { required: 'This is required.' })}
         />
+        <ErrorMessage message={errors.password?.message} />
         <div className="mb-8 flex text-hintText text-sm justify-end items-end">
           Forgot password?
         </div>

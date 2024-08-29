@@ -20,12 +20,27 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => {
-    if (error.response.status === 401) {
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._retry) {
       // 토큰이 만료되었거나 유효하지 않음
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('userInfo');
-      window.location.href = '/welcome'; // welcome 페이지로 리다이렉트
+      originalRequest._retry = true;
+      const refreshToken = localStorage.getItem('refreshToken');
+
+      try {
+        const { data } = await axios.post('api/v1/user/reissue', {
+          token: refreshToken,
+        });
+
+        localStorage.setItem('accessToken', data.accessToken);
+
+        originalRequest.headers['Authorization'] = `Bearer ${data.accessToken}`;
+        return axiosInstance(originalRequest);
+      } catch (refreshError) {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('userInfo');
+      }
     }
     return Promise.reject(error);
   }

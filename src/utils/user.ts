@@ -32,8 +32,10 @@ export function storeAuthenticationResponseDataToLocalStorage(
 ) {
   const {
     accessToken,
+    refreshToken,
     user: { email, username },
   } = data;
   localStorage.setItem('accessToken', accessToken);
+  localStorage.setItem('refreshToken', refreshToken);
   localStorage.setItem('userInfo', JSON.stringify({ email, username }));
 }
