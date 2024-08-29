@@ -12,6 +12,7 @@ import NotFound from '../pages/NotFound';
 import Home from '../pages/MainHome';
 import MyPage from '../pages/MyPage';
 import NPSForm from '../pages/NPS';
+import Map from '../pages/Map';
 
 export default function Router() {
   return (
@@ -31,6 +32,8 @@ export default function Router() {
           <Route path="/survey" element={<Survey />} />
           <Route path="/nps" element={<NPSForm />} />
           <Route path="*" element={<NotFound />} />
+
+          <Route path="/map" element={<Map />} />
         </Route>
       </Routes>
     </BrowserRouter>
