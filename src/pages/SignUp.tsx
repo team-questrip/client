@@ -85,7 +85,7 @@ const SignUp = () => {
           <input
             type="checkbox"
             id="agreement"
-            value=""
+            required
             className="w-4 h-4 text-primary bg-primaryBackground rounded border-hintText focus:ring-primary"
           />
           <label htmlFor="agreement" className="ms-2 text-sm text-nowrap">
