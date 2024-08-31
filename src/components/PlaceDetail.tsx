@@ -1,18 +1,9 @@
 import { PlaceDetailData } from '../types/place';
-
-import { Navigation } from 'swiper/modules';
-import { Pagination } from 'swiper/modules';
-
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
 import OpenNow from './OpenNow';
 import LocationIcon from './ui/icon/LocationIcon';
 import ThumsUpIcon from './ui/icon/ThumsUpIcon';
 import CheckCircleIcon from './ui/icon/CheckCircleIcon';
+import Slider from './Slider';
 
 interface PlaceDetailProps {
   detailPlaceData: PlaceDetailData;
@@ -34,23 +25,10 @@ const PlaceDetail = ({ detailPlaceData }: PlaceDetailProps) => {
   return (
     <div className="flex flex-col gap-4">
       <div>
-        <Swiper
-          modules={[Navigation, Pagination]}
-          slidesPerView={1}
-          navigation
-          pagination={{ clickable: true }}
-          loop={detailPlaceData.data.place.images.length >= 2}
-        >
-          {detailPlaceData.data.place.images.map((image, index) => (
-            <SwiperSlide key={index}>
-              <img
-                src={image.url}
-                className="w-[343px] h-[192px] object-cover"
-                alt="장소 이미지"
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <Slider
+          images={detailPlaceData.data.place.images}
+          imageClassName="w-[343px] h-[192px] object-cover"
+        />
       </div>
       <div className="flex justify-between text-lg font-bold items-center">
         <div className="text-wrap whitespace-normal w-2/3">

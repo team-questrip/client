@@ -1,14 +1,6 @@
 import { Link } from 'react-router-dom';
 import { PlaceData } from '../types/place';
-import { Navigation } from 'swiper/modules';
-import { Pagination } from 'swiper/modules';
-
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
+import Slider from './Slider';
 
 interface PlaceDataProps {
   placeData: PlaceData;
@@ -21,23 +13,10 @@ const PlaceCard = ({ placeData }: PlaceDataProps) => {
         placeData.data.content.map((place) => (
           <Link to={`/detail/${place.id}`} key={place.id}>
             <div className="rounded-lg shadow-md bg-white my-8 overflow-hidden">
-              <Swiper
-                modules={[Navigation, Pagination]}
-                slidesPerView={1}
-                navigation
-                pagination={{ clickable: true }}
-                loop={place.images.length >= 2}
-              >
-                {place.images.slice(0, 3).map((image) => (
-                  <SwiperSlide key={image.url}>
-                    <img
-                      src={image.url}
-                      className="w-full h-[400px]"
-                      alt="장소 이미지"
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+              <Slider
+                images={place.images}
+                imageClassName="w-full h-[192px] object-cover"
+              />
 
               <div className="flex flex-col p-4 gap-2 cursor-pointer ">
                 <div className="font-semibold">{place.placeName}</div>
