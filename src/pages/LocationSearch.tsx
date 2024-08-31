@@ -1,7 +1,7 @@
-import { ChangeEvent, useRef, useState } from "react";
-import Search from "../components/Search";
-import useAutoComplete from "../hooks/useAutoComplete";
-import { useNavigate } from "react-router-dom";
+import { ChangeEvent, useRef, useState } from 'react';
+import Search from '../components/Search';
+import useAutoComplete from '../hooks/useAutoComplete';
+import { useNavigate } from 'react-router-dom';
 
 const LocationSearch = () => {
   const [showCurrentLocation, setShowCurrentLocation] = useState(true);
@@ -25,7 +25,7 @@ const LocationSearch = () => {
   const onPlaceChanged = (autocomplete: google.maps.places.Autocomplete) => {
     const place = autocomplete.getPlace();
 
-    navigate("/", {
+    navigate('/', {
       state: {
         location: place.geometry?.location?.toJSON(),
       },
@@ -41,7 +41,7 @@ const LocationSearch = () => {
           <Search.Form
             ref={inputRef}
             onChange={handleChange}
-            onReset={() => navigate("/")}
+            onReset={() => navigate(-1)}
           />
           <Search.CurrentLocation show={showCurrentLocation} />
         </>

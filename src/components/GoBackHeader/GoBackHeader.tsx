@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import { FaArrowLeft } from 'react-icons/fa';
 import GoBackHeaderTitle from './GoBackHeaderTitle';
+import LeftArrow from '../ui/icon/LeftArrow';
 
 interface GoBackHeaderProps {
   onBack: () => void;
@@ -20,7 +20,7 @@ const GoBackHeaderImpl = ({
           onBack();
         }}
       >
-        <FaArrowLeft />
+        <LeftArrow />
       </button>
       {children}
     </header>

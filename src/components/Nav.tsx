@@ -43,13 +43,19 @@ const Nav = () => {
       onClick={() => handleNavigation(tab)}
     >
       {activeTab === tab ? ActiveIcon : InactiveIcon}
-      <div>{label}</div>
+      <div
+        className={`${
+          activeTab === tab ? 'text-mainColor' : 'text-mainTextColor'
+        }`}
+      >
+        {label}
+      </div>
     </button>
   );
 
   return (
     <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 bg-white py-5 border-t-[1px] w-[375px] z-50">
-      <div className="flex justify-around text-mainTextColor">
+      <div className="flex justify-around ">
         {renderButton('home', <ActiveHomeIcon />, <HomeIcon />, 'Home')}
         {renderButton(
           'discover',
