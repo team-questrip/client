@@ -26,7 +26,7 @@ const PlaceCard = ({ placeData }: PlaceDataProps) => {
                 slidesPerView={1}
                 navigation
                 pagination={{ clickable: true }}
-                loop={place.images.length > 0}
+                loop={place.images.length >= 2}
               >
                 {place.images.slice(0, 3).map((image) => (
                   <SwiperSlide key={image.url}>
