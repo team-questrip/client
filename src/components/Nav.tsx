@@ -1,7 +1,13 @@
-import { GoHome, GoHomeFill } from 'react-icons/go';
-import { HiUserCircle, HiOutlineUserCircle } from 'react-icons/hi2';
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import ActiveDiscoverIcon from './ui/icon/ActiveDiscoverIcon';
+import DiscoverIcon from './ui/icon/DiscoverIcon';
+import ActiveHomeIcon from './ui/icon/ActiveHomeIcon';
+import HomeIcon from './ui/icon/HomeIcon';
+import ActiveMyPageIcon from './ui/icon/ActiveMyPageIcon';
+import MyPageIcon from './ui/icon/MyPageIcon';
+import ActiveMapIcon from './ui/icon/ActiveMapIcon';
+import MapIcon from './ui/icon/MapIcon';
 
 const Nav = () => {
   const navigate = useNavigate();
@@ -37,19 +43,31 @@ const Nav = () => {
       onClick={() => handleNavigation(tab)}
     >
       {activeTab === tab ? ActiveIcon : InactiveIcon}
-      <div>{label}</div>
+      <div
+        className={`${
+          activeTab === tab ? 'text-mainColor' : 'text-mainTextColor'
+        }`}
+      >
+        {label}
+      </div>
     </button>
   );
 
   return (
     <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 bg-white py-5 border-t-[1px] w-[375px] z-50">
-      <div className="flex justify-around text-mainTextColor">
-        {renderButton('home', <GoHomeFill />, <GoHome />, 'Home')}
-
+      <div className="flex justify-around ">
+        {renderButton('home', <ActiveHomeIcon />, <HomeIcon />, 'Home')}
+        {renderButton(
+          'discover',
+          <ActiveDiscoverIcon />,
+          <DiscoverIcon />,
+          'Discover'
+        )}
+        {renderButton('map', <ActiveMapIcon />, <MapIcon />, 'Map')}
         {renderButton(
           'my-page',
-          <HiUserCircle />,
-          <HiOutlineUserCircle />,
+          <ActiveMyPageIcon />,
+          <MyPageIcon />,
           'My Page'
         )}
       </div>
