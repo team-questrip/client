@@ -3,7 +3,7 @@ import {
   Map,
   MapCameraChangedEvent,
 } from '@vis.gl/react-google-maps';
-import { initAutocomplete } from '../service/map-api-load';
+import { initGoogleLib } from '../service/map-api-load';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
 import Button from '../components/Button';
 import { useEffect, useState } from 'react';
@@ -12,15 +12,12 @@ export default function MapPage() {
   const [init, setInit] = useState(false);
 
   useEffect(() => {
-    initAutocomplete().then(() => setInit(true));
+    initGoogleLib().then(() => setInit(true));
   }, []);
 
   return (
     <div className="w-full h-screen flex items-center">
-      <ErrorBoundary
-        fallbackRender={fallbackRender}
-        onReset={(details) => console.log(details)}
-      >
+      <ErrorBoundary fallbackRender={fallbackRender}>
         <APIProvider apiKey={import.meta.env.VITE_Google_API_KEY}>
           {init && (
             <Map

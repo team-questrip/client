@@ -1,5 +1,5 @@
 import { RefObject, useEffect, useRef } from 'react';
-import { initAutocomplete } from '../service/map-api-load';
+import { initGoogleLib } from '../service/map-api-load';
 import { defaultBounds } from '../common/map';
 
 interface useAutoCompleteParameters {
@@ -17,7 +17,7 @@ export default function useAutoComplete({
 }: useAutoCompleteParameters) {
   const eventId = useRef<google.maps.MapsEventListener>();
   useEffect(() => {
-    initAutocomplete().then(() => {
+    initGoogleLib().then(() => {
       if (inputRef.current) {
         const autocomplete = new google.maps.places.Autocomplete(
           inputRef.current,
