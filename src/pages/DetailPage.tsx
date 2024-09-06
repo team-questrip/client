@@ -1,25 +1,23 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { fetchPlaceDetail } from '../api/place';
 import PlaceDetail from '../components/PlaceDetail';
 import NotFound from './NotFound';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
+import usePlaceDetailQuery from '../queries/usePlaceDetailQuery';
+import useLocalstorageQuery from '@confidential-nt/localstorage-query';
+import { UserCurrentPosition } from '../types/current-position';
 
 const DetailPage = () => {
   const { placeId } = useParams<{ placeId: string }>();
+  const { data: userCurrentPosition } =
+    useLocalstorageQuery<UserCurrentPosition>('currentPosition');
 
   const navigate = useNavigate();
 
-  const {
-    data: detailPlaceData,
-    isLoading: isDetailPlaceLoading,
-    isError: isDetailPlaceError,
-    error: detailPlaceError,
-  } = useQuery({
-    queryKey: ['detailPlace', placeId],
-    queryFn: () => fetchPlaceDetail({ placeId: placeId! }),
-    enabled: !!placeId,
-  });
+  const { detailPlaceData, isDetailPlaceError, isDetailPlaceLoading } =
+    usePlaceDetailQuery({
+      placeId,
+      userCurrentPosition,
+    });
 
   let content;
 
@@ -28,10 +26,6 @@ const DetailPage = () => {
   }
 
   if (isDetailPlaceError) {
-    content = <NotFound />;
-  }
-
-  if (detailPlaceError) {
     content = <NotFound />;
   }
 

@@ -36,7 +36,7 @@ const LocationSearch = () => {
       });
     }
 
-    navigate('/discover-fix', {
+    navigate('/discover', {
       state: {
         userCurrentPosition: {
           latitude: place.geometry?.location?.lat(),

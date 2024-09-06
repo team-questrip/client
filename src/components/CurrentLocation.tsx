@@ -7,7 +7,7 @@ interface CurrentLocationProps {
 const CurrentLocation = ({ show = true }: CurrentLocationProps) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate('/discover-fix', {
+    navigate('/discover', {
       state: {},
     });
   };

@@ -1,3 +1,4 @@
+import { UserCurrentPosition } from '../types/current-position';
 import { PlaceData, PlaceDetailData } from '../types/place';
 import { axiosInstance } from './axiosInstance';
 
@@ -23,11 +24,13 @@ export async function fetchPlaceData(
 
 export async function fetchPlaceDetail({
   placeId,
+  userCurrentPosition,
 }: {
-  placeId: string;
-}): Promise<PlaceDetailData> {
-  const latitude = localStorage.getItem('latitude');
-  const longitude = localStorage.getItem('longitude');
+  placeId?: string;
+  userCurrentPosition?: UserCurrentPosition | null;
+}): Promise<PlaceDetailData | void> {
+  if (!placeId || !userCurrentPosition) return;
+  const { latitude, longitude } = userCurrentPosition;
 
   const response = await axiosInstance.get<PlaceDetailData>(
     `api/v1/place/${placeId}?latitude=${latitude}&longitude=${longitude}`
