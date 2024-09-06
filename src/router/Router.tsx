@@ -14,6 +14,7 @@ import MyPage from '../pages/MyPage';
 import NPSForm from '../pages/NPS';
 import Discover from '../pages/Discover';
 import Map from '../pages/Map';
+import DiscoverFix from '../pages/DiscoverFix';
 
 export default function Router() {
   return (
@@ -27,6 +28,7 @@ export default function Router() {
             <Route path="/my-page" element={<MyPage />} />
             <Route path="/" element={<Home />} />
             <Route path="/discover" element={<Discover />} />
+            <Route path="/discover-fix" element={<DiscoverFix />} />
             <Route path="/map" element={<Map />} />
           </Route>
           <Route path="/detail/:placeId" element={<DetailPage />} />

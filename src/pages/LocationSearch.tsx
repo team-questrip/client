@@ -2,9 +2,13 @@ import { ChangeEvent, useRef, useState } from 'react';
 import Search from '../components/Search';
 import useAutoComplete from '../hooks/useAutoComplete';
 import { useNavigate } from 'react-router-dom';
+import useLocalstorageQuery from '@confidential-nt/localstorage-query';
+import { UserCurrentPosition } from '../types/current-position';
 
 const LocationSearch = () => {
   const [showCurrentLocation, setShowCurrentLocation] = useState(true);
+  const { mutate } =
+    useLocalstorageQuery<UserCurrentPosition>('currentPosition');
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
@@ -25,9 +29,19 @@ const LocationSearch = () => {
   const onPlaceChanged = (autocomplete: google.maps.places.Autocomplete) => {
     const place = autocomplete.getPlace();
 
-    navigate('/', {
+    if (place.geometry?.location) {
+      mutate({
+        latitude: place.geometry.location.lat(),
+        longitude: place.geometry.location.lng(),
+      });
+    }
+
+    navigate('/discover-fix', {
       state: {
-        location: place.geometry?.location?.toJSON(),
+        userCurrentPosition: {
+          latitude: place.geometry?.location?.lat(),
+          longitude: place.geometry?.location?.lng(),
+        },
       },
     });
   };

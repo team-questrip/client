@@ -1,4 +1,4 @@
-const InquireyIcon = () => {
+const InquiryIcon = () => {
   return (
     <svg
       width="24"
@@ -18,4 +18,4 @@ const InquireyIcon = () => {
   );
 };
 
-export default InquireyIcon;
+export default InquiryIcon;

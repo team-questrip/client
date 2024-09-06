@@ -4,7 +4,7 @@ import { fetchPlaceData } from '../api/place';
 import { useLocation, useNavigate } from 'react-router-dom';
 import getAddressData from '../api/address';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
-import InquireyIcon from '../components/ui/icon/InquireyIcon';
+import InquiryIcon from '../components/ui/icon/InquiryIcon';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
 const PlaceCard = lazy(() => import('../components/PlaceCard'));
@@ -115,7 +115,7 @@ const Discover = () => {
           onClick={handleGoToInquiry}
           className="cursor-pointer size-6 ml-auto hover:scale-110 absolute top-1/2 -translate-y-1/2 right-0"
         >
-          <InquireyIcon />
+          <InquiryIcon />
         </button>
       </GoBackHeader>
       <div className="flex"></div>

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 interface CurrentLocationProps {
   show?: boolean;
@@ -7,7 +7,7 @@ interface CurrentLocationProps {
 const CurrentLocation = ({ show = true }: CurrentLocationProps) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/", {
+    navigate('/discover-fix', {
       state: {},
     });
   };
