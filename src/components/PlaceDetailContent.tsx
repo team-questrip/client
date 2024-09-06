@@ -9,7 +9,7 @@ interface PlaceDetailProps {
   detailPlaceData: PlaceDetailData;
 }
 
-const PlaceDetail = ({ detailPlaceData }: PlaceDetailProps) => {
+const PlaceDetailContent = ({ detailPlaceData }: PlaceDetailProps) => {
   const handleGoToPlace = () => {
     const latitude = localStorage.getItem('latitude');
     const longitude = localStorage.getItem('longitude');
@@ -83,4 +83,4 @@ const PlaceDetail = ({ detailPlaceData }: PlaceDetailProps) => {
   );
 };
 
-export default PlaceDetail;
+export default PlaceDetailContent;
