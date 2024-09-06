@@ -6,13 +6,10 @@ import { getUserCurrentPosition } from '../api/address';
 import useLocalstorageQuery from '@confidential-nt/localstorage-query';
 import { UserCurrentPosition } from '../types/current-position';
 import UserAddress from '../components/UserAddress';
+import PlaceCardList from '../components/PlaceCardList';
 
 const DiscoverFix = () => {
   const navigate = useNavigate();
-  // 1. navigator를 통해 유저로부터 위치 정보를 받아온다. -> ls에 저장.
-  // 2. ls에 저장된 정보를 기반으로 주소 정보를 받아온다.
-  // 3. 사용자가 location-search를 통해 위치 정보를 변경한다 -> ls에 저장
-  // 4. ls에 저장된 비뀐 정보를 기반으로 주소 정보를 받아온다.
 
   const { data: userCurrentPosition, mutate } =
     useLocalstorageQuery<UserCurrentPosition>('currentPosition');
@@ -64,8 +61,9 @@ const DiscoverFix = () => {
           Change
         </button>
       </div>
-      {'장소'}
-      {/* <div ref={} className="pb-14" /> */}
+      {userCurrentPosition && (
+        <PlaceCardList userCurrentPosition={userCurrentPosition} />
+      )}
     </div>
   );
 };
