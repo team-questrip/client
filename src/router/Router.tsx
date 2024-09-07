@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Frame from '../components/ui/design/Frame';
-import DetailPage from '../pages/DetailPage';
+import PlaceDetailPage from '../pages/PlaceDetailPage';
 import LocationSearch from '../pages/LocationSearch';
 import Inquiry from '../pages/Inquiry';
 import Survey from '../pages/Survey';
@@ -12,8 +12,8 @@ import NotFound from '../pages/NotFound';
 import Home from '../pages/Home';
 import MyPage from '../pages/MyPage';
 import NPSForm from '../pages/NPS';
-import Discover from '../pages/Discover';
 import Map from '../pages/Map';
+import Discover from '../pages/Discover';
 
 export default function Router() {
   return (
@@ -29,7 +29,7 @@ export default function Router() {
             <Route path="/discover" element={<Discover />} />
             <Route path="/map" element={<Map />} />
           </Route>
-          <Route path="/detail/:placeId" element={<DetailPage />} />
+          <Route path="/detail/:placeId" element={<PlaceDetailPage />} />
           <Route path="/location-search" element={<LocationSearch />} />
           <Route path="/inquiry" element={<Inquiry />} />
           <Route path="/survey" element={<Survey />} />
