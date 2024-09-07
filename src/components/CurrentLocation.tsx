@@ -1,4 +1,7 @@
+import useLocalstorageQuery from '@confidential-nt/localstorage-query';
 import { useNavigate } from 'react-router-dom';
+import { UserCurrentPosition } from '../types/current-position';
+import { getUserCurrentPosition } from '../api/address';
 
 interface CurrentLocationProps {
   show?: boolean;
@@ -6,10 +9,17 @@ interface CurrentLocationProps {
 
 const CurrentLocation = ({ show = true }: CurrentLocationProps) => {
   const navigate = useNavigate();
+  const { mutate } =
+    useLocalstorageQuery<UserCurrentPosition>('currentPosition');
+
   const handleClick = () => {
-    navigate('/discover', {
-      state: {},
+    getUserCurrentPosition().then((position) => {
+      mutate({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
     });
+    navigate('/discover');
   };
 
   return (

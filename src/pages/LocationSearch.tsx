@@ -36,14 +36,7 @@ const LocationSearch = () => {
       });
     }
 
-    navigate('/discover', {
-      state: {
-        userCurrentPosition: {
-          latitude: place.geometry?.location?.lat(),
-          longitude: place.geometry?.location?.lng(),
-        },
-      },
-    });
+    navigate('/discover');
   };
 
   useAutoComplete({ inputRef, onPlaceChanged });

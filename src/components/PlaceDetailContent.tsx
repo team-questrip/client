@@ -4,22 +4,29 @@ import LocationIcon from './ui/icon/LocationIcon';
 import ThumsUpIcon from './ui/icon/ThumsUpIcon';
 import CheckCircleIcon from './ui/icon/CheckCircleIcon';
 import Slider from './Slider';
+import { UserCurrentPosition } from '../types/current-position';
+import useLocalstorageQuery from '@confidential-nt/localstorage-query';
 
 interface PlaceDetailProps {
   detailPlaceData: PlaceDetailData;
 }
 
 const PlaceDetailContent = ({ detailPlaceData }: PlaceDetailProps) => {
+  const { data: userCurrentPosition } =
+    useLocalstorageQuery<UserCurrentPosition>('currentPosition');
+
   const handleGoToPlace = () => {
-    const latitude = localStorage.getItem('latitude');
-    const longitude = localStorage.getItem('longitude');
+    if (userCurrentPosition) {
+      const latitude = userCurrentPosition.latitude;
+      const longitude = userCurrentPosition.longitude;
 
-    const placeLatitude = detailPlaceData.data.place.location.latitude;
-    const placeLongitude = detailPlaceData.data.place.location.longitude;
+      const placeLatitude = detailPlaceData.data.place.location.latitude;
+      const placeLongitude = detailPlaceData.data.place.location.longitude;
 
-    window.open(
-      `https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&destination=${placeLatitude},${placeLongitude}`
-    );
+      window.open(
+        `https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&destination=${placeLatitude},${placeLongitude}`
+      );
+    }
   };
 
   return (

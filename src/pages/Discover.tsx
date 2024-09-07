@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import InquiryIcon from '../components/ui/icon/InquiryIcon';
 import { useEffect } from 'react';
@@ -8,30 +8,26 @@ import { UserCurrentPosition } from '../types/current-position';
 import UserAddress from '../components/UserAddress';
 import PlaceCardList from '../components/PlaceCardList';
 
+let initialRender = true;
+
 const Discover = () => {
   const navigate = useNavigate();
-
+  // todo: error boundary + error handling
   const { data: userCurrentPosition, mutate } =
     useLocalstorageQuery<UserCurrentPosition>('currentPosition');
 
-  const { state } = useLocation();
-
   useEffect(() => {
-    const userCurrentPositionSearchResult = state
-      ? state.userCurrentPosition
-      : null;
+    if (!initialRender) return;
+
+    initialRender = false;
 
     getUserCurrentPosition().then((position) => {
       mutate({
-        latitude: userCurrentPositionSearchResult
-          ? userCurrentPositionSearchResult.latitude
-          : position.coords.latitude,
-        longitude: userCurrentPositionSearchResult
-          ? userCurrentPositionSearchResult.longitude
-          : position.coords.longitude,
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
       });
     });
-  }, [mutate, state]);
+  }, [mutate]);
 
   return (
     <div>
@@ -51,8 +47,10 @@ const Discover = () => {
       <div className="flex"></div>
       <h1 className="font-bold text-3xl mb-10">Questrip</h1>
       <div className="flex justify-between items-center my-5 gap-2 h-12">
-        {userCurrentPosition && (
+        {userCurrentPosition ? (
           <UserAddress userCurrentPosition={userCurrentPosition} />
+        ) : (
+          <p>Loading......</p> // todo: ssr
         )}
         <button
           className=" bg-secondaryText text-white rounded-full text-center p-2 px-3 cursor-pointer hover:scale-105"
