@@ -20,8 +20,8 @@ const CurrentLocation = ({ show = true }: CurrentLocationProps) => {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
       });
+      navigate('/discover');
     });
-    navigate('/discover');
   };
 
   return (
