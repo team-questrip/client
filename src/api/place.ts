@@ -2,7 +2,7 @@ import { UserCurrentPosition } from '../types/current-position';
 import { PlaceData, PlaceDetailData } from '../types/place';
 import { axiosInstance } from './axiosInstance';
 
-export async function fetchPlaceData(
+export async function fetchPlaceDataByPage(
   pageParam: number,
   latitude: number,
   longitude: number
@@ -20,6 +20,14 @@ export async function fetchPlaceData(
   } else {
     throw new Error('Unexpected response status');
   }
+}
+
+export async function fetchPlaces(latitude: number, longitude: number) {
+  const response = await axiosInstance.get<PlaceData>(
+    `api/v1/place?latitude=${latitude}&longitude=${longitude}&page=0&size=10`
+  );
+
+  return response.data.data.content;
 }
 
 export async function fetchPlaceDetail({
