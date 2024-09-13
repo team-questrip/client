@@ -6,12 +6,18 @@ import CheckCircleIcon from './ui/icon/CheckCircleIcon';
 import Slider from './Slider';
 import { UserCurrentPosition } from '../types/current-position';
 import useLocalstorageQuery from '@confidential-nt/localstorage-query';
+import VideoContent from './VideoContent';
+import { isVideo as isVideoContent } from '../utils/video';
 
-interface PlaceDetailProps {
+interface PlaceDetailContentProps {
   detailPlaceData: PlaceDetailData;
 }
 
-const PlaceDetailContent = ({ detailPlaceData }: PlaceDetailProps) => {
+const PlaceDetailContent = ({
+  detailPlaceData: { data },
+}: PlaceDetailContentProps) => {
+  const isVideo = isVideoContent(data.place.images);
+
   const { data: userCurrentPosition } =
     useLocalstorageQuery<UserCurrentPosition>('currentPosition');
 
@@ -20,8 +26,8 @@ const PlaceDetailContent = ({ detailPlaceData }: PlaceDetailProps) => {
       const latitude = userCurrentPosition.latitude;
       const longitude = userCurrentPosition.longitude;
 
-      const placeLatitude = detailPlaceData.data.place.location.latitude;
-      const placeLongitude = detailPlaceData.data.place.location.longitude;
+      const placeLatitude = data.place.location.latitude;
+      const placeLongitude = data.place.location.longitude;
 
       window.open(
         `https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&destination=${placeLatitude},${placeLongitude}`
@@ -32,17 +38,24 @@ const PlaceDetailContent = ({ detailPlaceData }: PlaceDetailProps) => {
   return (
     <div className="flex flex-col gap-4">
       <div>
-        <Slider
-          images={detailPlaceData.data.place.images}
-          imageClassName="w-[343px] h-[192px] object-cover"
-        />
+        {isVideo ? (
+          <VideoContent
+            videos={data.place.images}
+            className="w-[343px] h-[192px] object-cover"
+          />
+        ) : (
+          <Slider
+            images={data.place.images}
+            imageClassName="w-[343px] h-[192px] object-cover"
+          />
+        )}
       </div>
       <div className="flex justify-between text-lg font-bold items-center">
         <div className="text-wrap whitespace-normal w-2/3">
-          {detailPlaceData.data.place.placeName}
+          {data.place.placeName}
         </div>
         <div className="">
-          <OpenNow openNow={detailPlaceData.data.place.openNow} />
+          <OpenNow openNow={data.place.openNow} />
         </div>
       </div>
 
@@ -52,8 +65,8 @@ const PlaceDetailContent = ({ detailPlaceData }: PlaceDetailProps) => {
         </div>
         <div className="flex flex-col">
           <div className="text-sm text-wrap w-full whitespace-normal">
-            {detailPlaceData.data.directionSummary.distance} | {''}
-            {detailPlaceData.data.directionSummary.duration}
+            {data.directionSummary.distance} | {''}
+            {data.directionSummary.duration}
           </div>
         </div>
       </div>
@@ -64,7 +77,7 @@ const PlaceDetailContent = ({ detailPlaceData }: PlaceDetailProps) => {
         </div>
         <div className="flex flex-col">
           <div className="text-sm text-wrap w-full whitespace-normal">
-            {detailPlaceData.data.place.content.recommendationReason}
+            {data.place.content.recommendationReason}
           </div>
         </div>
       </div>
@@ -74,9 +87,7 @@ const PlaceDetailContent = ({ detailPlaceData }: PlaceDetailProps) => {
           <CheckCircleIcon />
         </div>
         <div>
-          <div className="text-sm">
-            {detailPlaceData.data.place.content.activity}
-          </div>
+          <div className="text-sm">{data.place.content.activity}</div>
         </div>
       </div>
 

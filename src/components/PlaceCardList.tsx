@@ -1,5 +1,4 @@
 import { UserCurrentPosition } from '../types/current-position';
-import { Suspense } from 'react';
 import PlaceCard from './PlaceCard';
 import usePlaceInfiniteQuery from '../queries/usePlaceInfiniteQuery';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
@@ -19,15 +18,13 @@ const PlaceCardList = ({ userCurrentPosition }: PlaceCardListProps) => {
 
   return (
     <>
-      {placeData &&
-        placeData.pages.map((page) => (
-          <Suspense
-            key={page.data.content[0].id}
-            fallback={<div>Loading...</div>}
-          >
-            <PlaceCard placeData={page} />
-          </Suspense>
-        ))}
+      {placeData ? (
+        placeData.pages
+          .flatMap((page) => page.data.content)
+          .map((content) => <PlaceCard content={content} key={content.id} />)
+      ) : (
+        <div>No places found</div>
+      )}
       <div ref={setTarget} className="pb-14" />
     </>
   );
