@@ -1,38 +1,42 @@
 import { Link } from 'react-router-dom';
-import { PlaceData } from '../types/place';
+import { Place } from '../types/place';
 import Slider from './Slider';
+import VideoContent from './VideoContent';
+import { isVideo as isVideoContent } from '../utils/video';
 
-interface PlaceDataProps {
-  placeData: PlaceData;
+interface PlaceCardProps {
+  content: Place;
 }
 
-const PlaceCard = ({ placeData }: PlaceDataProps) => {
+const PlaceCard = ({ content }: PlaceCardProps) => {
+  const isVideo = isVideoContent(content.images);
+
   return (
     <div className="text-lg ">
-      {placeData && placeData.data.content.length > 0 ? (
-        placeData.data.content.map((place) => (
-          <Link to={`/detail/${place.id}`} key={place.id}>
-            <div className="rounded-lg shadow-md bg-white my-8 overflow-hidden">
-              <Slider
-                images={place.images}
-                imageClassName="w-full h-[192px] object-cover"
-              />
-
-              <div className="flex flex-col p-4 gap-2 cursor-pointer ">
-                <div className="font-semibold">{place.placeName}</div>
-                <div className="text-mainTextColor text-sm flex flex-col gap-1">
-                  <div>{place.content.recommendationReason}</div>
-                  <div className="text-secondaryText">
-                    Distance: {place.distance.toFixed(1)}km
-                  </div>
-                </div>
+      <Link to={`/detail/${content.id}`} key={content.id}>
+        <div className="rounded-lg shadow-md bg-white my-8 overflow-hidden">
+          {isVideo ? (
+            <VideoContent
+              videos={content.images}
+              className={'w-full h-[192px] object-cover'}
+            />
+          ) : (
+            <Slider
+              images={content.images}
+              imageClassName="w-full h-[192px] object-cover"
+            />
+          )}
+          <div className="flex flex-col p-4 gap-2 cursor-pointer ">
+            <div className="font-semibold">{content.placeName}</div>
+            <div className="text-mainTextColor text-sm flex flex-col gap-1">
+              <div>{content.content.recommendationReason}</div>
+              <div className="text-secondaryText">
+                Distance: {content.distance.toFixed(1)}km
               </div>
             </div>
-          </Link>
-        ))
-      ) : (
-        <div>No places found</div>
-      )}
+          </div>
+        </div>
+      </Link>
     </div>
   );
 };
