@@ -4,6 +4,8 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios';
 import { APIErrorResponse } from '../types/api';
+import { AuthenticationResponseData } from '../types/user';
+import { storeAuthenticationResponseDataToLocalStorage } from '../utils/user';
 
 export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
@@ -44,11 +46,11 @@ axiosInstance.interceptors.response.use(
       const refreshToken = localStorage.getItem('refreshToken');
 
       try {
-        const { data } = await axios.post('api/v1/user/reissue', {
+        const { data } = (await axios.post('api/v1/user/reissue', {
           token: refreshToken,
-        });
+        })) as { data: AuthenticationResponseData };
 
-        localStorage.setItem('accessToken', data.accessToken);
+        storeAuthenticationResponseDataToLocalStorage(data);
 
         originalRequest.headers['Authorization'] = `Bearer ${data.accessToken}`;
         return axiosInstance<unknown, AxiosResponse<unknown, unknown>, unknown>(

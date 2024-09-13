@@ -14,13 +14,14 @@ const Discover = () => {
   const navigate = useNavigate();
   // todo: error boundary + error handling
   const { data: userCurrentPosition, mutate } =
-    useLocalstorageQuery<UserCurrentPosition>('currentPosition');
+    useLocalstorageQuery<UserCurrentPosition | null>('currentPosition');
 
   useEffect(() => {
     if (!initialRender) return;
 
     initialRender = false;
 
+    mutate(null);
     getUserCurrentPosition().then((position) => {
       mutate({
         latitude: position.coords.latitude,

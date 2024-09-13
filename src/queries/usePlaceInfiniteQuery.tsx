@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { fetchPlaceData } from '../api/place';
+import { fetchPlaceDataByPage } from '../api/place';
 import { UserCurrentPosition } from '../types/current-position';
 
 const usePlaceInfiniteQuery = ({
@@ -13,7 +13,8 @@ const usePlaceInfiniteQuery = ({
   } = useInfiniteQuery({
     staleTime: 1000 * 120,
     queryKey: ['place', latitude, longitude],
-    queryFn: ({ pageParam }) => fetchPlaceData(pageParam, latitude, longitude),
+    queryFn: ({ pageParam }) =>
+      fetchPlaceDataByPage(pageParam, latitude, longitude),
     // enabled: !!user,
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {

@@ -1,8 +1,9 @@
 let loadLibary = false;
 
-export async function initAutocomplete() {
+export async function initGoogleLib() {
   if (!loadLibary) {
-    await google.maps.importLibrary("places");
+    await google.maps.importLibrary('places');
+
     loadLibary = true;
   }
 }

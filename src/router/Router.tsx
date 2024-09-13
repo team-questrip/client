@@ -12,8 +12,8 @@ import NotFound from '../pages/NotFound';
 import Home from '../pages/Home';
 import MyPage from '../pages/MyPage';
 import NPSForm from '../pages/NPS';
-import Map from '../pages/Map';
 import Discover from '../pages/Discover';
+import MapPage from '../pages/MapPage';
 
 export default function Router() {
   return (
@@ -27,7 +27,7 @@ export default function Router() {
             <Route path="/my-page" element={<MyPage />} />
             <Route path="/" element={<Home />} />
             <Route path="/discover" element={<Discover />} />
-            <Route path="/map" element={<Map />} />
+            <Route path="/map" element={<MapPage />} />
           </Route>
           <Route path="/detail/:placeId" element={<PlaceDetailPage />} />
           <Route path="/location-search" element={<LocationSearch />} />

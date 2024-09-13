@@ -9,17 +9,19 @@ interface CurrentLocationProps {
 
 const CurrentLocation = ({ show = true }: CurrentLocationProps) => {
   const navigate = useNavigate();
-  const { mutate } =
-    useLocalstorageQuery<UserCurrentPosition>('currentPosition');
+  const { mutate } = useLocalstorageQuery<UserCurrentPosition | null>(
+    'currentPosition'
+  );
 
   const handleClick = () => {
+    mutate(null);
     getUserCurrentPosition().then((position) => {
       mutate({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
       });
+      navigate('/discover');
     });
-    navigate('/discover');
   };
 
   return (

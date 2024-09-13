@@ -1,6 +1,6 @@
-import { RefObject, useEffect, useRef } from "react";
-import { initAutocomplete } from "../service/map-api-load";
-import { defaultBounds } from "../common/map";
+import { RefObject, useEffect, useRef } from 'react';
+import { initGoogleLib } from '../service/map-api-load';
+import { defaultBounds } from '../common/map';
 
 interface useAutoCompleteParameters {
   inputRef: RefObject<HTMLInputElement>;
@@ -11,26 +11,26 @@ interface useAutoCompleteParameters {
 
 export default function useAutoComplete({
   inputRef,
-  fields = ["geometry"],
-  types = ["geocode"],
+  fields = ['geometry'],
+  types = ['geocode'],
   onPlaceChanged,
 }: useAutoCompleteParameters) {
   const eventId = useRef<google.maps.MapsEventListener>();
   useEffect(() => {
-    initAutocomplete().then(() => {
+    initGoogleLib().then(() => {
       if (inputRef.current) {
         const autocomplete = new google.maps.places.Autocomplete(
           inputRef.current,
           {
             bounds: defaultBounds,
-            componentRestrictions: { country: "kr" },
+            componentRestrictions: { country: 'kr' },
             fields,
             strictBounds: false,
             types,
           }
         );
 
-        eventId.current = autocomplete.addListener("place_changed", () =>
+        eventId.current = autocomplete.addListener('place_changed', () =>
           onPlaceChanged(autocomplete)
         );
       }
