@@ -1,20 +1,30 @@
 import { Link, useNavigate } from 'react-router-dom';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import InquiryIcon from '../components/ui/icon/InquiryIcon';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getUserCurrentPosition } from '../api/address';
 import useLocalstorageQuery from '@confidential-nt/localstorage-query';
 import { UserCurrentPosition } from '../types/current-position';
 import UserAddress from '../components/UserAddress';
 import PlaceCardList from '../components/PlaceCardList';
+import CategoryGroupTabs from '../components/CategoryGroupTabs';
+import useCategories from '../queries/useCategories';
 
 let initialRender = true;
 
 const Discover = () => {
   const navigate = useNavigate();
+
+  const { categoriesData } = useCategories();
   // todo: error boundary + error handling
   const { data: userCurrentPosition, mutate } =
     useLocalstorageQuery<UserCurrentPosition | null>('currentPosition');
+
+  const [selectedTab, setSelectedTab] = useState('0');
+
+  const onCategoryChange = useCallback((tab: string) => {
+    setSelectedTab(tab);
+  }, []);
 
   useEffect(() => {
     if (!initialRender) return;
@@ -45,7 +55,6 @@ const Discover = () => {
           <InquiryIcon />
         </Link>
       </GoBackHeader>
-      <div className="flex"></div>
       <h1 className="font-bold text-3xl mb-10">Questrip</h1>
       <div className="flex justify-between items-center my-5 gap-2 h-12">
         {userCurrentPosition ? (
@@ -60,8 +69,17 @@ const Discover = () => {
           Change
         </button>
       </div>
-      {userCurrentPosition && (
-        <PlaceCardList userCurrentPosition={userCurrentPosition} />
+      <CategoryGroupTabs
+        onCategoryChange={onCategoryChange}
+        activeKey={selectedTab}
+      />
+      {userCurrentPosition && categoriesData && (
+        <PlaceCardList
+          userCurrentPosition={userCurrentPosition}
+          selectedCategory={
+            categoriesData.groupList[Number(selectedTab) - 1]?.enumName
+          }
+        />
       )}
     </div>
   );

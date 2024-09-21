@@ -5,11 +5,19 @@ import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
 interface PlaceCardListProps {
   userCurrentPosition: UserCurrentPosition;
+  selectedCategory?: string | null;
 }
 
-const PlaceCardList = ({ userCurrentPosition }: PlaceCardListProps) => {
-  const { placeData, fetchNextPage, hasNextPage } =
-    usePlaceInfiniteQuery(userCurrentPosition);
+const PlaceCardList = ({
+  userCurrentPosition: { latitude, longitude },
+  selectedCategory,
+}: PlaceCardListProps) => {
+  const { placeData, isPlaceDataLoading, fetchNextPage, hasNextPage } =
+    usePlaceInfiniteQuery({
+      latitude: latitude,
+      longitude: longitude,
+      category: selectedCategory,
+    });
 
   const { setTarget } = useIntersectionObserver({
     hasNextPage,
@@ -18,13 +26,15 @@ const PlaceCardList = ({ userCurrentPosition }: PlaceCardListProps) => {
 
   return (
     <>
-      {placeData ? (
+      {isPlaceDataLoading && <p>loading...</p>}
+      {placeData &&
+        placeData.pages.flatMap((page) => page.data.content).length === 0 && (
+          <div className="mt-8">No places found</div>
+        )}
+      {placeData &&
         placeData.pages
           .flatMap((page) => page.data.content)
-          .map((content) => <PlaceCard content={content} key={content.id} />)
-      ) : (
-        <div>No places found</div>
-      )}
+          .map((content) => <PlaceCard content={content} key={content.id} />)}
       <div ref={setTarget} className="pb-14" />
     </>
   );
