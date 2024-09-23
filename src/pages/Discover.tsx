@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import InquiryIcon from '../components/ui/icon/InquiryIcon';
 import { useCallback, useEffect, useState } from 'react';
@@ -8,19 +8,29 @@ import { UserCurrentPosition } from '../types/current-position';
 import UserAddress from '../components/UserAddress';
 import PlaceCardList from '../components/PlaceCardList';
 import CategoryGroupTabs from '../components/CategoryGroupTabs';
-import useCategories from '../queries/useCategories';
+
+import { CATEGORIES_DATA } from '../common/category';
 
 let initialRender = true;
 
 const Discover = () => {
   const navigate = useNavigate();
 
-  const { categoriesData } = useCategories();
   // todo: error boundary + error handling
   const { data: userCurrentPosition, mutate } =
     useLocalstorageQuery<UserCurrentPosition | null>('currentPosition');
 
-  const [selectedTab, setSelectedTab] = useState('0');
+  const [searchParam] = useSearchParams();
+  const initialCategory = searchParam.get('category');
+  const initialTab = initialCategory
+    ? String(
+        CATEGORIES_DATA.groupList.findIndex(
+          (g) => g.enumName === initialCategory
+        ) + 1
+      )
+    : '0'; // todo: initialTab에 맞게 스크롤까지
+
+  const [selectedTab, setSelectedTab] = useState(initialTab);
 
   const onCategoryChange = useCallback((tab: string) => {
     setSelectedTab(tab);
@@ -73,11 +83,13 @@ const Discover = () => {
         onCategoryChange={onCategoryChange}
         activeKey={selectedTab}
       />
-      {userCurrentPosition && categoriesData && (
+      {!userCurrentPosition ? (
+        <p className="mt-5">loading...</p>
+      ) : (
         <PlaceCardList
           userCurrentPosition={userCurrentPosition}
           selectedCategory={
-            categoriesData.groupList[Number(selectedTab) - 1]?.enumName
+            CATEGORIES_DATA.groupList[Number(selectedTab) - 1]?.enumName
           }
         />
       )}

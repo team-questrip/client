@@ -1,14 +1,8 @@
 import { Link } from 'react-router-dom';
 import HomeCard from '../components/HomeCard';
-import useCategories from '../queries/useCategories';
+import { CATEGORIES_DATA } from '../common/category';
 
 function Home() {
-  const handleClick = () => {
-    console.log('Button Clicked!');
-  };
-
-  const { categoriesData, isCategoriesDataLoading } = useCategories();
-
   return (
     <>
       <header className="flex justify-center h-12">
@@ -16,16 +10,15 @@ function Home() {
           <img src="/img/logo-horizontal.png" className="h-8" />
         </Link>
       </header>
-      {isCategoriesDataLoading && <p>Loading...</p>}
-
       <div className="w-full p-4 flex-col grid grid-cols-2 gap-3">
-        {categoriesData &&
-          categoriesData.groupList.map((group) => (
+        {CATEGORIES_DATA &&
+          CATEGORIES_DATA.groupList.map((group) => (
             <HomeCard
               img={`/icons/${group.enumName.toLowerCase()}.png`}
               category={group.groupName}
+              key={group.enumName}
+              categoryEnumName={group.enumName}
               cnt={group.placeCounts}
-              onClick={handleClick}
             />
           ))}
       </div>

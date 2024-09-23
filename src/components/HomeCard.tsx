@@ -1,13 +1,26 @@
+import { Link } from 'react-router-dom';
+
 interface HomeCardProps {
   img: string;
   category: string;
+  categoryEnumName: string;
   cnt: number;
   onClick?: () => void;
 }
 
-const HomeCard = ({ img, category, cnt, onClick }: HomeCardProps) => {
+const HomeCard = ({
+  img,
+  category,
+  categoryEnumName,
+  cnt,
+  onClick,
+}: HomeCardProps) => {
   return (
-    <div onClick={onClick} className="cursor-pointer">
+    <Link
+      to={`/discover?category=${categoryEnumName}`}
+      onClick={onClick}
+      className="cursor-pointer"
+    >
       <div className="w-full h-40 p-4 bg-white rounded-2xl border flex-col justify-start items-start gap-3 inline-flex">
         <div className="h-12 flex-col justify-start items-start flex">
           <div className="w-12 h-12 relative">
@@ -24,7 +37,7 @@ const HomeCard = ({ img, category, cnt, onClick }: HomeCardProps) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

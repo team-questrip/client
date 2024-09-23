@@ -18,7 +18,7 @@ const PlaceCardList = ({
       longitude: longitude,
       category: selectedCategory,
     });
-
+  // 다른 카테고리일땐 어떻게 동작하는지 몰라서 filter 거는거 대신 카테고리 마다 새 데이터 받도록 해놓음.. -> 뭔가 테스트할 방법이 필요.
   const { setTarget } = useIntersectionObserver({
     hasNextPage,
     fetchNextPage,
@@ -26,7 +26,7 @@ const PlaceCardList = ({
 
   return (
     <>
-      {isPlaceDataLoading && <p>loading...</p>}
+      {isPlaceDataLoading && <p className="mt-5">loading...</p>}
       {placeData &&
         placeData.pages.flatMap((page) => page.data.content).length === 0 && (
           <div className="mt-8">No places found</div>
