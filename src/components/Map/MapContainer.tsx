@@ -8,6 +8,9 @@ import Drawer from '../ui/Drawer';
 import MapBottomSheet from '../MapBottomSheet';
 import Button from '../Button';
 import { useToast } from '../../hooks/useContexts';
+import MapCategoryGroupTabs from '../MapCategoryGroupTabs';
+import useCategory from '../../hooks/useCategory';
+import { CATEGORIES_DATA } from '../../common/category';
 
 interface MapContainerProps {
   userCurrentPosition: UserCurrentPosition;
@@ -16,8 +19,12 @@ interface MapContainerProps {
 const MapContainer = ({ userCurrentPosition }: MapContainerProps) => {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>();
 
-  const { placeData, fetchNextPage, hasNextPage } =
-    usePlaceInfiniteQuery(userCurrentPosition);
+  const { selectedTab, onCategoryChange } = useCategory('0');
+
+  const { placeData, fetchNextPage, hasNextPage } = usePlaceInfiniteQuery({
+    ...userCurrentPosition,
+    category: CATEGORIES_DATA.groupList[Number(selectedTab)].enumName,
+  });
 
   const onClickMarker = (place: Place) => {
     setSelectedPlace(place);
@@ -67,6 +74,10 @@ const MapContainer = ({ userCurrentPosition }: MapContainerProps) => {
             );
           }
         }}
+      />
+      <MapCategoryGroupTabs
+        activeKey={selectedTab}
+        onCategoryChange={onCategoryChange}
       />
     </section>
   );

@@ -1,7 +1,7 @@
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import InquiryIcon from '../components/ui/icon/InquiryIcon';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { getUserCurrentPosition } from '../api/address';
 import useLocalstorageQuery from '@confidential-nt/localstorage-query';
 import { UserCurrentPosition } from '../types/current-position';
@@ -10,6 +10,7 @@ import PlaceCardList from '../components/PlaceCardList';
 import CategoryGroupTabs from '../components/CategoryGroupTabs';
 
 import { CATEGORIES_DATA } from '../common/category';
+import useCategory from '../hooks/useCategory';
 
 let initialRender = true;
 
@@ -26,15 +27,11 @@ const Discover = () => {
     ? String(
         CATEGORIES_DATA.groupList.findIndex(
           (g) => g.enumName === initialCategory
-        ) + 1
+        )
       )
     : '0'; // todo: initialTab에 맞게 스크롤까지
 
-  const [selectedTab, setSelectedTab] = useState(initialTab);
-
-  const onCategoryChange = useCallback((tab: string) => {
-    setSelectedTab(tab);
-  }, []);
+  const { selectedTab, onCategoryChange } = useCategory(initialTab);
 
   useEffect(() => {
     if (!initialRender) return;
@@ -89,7 +86,7 @@ const Discover = () => {
         <PlaceCardList
           userCurrentPosition={userCurrentPosition}
           selectedCategory={
-            CATEGORIES_DATA.groupList[Number(selectedTab) - 1]?.enumName
+            CATEGORIES_DATA.groupList[Number(selectedTab)]?.enumName
           }
         />
       )}
