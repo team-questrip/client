@@ -43,13 +43,15 @@ const Discover = () => {
 
     initialRender = false;
 
-    getUserCurrentPosition().then((position) => {
-      mutate({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
+    if (userCurrentPosition === null) {
+      getUserCurrentPosition().then((position) => {
+        mutate({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
       });
-    });
-  }, [mutate]);
+    }
+  }, [mutate, userCurrentPosition]);
 
   return (
     <div>

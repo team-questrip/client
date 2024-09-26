@@ -5,6 +5,7 @@ import Button from '../components/ui/Button';
 import { useEffect, useState } from 'react';
 import MapContainer from '../components/Map/MapContainer';
 import { useUserCurrentPositionStore } from '../store/userCurrentPosition';
+import { getUserCurrentPosition } from '../api/address';
 
 export default function MapPage() {
   const [init, setInit] = useState(false);
@@ -13,9 +14,24 @@ export default function MapPage() {
     (state) => state.userCurrentPosition
   );
 
+  const mutate = useUserCurrentPositionStore(
+    (state) => state.updateUserCurrentPosition
+  );
+
   useEffect(() => {
     initGoogleLib().then(() => setInit(true));
   }, []);
+
+  useEffect(() => {
+    if (userCurrentPosition === null) {
+      getUserCurrentPosition().then((position) => {
+        mutate({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      });
+    }
+  }, [mutate, userCurrentPosition]);
 
   return (
     <div className="w-full h-screen flex items-center">
