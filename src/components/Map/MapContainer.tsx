@@ -10,7 +10,7 @@ import Button from '../Button';
 import { useToast } from '../../hooks/useContexts';
 import MapCategoryGroupTabs from '../MapCategoryGroupTabs';
 import useCategory from '../../hooks/useCategory';
-import { CATEGORIES_DATA } from '../../common/category';
+import useCategoryQuery from '../../queries/useCategoryQuery';
 
 interface MapContainerProps {
   userCurrentPosition: UserCurrentPosition;
@@ -21,9 +21,11 @@ const MapContainer = ({ userCurrentPosition }: MapContainerProps) => {
 
   const { selectedTab, onCategoryChange } = useCategory('0');
 
+  const { categoryData } = useCategoryQuery();
+
   const { placeData, fetchNextPage, hasNextPage } = usePlaceInfiniteQuery({
     ...userCurrentPosition,
-    category: CATEGORIES_DATA.groupList[Number(selectedTab)].enumName,
+    category: categoryData?.groupList[Number(selectedTab)].enumName,
   });
 
   const onClickMarker = (place: Place) => {

@@ -8,9 +8,8 @@ import { UserCurrentPosition } from '../types/current-position';
 import UserAddress from '../components/UserAddress';
 import PlaceCardList from '../components/PlaceCardList';
 import CategoryGroupTabs from '../components/CategoryGroupTabs';
-
-import { CATEGORIES_DATA } from '../common/category';
 import useCategory from '../hooks/useCategory';
+import useCategoryQuery from '../queries/useCategoryQuery';
 
 let initialRender = true;
 
@@ -21,15 +20,18 @@ const Discover = () => {
   const { data: userCurrentPosition, mutate } =
     useLocalstorageQuery<UserCurrentPosition | null>('currentPosition');
 
+  const { categoryData } = useCategoryQuery();
+
   const [searchParam] = useSearchParams();
   const initialCategory = searchParam.get('category');
-  const initialTab = initialCategory
-    ? String(
-        CATEGORIES_DATA.groupList.findIndex(
-          (g) => g.enumName === initialCategory
+  const initialTab =
+    initialCategory && categoryData
+      ? String(
+          categoryData.groupList.findIndex(
+            (g) => g.enumName === initialCategory
+          )
         )
-      )
-    : '0'; // todo: initialTab에 맞게 스크롤까지
+      : '0'; // todo: initialTab에 맞게 스크롤까지
 
   const { selectedTab, onCategoryChange } = useCategory(initialTab);
 
@@ -80,13 +82,13 @@ const Discover = () => {
         onCategoryChange={onCategoryChange}
         activeKey={selectedTab}
       />
-      {!userCurrentPosition ? (
+      {!userCurrentPosition || !categoryData ? (
         <p className="mt-5">loading...</p>
       ) : (
         <PlaceCardList
           userCurrentPosition={userCurrentPosition}
           selectedCategory={
-            CATEGORIES_DATA.groupList[Number(selectedTab)]?.enumName
+            categoryData.groupList[Number(selectedTab)]?.enumName
           }
         />
       )}
