@@ -2,19 +2,25 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { fetchPlaceDataByPage } from '../api/place';
 import { UserCurrentPosition } from '../types/current-position';
 
+type PlaceInfiniteQueryProps = UserCurrentPosition & {
+  category?: string | null;
+};
+
 const usePlaceInfiniteQuery = ({
   latitude,
   longitude,
-}: UserCurrentPosition) => {
+  category,
+}: PlaceInfiniteQueryProps) => {
   const {
     data: placeData,
     fetchNextPage,
     hasNextPage,
+    isLoading: isPlaceDataLoading,
   } = useInfiniteQuery({
     staleTime: 1000 * 120,
-    queryKey: ['place', latitude, longitude],
+    queryKey: ['place', latitude, longitude, category],
     queryFn: ({ pageParam }) =>
-      fetchPlaceDataByPage(pageParam, latitude, longitude),
+      fetchPlaceDataByPage(pageParam, latitude, longitude, category),
     // enabled: !!user,
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {
@@ -26,6 +32,7 @@ const usePlaceInfiniteQuery = ({
     placeData,
     fetchNextPage,
     hasNextPage,
+    isPlaceDataLoading,
   };
 };
 

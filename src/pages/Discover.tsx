@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import InquiryIcon from '../components/ui/icon/InquiryIcon';
 import { useEffect } from 'react';
@@ -7,14 +7,31 @@ import useLocalstorageQuery from '@confidential-nt/localstorage-query';
 import { UserCurrentPosition } from '../types/current-position';
 import UserAddress from '../components/UserAddress';
 import PlaceCardList from '../components/PlaceCardList';
+import CategoryGroupTabs from '../components/CategoryGroupTabs';
+
+import { CATEGORIES_DATA } from '../common/category';
+import useCategory from '../hooks/useCategory';
 
 let initialRender = true;
 
 const Discover = () => {
   const navigate = useNavigate();
+
   // todo: error boundary + error handling
   const { data: userCurrentPosition, mutate } =
     useLocalstorageQuery<UserCurrentPosition | null>('currentPosition');
+
+  const [searchParam] = useSearchParams();
+  const initialCategory = searchParam.get('category');
+  const initialTab = initialCategory
+    ? String(
+        CATEGORIES_DATA.groupList.findIndex(
+          (g) => g.enumName === initialCategory
+        )
+      )
+    : '0'; // todo: initialTab에 맞게 스크롤까지
+
+  const { selectedTab, onCategoryChange } = useCategory(initialTab);
 
   useEffect(() => {
     if (!initialRender) return;
@@ -45,7 +62,6 @@ const Discover = () => {
           <InquiryIcon />
         </Link>
       </GoBackHeader>
-      <div className="flex"></div>
       <h1 className="font-bold text-3xl mb-10">Questrip</h1>
       <div className="flex justify-between items-center my-5 gap-2 h-12">
         {userCurrentPosition ? (
@@ -60,8 +76,19 @@ const Discover = () => {
           Change
         </button>
       </div>
-      {userCurrentPosition && (
-        <PlaceCardList userCurrentPosition={userCurrentPosition} />
+      <CategoryGroupTabs
+        onCategoryChange={onCategoryChange}
+        activeKey={selectedTab}
+      />
+      {!userCurrentPosition ? (
+        <p className="mt-5">loading...</p>
+      ) : (
+        <PlaceCardList
+          userCurrentPosition={userCurrentPosition}
+          selectedCategory={
+            CATEGORIES_DATA.groupList[Number(selectedTab)]?.enumName
+          }
+        />
       )}
     </div>
   );

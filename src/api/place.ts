@@ -5,14 +5,17 @@ import { axiosInstance } from './axiosInstance';
 export async function fetchPlaceDataByPage(
   pageParam: number,
   latitude: number,
-  longitude: number
+  longitude: number,
+  category?: string | null
 ): Promise<PlaceData> {
   if (latitude === null || longitude === null) {
     throw new Error('위치 정보가 없습니다.');
   }
 
   const response = await axiosInstance.get<PlaceData>(
-    `api/v1/place?latitude=${latitude}&longitude=${longitude}&page=${pageParam}&size=10`
+    `api/v1/place?latitude=${latitude}&longitude=${longitude}&page=${pageParam}&size=10&category=${
+      category ? category : ''
+    }`
   );
 
   if (response.status === 200) {

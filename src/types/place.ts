@@ -31,6 +31,8 @@ export interface Place {
   openingHours: string[];
   openNow: string;
   distance: number;
+  categoryGroup: string;
+  category: string;
 }
 
 export interface Address {
