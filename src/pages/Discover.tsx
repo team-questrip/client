@@ -3,13 +3,12 @@ import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import InquiryIcon from '../components/ui/icon/InquiryIcon';
 import { useEffect } from 'react';
 import { getUserCurrentPosition } from '../api/address';
-import useLocalstorageQuery from '@confidential-nt/localstorage-query';
-import { UserCurrentPosition } from '../types/current-position';
 import UserAddress from '../components/UserAddress';
 import PlaceCardList from '../components/Place/PlaceCardList';
 import CategoryGroupTabs from '../components/CategoryGroupTabs';
 import useCategories from '../hooks/useCategory';
 import useCategoriesQuery from '../queries/useCategoryQuery';
+import { useUserCurrentPositionStore } from '../store/userCurrentPosition';
 
 let initialRender = true;
 
@@ -17,8 +16,12 @@ const Discover = () => {
   const navigate = useNavigate();
 
   // todo: error boundary + error handling
-  const { data: userCurrentPosition, mutate } =
-    useLocalstorageQuery<UserCurrentPosition | null>('currentPosition');
+  const userCurrentPosition = useUserCurrentPositionStore(
+    (state) => state.userCurrentPosition
+  );
+  const mutate = useUserCurrentPositionStore(
+    (state) => state.updateUserCurrentPosition
+  );
 
   const { categoryData } = useCategoriesQuery();
 
@@ -40,7 +43,6 @@ const Discover = () => {
 
     initialRender = false;
 
-    mutate(null);
     getUserCurrentPosition().then((position) => {
       mutate({
         latitude: position.coords.latitude,

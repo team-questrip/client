@@ -3,13 +3,13 @@ import PlaceDetailContent from '../components/Place/PlaceDetailContent';
 import NotFound from './NotFound';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import usePlaceDetailQuery from '../queries/usePlaceDetailQuery';
-import useLocalstorageQuery from '@confidential-nt/localstorage-query';
-import { UserCurrentPosition } from '../types/current-position';
+import { useUserCurrentPositionStore } from '../store/userCurrentPosition';
 
 const PlaceDetailPage = () => {
   const { placeId } = useParams<{ placeId: string }>();
-  const { data: userCurrentPosition } =
-    useLocalstorageQuery<UserCurrentPosition>('currentPosition');
+  const userCurrentPosition = useUserCurrentPositionStore(
+    (state) => state.userCurrentPosition
+  );
 
   const navigate = useNavigate();
 
