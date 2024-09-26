@@ -1,8 +1,9 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { InquiryCategory, InquiryInput } from '../types/inquiry';
-import Header from '../components/Header';
 import ErrorMessage from '../components/InquiryForm/ErrorMessage';
 import { axiosInstance } from '../api/axiosInstance';
+import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
+import { useNavigate } from 'react-router-dom';
 
 const Inquiry = () => {
   const {
@@ -26,9 +27,13 @@ const Inquiry = () => {
     }
   };
 
+  const navigate = useNavigate();
+
   return (
     <div>
-      <Header text="Inquiry for Questrip" />
+      <GoBackHeader onBack={() => navigate(-1)}>
+        <GoBackHeader.Title>{'Inquiry for Questrip'}</GoBackHeader.Title>
+      </GoBackHeader>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-5 pt-5"

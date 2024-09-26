@@ -1,7 +1,7 @@
-import { Place } from '../types/place';
+import { Place } from '../../types/place';
 import { Link } from 'react-router-dom';
-import VideoContent from './VideoContent';
-import { isVideo as isVideoContent } from '../utils/video';
+import VideoContent from '../VideoContent';
+import { isVideo as isVideoContent } from '../../utils/video';
 
 interface MapBottomSheetProps {
   place: Place;

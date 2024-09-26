@@ -6,10 +6,10 @@ import { getUserCurrentPosition } from '../api/address';
 import useLocalstorageQuery from '@confidential-nt/localstorage-query';
 import { UserCurrentPosition } from '../types/current-position';
 import UserAddress from '../components/UserAddress';
-import PlaceCardList from '../components/PlaceCardList';
+import PlaceCardList from '../components/Place/PlaceCardList';
 import CategoryGroupTabs from '../components/CategoryGroupTabs';
-import useCategory from '../hooks/useCategory';
-import useCategoryQuery from '../queries/useCategoryQuery';
+import useCategories from '../hooks/useCategory';
+import useCategoriesQuery from '../queries/useCategoryQuery';
 
 let initialRender = true;
 
@@ -20,7 +20,7 @@ const Discover = () => {
   const { data: userCurrentPosition, mutate } =
     useLocalstorageQuery<UserCurrentPosition | null>('currentPosition');
 
-  const { categoryData } = useCategoryQuery();
+  const { categoryData } = useCategoriesQuery();
 
   const [searchParam] = useSearchParams();
   const initialCategory = searchParam.get('category');
@@ -33,7 +33,7 @@ const Discover = () => {
         )
       : '0'; // todo: initialTab에 맞게 스크롤까지
 
-  const { selectedTab, onCategoryChange } = useCategory(initialTab);
+  const { selectedTab, onCategoryChange } = useCategories(initialTab);
 
   useEffect(() => {
     if (!initialRender) return;

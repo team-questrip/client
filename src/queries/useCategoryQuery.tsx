@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchCategories } from '../api/categories';
 
-const useCategoryQuery = () => {
+const useCategoriesQuery = () => {
   const { data: categoryData, isLoading: isCategoryDataLoading } = useQuery({
     queryKey: ['category'],
     staleTime: 1000 * 60 * 60 * 24,
@@ -14,4 +14,4 @@ const useCategoryQuery = () => {
   };
 };
 
-export default useCategoryQuery;
+export default useCategoriesQuery;

@@ -1,13 +1,13 @@
-import { PlaceDetailData } from '../types/place';
-import OpenNow from './OpenNow';
-import LocationIcon from './ui/icon/LocationIcon';
-import ThumsUpIcon from './ui/icon/ThumsUpIcon';
-import CheckCircleIcon from './ui/icon/CheckCircleIcon';
-import Slider from './Slider';
-import { UserCurrentPosition } from '../types/current-position';
+import { PlaceDetailData } from '../../types/place';
+import OpenNow from '../OpenNow';
+import LocationIcon from '../ui/icon/LocationIcon';
+import ThumsUpIcon from '../ui/icon/ThumsUpIcon';
+import CheckCircleIcon from '../ui/icon/CheckCircleIcon';
+import Slider from '../Slider';
+import { UserCurrentPosition } from '../../types/current-position';
 import useLocalstorageQuery from '@confidential-nt/localstorage-query';
-import VideoContent from './VideoContent';
-import { isVideo as isVideoContent } from '../utils/video';
+import VideoContent from '../VideoContent';
+import { isVideo as isVideoContent } from '../../utils/video';
 
 interface PlaceDetailContentProps {
   detailPlaceData: PlaceDetailData;

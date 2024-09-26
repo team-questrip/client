@@ -1,7 +1,7 @@
-import { UserCurrentPosition } from '../types/current-position';
+import { UserCurrentPosition } from '../../types/current-position';
 import PlaceCard from './PlaceCard';
-import usePlaceInfiniteQuery from '../queries/usePlaceInfiniteQuery';
-import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import usePlaceInfiniteQuery from '../../queries/usePlaceInfiniteQuery';
+import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 
 interface PlaceCardListProps {
   userCurrentPosition: UserCurrentPosition;

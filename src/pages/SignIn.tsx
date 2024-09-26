@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import { AuthenticationData } from '../types/user';
 import { login } from '../api/user';
-import Button from '../components/Button';
+import Button from '../components/ui/Button';
 import Input from '../components/Input';
 import { AxiosError } from 'axios';
 import { APIErrorResponse } from '../types/api';

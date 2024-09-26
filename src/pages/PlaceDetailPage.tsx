@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import PlaceDetailContent from '../components/PlaceDetailContent';
+import PlaceDetailContent from '../components/Place/PlaceDetailContent';
 import NotFound from './NotFound';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import usePlaceDetailQuery from '../queries/usePlaceDetailQuery';

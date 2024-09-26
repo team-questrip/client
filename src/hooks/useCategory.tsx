@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-const useCategory = (initialTab: string) => {
+const useCategories = (initialTab: string) => {
   const [selectedTab, setSelectedTab] = useState(initialTab);
 
   const onCategoryChange = useCallback((tab: string) => {
@@ -13,4 +13,4 @@ const useCategory = (initialTab: string) => {
   };
 };
 
-export default useCategory;
+export default useCategories;

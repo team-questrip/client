@@ -1,7 +1,7 @@
 import { APIProvider } from '@vis.gl/react-google-maps';
 import { initGoogleLib } from '../service/map-api-load';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
-import Button from '../components/Button';
+import Button from '../components/ui/Button';
 import { useEffect, useState } from 'react';
 import useLocalstorageQuery from '@confidential-nt/localstorage-query';
 import { UserCurrentPosition } from '../types/current-position';
