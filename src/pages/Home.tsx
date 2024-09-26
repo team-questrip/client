@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import HomeCard from '../components/HomeCard';
-import { CATEGORIES_DATA } from '../common/category';
+import useCategoryQuery from '../queries/useCategoryQuery';
 
 function Home() {
+  const { categoryData } = useCategoryQuery();
+
   return (
     <>
       <header className="flex justify-center h-12">
@@ -11,8 +13,8 @@ function Home() {
         </Link>
       </header>
       <div className="w-full p-4 flex-col grid grid-cols-2 gap-3">
-        {CATEGORIES_DATA &&
-          CATEGORIES_DATA.groupList.map((group) => (
+        {categoryData &&
+          categoryData.groupList.map((group) => (
             <HomeCard
               img={`/icons/${group.enumName.toLowerCase()}.png`}
               category={group.groupName}

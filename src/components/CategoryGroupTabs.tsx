@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Tabs, Tab } from 'baseui/tabs';
-import { CATEGORIES_DATA } from '../common/category';
+import useCategoryQuery from '../queries/useCategoryQuery';
 
 interface CategoryGroupTabsProps {
   activeKey: string;
@@ -11,6 +11,7 @@ const CategoryGroupTabs = ({
   activeKey,
   onCategoryChange,
 }: CategoryGroupTabsProps) => {
+  const { categoryData } = useCategoryQuery();
   return (
     <Tabs
       activeKey={activeKey}
@@ -40,9 +41,10 @@ const CategoryGroupTabs = ({
         },
       }}
     >
-      {CATEGORIES_DATA.groupList.map((group, index) => (
-        <Tab title={group.groupName} key={index}></Tab>
-      ))}
+      {categoryData &&
+        categoryData.groupList.map((group, index) => (
+          <Tab title={group.groupName} key={index}></Tab>
+        ))}
     </Tabs>
   );
 };
