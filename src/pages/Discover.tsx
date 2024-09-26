@@ -3,13 +3,12 @@ import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import InquiryIcon from '../components/ui/icon/InquiryIcon';
 import { useEffect } from 'react';
 import { getUserCurrentPosition } from '../api/address';
-import useLocalstorageQuery from '@confidential-nt/localstorage-query';
-import { UserCurrentPosition } from '../types/current-position';
 import UserAddress from '../components/UserAddress';
-import PlaceCardList from '../components/PlaceCardList';
+import PlaceCardList from '../components/Place/PlaceCardList';
 import CategoryGroupTabs from '../components/CategoryGroupTabs';
-import useCategory from '../hooks/useCategory';
-import useCategoryQuery from '../queries/useCategoryQuery';
+import useCategories from '../hooks/useCategory';
+import useCategoriesQuery from '../queries/useCategoryQuery';
+import { useUserCurrentPositionStore } from '../store/userCurrentPosition';
 
 let initialRender = true;
 
@@ -17,10 +16,14 @@ const Discover = () => {
   const navigate = useNavigate();
 
   // todo: error boundary + error handling
-  const { data: userCurrentPosition, mutate } =
-    useLocalstorageQuery<UserCurrentPosition | null>('currentPosition');
+  const userCurrentPosition = useUserCurrentPositionStore(
+    (state) => state.userCurrentPosition
+  );
+  const mutate = useUserCurrentPositionStore(
+    (state) => state.updateUserCurrentPosition
+  );
 
-  const { categoryData } = useCategoryQuery();
+  const { categoryData } = useCategoriesQuery();
 
   const [searchParam] = useSearchParams();
   const initialCategory = searchParam.get('category');
@@ -33,14 +36,13 @@ const Discover = () => {
         )
       : '0'; // todo: initialTab에 맞게 스크롤까지
 
-  const { selectedTab, onCategoryChange } = useCategory(initialTab);
+  const { selectedTab, onCategoryChange } = useCategories(initialTab);
 
   useEffect(() => {
     if (!initialRender) return;
 
     initialRender = false;
 
-    mutate(null);
     getUserCurrentPosition().then((position) => {
       mutate({
         latitude: position.coords.latitude,

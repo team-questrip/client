@@ -1,13 +1,12 @@
-import { PlaceDetailData } from '../types/place';
-import OpenNow from './OpenNow';
-import LocationIcon from './ui/icon/LocationIcon';
-import ThumsUpIcon from './ui/icon/ThumsUpIcon';
-import CheckCircleIcon from './ui/icon/CheckCircleIcon';
-import Slider from './Slider';
-import { UserCurrentPosition } from '../types/current-position';
-import useLocalstorageQuery from '@confidential-nt/localstorage-query';
-import VideoContent from './VideoContent';
-import { isVideo as isVideoContent } from '../utils/video';
+import { PlaceDetailData } from '../../types/place';
+import OpenNow from '../OpenNow';
+import LocationIcon from '../ui/icon/LocationIcon';
+import ThumsUpIcon from '../ui/icon/ThumsUpIcon';
+import CheckCircleIcon from '../ui/icon/CheckCircleIcon';
+import Slider from '../Slider';
+import VideoContent from '../VideoContent';
+import { isVideo as isVideoContent } from '../../utils/video';
+import { useUserCurrentPositionStore } from '../../store/userCurrentPosition';
 
 interface PlaceDetailContentProps {
   detailPlaceData: PlaceDetailData;
@@ -18,8 +17,9 @@ const PlaceDetailContent = ({
 }: PlaceDetailContentProps) => {
   const isVideo = isVideoContent(data.place.images);
 
-  const { data: userCurrentPosition } =
-    useLocalstorageQuery<UserCurrentPosition>('currentPosition');
+  const userCurrentPosition = useUserCurrentPositionStore(
+    (state) => state.userCurrentPosition
+  );
 
   const handleGoToPlace = () => {
     if (userCurrentPosition) {

@@ -5,12 +5,12 @@ import { Place } from '../../types/place';
 import usePlaceInfiniteQuery from '../../queries/usePlaceInfiniteQuery';
 import { useState } from 'react';
 import Drawer from '../ui/Drawer';
-import MapBottomSheet from '../MapBottomSheet';
-import Button from '../Button';
+import MapBottomSheet from './MapBottomSheet';
+import Button from '../ui/Button';
 import { useToast } from '../../hooks/useContexts';
-import MapCategoryGroupTabs from '../MapCategoryGroupTabs';
-import useCategory from '../../hooks/useCategory';
-import useCategoryQuery from '../../queries/useCategoryQuery';
+import MapCategoryGroupTabs from './MapCategoryGroupTabs';
+import useCategories from '../../hooks/useCategory';
+import useCategoriesQuery from '../../queries/useCategoryQuery';
 
 interface MapContainerProps {
   userCurrentPosition: UserCurrentPosition;
@@ -19,9 +19,9 @@ interface MapContainerProps {
 const MapContainer = ({ userCurrentPosition }: MapContainerProps) => {
   const [selectedPlace, setSelectedPlace] = useState<Place | null>();
 
-  const { selectedTab, onCategoryChange } = useCategory('0');
+  const { selectedTab, onCategoryChange } = useCategories('0');
 
-  const { categoryData } = useCategoryQuery();
+  const { categoryData } = useCategoriesQuery();
 
   const { placeData, fetchNextPage, hasNextPage } = usePlaceInfiniteQuery({
     ...userCurrentPosition,

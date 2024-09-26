@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import HomeCard from '../components/HomeCard';
-import useCategoryQuery from '../queries/useCategoryQuery';
+import useCategoriesQuery from '../queries/useCategoryQuery';
 
 function Home() {
-  const { categoryData } = useCategoryQuery();
+  const { categoryData, isCategoryDataLoading } = useCategoriesQuery();
 
   return (
     <>
@@ -13,6 +13,7 @@ function Home() {
         </Link>
       </header>
       <div className="w-full p-4 flex-col grid grid-cols-2 gap-3">
+        {isCategoryDataLoading && <p>Loading...</p>}
         {categoryData &&
           categoryData.groupList.map((group) => (
             <HomeCard

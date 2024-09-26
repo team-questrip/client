@@ -5,7 +5,7 @@ import { storeAuthenticationResponseDataToLocalStorage } from '../utils/user';
 import useAuthenticatedRedirect from '../hooks/useAuthenticatedRedirect';
 import Input from '../components/Input';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
-import Button from '../components/Button';
+import Button from '../components/ui/Button';
 import { APIErrorResponse } from '../types/api';
 import { useToast } from '../hooks/useContexts';
 import { AxiosError } from 'axios';

@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Place } from '../types/place';
-import Slider from './Slider';
-import VideoContent from './VideoContent';
-import { isVideo as isVideoContent } from '../utils/video';
+import { Place } from '../../types/place';
+import Slider from '../Slider';
+import VideoContent from '../VideoContent';
+import { isVideo as isVideoContent } from '../../utils/video';
 
 interface PlaceCardProps {
   content: Place;

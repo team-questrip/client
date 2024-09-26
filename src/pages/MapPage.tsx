@@ -1,16 +1,17 @@
 import { APIProvider } from '@vis.gl/react-google-maps';
 import { initGoogleLib } from '../service/map-api-load';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
-import Button from '../components/Button';
+import Button from '../components/ui/Button';
 import { useEffect, useState } from 'react';
-import useLocalstorageQuery from '@confidential-nt/localstorage-query';
-import { UserCurrentPosition } from '../types/current-position';
 import MapContainer from '../components/Map/MapContainer';
+import { useUserCurrentPositionStore } from '../store/userCurrentPosition';
 
 export default function MapPage() {
   const [init, setInit] = useState(false);
-  const { data: userCurrentPosition } =
-    useLocalstorageQuery<UserCurrentPosition>('currentPosition');
+
+  const userCurrentPosition = useUserCurrentPositionStore(
+    (state) => state.userCurrentPosition
+  );
 
   useEffect(() => {
     initGoogleLib().then(() => setInit(true));

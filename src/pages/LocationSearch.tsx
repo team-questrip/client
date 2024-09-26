@@ -2,13 +2,15 @@ import { ChangeEvent, useRef, useState } from 'react';
 import Search from '../components/Search';
 import useAutoComplete from '../hooks/useAutoComplete';
 import { useNavigate } from 'react-router-dom';
-import useLocalstorageQuery from '@confidential-nt/localstorage-query';
-import { UserCurrentPosition } from '../types/current-position';
+import { useUserCurrentPositionStore } from '../store/userCurrentPosition';
 
 const LocationSearch = () => {
   const [showCurrentLocation, setShowCurrentLocation] = useState(true);
-  const { mutate } =
-    useLocalstorageQuery<UserCurrentPosition>('currentPosition');
+
+  const mutate = useUserCurrentPositionStore(
+    (state) => state.updateUserCurrentPosition
+  );
+
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 

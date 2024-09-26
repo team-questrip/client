@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from 'react';
-import Button from '../components/Button';
+import Button from '../components/ui/Button';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import { useNavigate } from 'react-router-dom';
 import ErrorMessage from '../components/ErrorMessage';

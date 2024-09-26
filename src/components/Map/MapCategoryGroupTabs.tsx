@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Tabs, Tab } from 'baseui/tabs';
-import useCategoryQuery from '../queries/useCategoryQuery';
+import useCategoriesQuery from '../../queries/useCategoryQuery';
 
 interface MapCategoryGroupTabsProps {
   activeKey: string;
@@ -11,7 +11,7 @@ const MapCategoryGroupTabs = ({
   activeKey,
   onCategoryChange,
 }: MapCategoryGroupTabsProps) => {
-  const { categoryData } = useCategoryQuery();
+  const { categoryData } = useCategoriesQuery();
   return (
     <Tabs
       activeKey={activeKey}
