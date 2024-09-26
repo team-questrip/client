@@ -1,10 +1,9 @@
-import { useSelector } from 'react-redux';
-import { selectUser } from '../store/userSlice';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '../store/user';
 
 const useAuthenticatedRedirect = () => {
-  const user = useSelector(selectUser);
+  const user = useUserStore();
   const navigate = useNavigate();
 
   useEffect(() => {
