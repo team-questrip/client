@@ -7,6 +7,7 @@ import Slider from '../Slider';
 import VideoContent from '../VideoContent';
 import { isVideo as isVideoContent } from '../../utils/video';
 import { useUserCurrentPositionStore } from '../../store/userCurrentPosition';
+import Label from '../ui/Label';
 
 interface PlaceDetailContentProps {
   detailPlaceData: PlaceDetailData;
@@ -50,12 +51,13 @@ const PlaceDetailContent = ({
           />
         )}
       </div>
-      <div className="flex justify-between text-lg font-bold items-center">
-        <div className="text-wrap whitespace-normal w-2/3">
+      <div className="text-lg font-bold items-center">
+        <div className="text-wrap whitespace-nowrap mb-3">
           {data.place.placeName}
         </div>
-        <div className="">
+        <div className="flex">
           <OpenNow openNow={data.place.openNow} />
+          <Label className="bg-hintText ml-2">{data.place.categoryGroup}</Label>
         </div>
       </div>
 
