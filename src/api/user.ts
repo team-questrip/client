@@ -29,3 +29,9 @@ export function login(
 ): Promise<AxiosResponse<APIResponse<AuthenticationResponseData>>> {
   return axiosInstance.post('api/v1/user/login', signInData);
 }
+
+export function logout() {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+  localStorage.removeItem('userInfo');
+}
