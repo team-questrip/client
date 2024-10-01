@@ -1,3 +1,5 @@
+import Label from './ui/Label';
+
 interface OpenNowProps {
   openNow: string;
 }
@@ -6,17 +8,17 @@ interface OpenNowProps {
 const OpenNow = ({ openNow }: OpenNowProps) => {
   return (
     <>
-      <span
+      <Label
         className={`${
           openNow === 'OPEN'
             ? 'bg-success'
             : openNow === 'CLOSE'
             ? 'bg-error'
             : 'bg-warning'
-        } text-white inline-block py-1 px-2 rounded-md text-sm`}
+        }`}
       >
         {openNow}
-      </span>
+      </Label>
     </>
   );
 };

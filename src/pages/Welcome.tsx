@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import welcomeImage from '/img/welcome.webp';
+import useAuthenticatedRedirect from '../hooks/useAuthenticatedRedirect';
 
 const Welcome = () => {
+  useAuthenticatedRedirect();
   const navigate = useNavigate();
   return (
     <div className="flex flex-col items-center pt-[24rem]">

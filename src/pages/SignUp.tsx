@@ -6,11 +6,12 @@ import useAuthenticatedRedirect from '../hooks/useAuthenticatedRedirect';
 import Input from '../components/Input';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import Button from '../components/ui/Button';
-import { APIErrorResponse } from '../types/api';
+import { APIErrorMessage } from '../types/api';
 import { useToast } from '../hooks/useContexts';
 import { AxiosError } from 'axios';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import ErrorMessage from '../components/ErrorMessage';
+import { useUserStore } from '../store/user';
 
 const SignUp = () => {
   useAuthenticatedRedirect();
@@ -23,17 +24,22 @@ const SignUp = () => {
 
   const navigate = useNavigate();
   const { showToast } = useToast();
+  const setUser = useUserStore((state) => state.setUser);
 
   const onSubmit: SubmitHandler<UserRegistrationData> = async (data) => {
     try {
       const response = await join(data);
+      setUser(response.data.data.user);
       storeAuthenticationResponseDataToLocalStorage(response.data.data);
       navigate('/');
     } catch (error) {
-      const errorObj = error as AxiosError<APIErrorResponse>;
-      const message = errorObj.response
-        ? errorObj.response.data.message
-        : 'Something went wrong.';
+      const errorObj = error as AxiosError<APIErrorMessage[]>;
+
+      const message =
+        errorObj.response && errorObj.response.data.length
+          ? errorObj.response.data[0].message
+          : 'Something went wrong.';
+
       showToast(message, 'error');
     }
   };

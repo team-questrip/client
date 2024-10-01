@@ -14,6 +14,7 @@ import MyPage from '../pages/MyPage';
 import NPSForm from '../pages/NPS';
 import Discover from '../pages/Discover';
 import MapPage from '../pages/MapPage';
+import ProtectedRoute from '../pages/ProtectedRoute';
 
 export default function Router() {
   return (
@@ -24,16 +25,79 @@ export default function Router() {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route element={<NavLayout />}>
-            <Route path="/my-page" element={<MyPage />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/discover" element={<Discover />} />
-            <Route path="/map" element={<MapPage />} />
+            <Route
+              path="/my-page"
+              element={
+                <ProtectedRoute>
+                  <MyPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/discover"
+              element={
+                <ProtectedRoute>
+                  <Discover />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/map"
+              element={
+                <ProtectedRoute>
+                  <MapPage />
+                </ProtectedRoute>
+              }
+            />
           </Route>
-          <Route path="/detail/:placeId" element={<PlaceDetailPage />} />
-          <Route path="/location-search" element={<LocationSearch />} />
-          <Route path="/inquiry" element={<Inquiry />} />
-          <Route path="/survey" element={<Survey />} />
-          <Route path="/nps" element={<NPSForm />} />
+          <Route
+            path="/detail/:placeId"
+            element={
+              <ProtectedRoute>
+                <PlaceDetailPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/location-search"
+            element={
+              <ProtectedRoute>
+                <LocationSearch />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/inquiry"
+            element={
+              <ProtectedRoute>
+                <Inquiry />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/survey"
+            element={
+              <ProtectedRoute>
+                <Survey />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/nps"
+            element={
+              <ProtectedRoute>
+                <NPSForm />
+              </ProtectedRoute>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

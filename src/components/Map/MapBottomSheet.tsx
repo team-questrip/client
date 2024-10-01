@@ -27,7 +27,7 @@ const MapBottomSheet = ({ place }: MapBottomSheetProps) => {
         <h4 className="font-bold text-lg">{place.placeName}</h4>
         {/* todo: category */}
         <span className="block text-secondaryText mb-2 text-base">
-          Category | {place.distance}km
+          {place.category} | {place.distance}km
         </span>
         <Link
           to={`/detail/${place.id}`}

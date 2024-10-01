@@ -52,6 +52,8 @@ export interface PlaceDetailData {
         recommendationReason: string;
         activity: string;
       };
+      category: string;
+      categoryGroup: string;
       formattedAddress: string;
       googlePlaceId: string;
       id: string;

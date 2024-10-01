@@ -3,13 +3,19 @@ import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import { Avatar } from 'baseui/avatar';
 import { Select, Value } from 'baseui/select';
 import { useState } from 'react';
+import { useUserStore } from '../store/user';
+import { logout } from '../api/user';
 
 const MyPage = () => {
   const [language, setLanguage] = useState<Value>([]);
   const navigate = useNavigate();
+  const user = useUserStore((state) => state.user);
+  const setUser = useUserStore((state) => state.setUser);
+
   const handleSignOut = () => {
-    console.log('로그아웃 로직 개발 필요');
-    navigate('/sign-in');
+    logout();
+    setUser(null);
+    navigate('/welcome');
   };
 
   return (
@@ -31,11 +37,11 @@ const MyPage = () => {
             <div className="flex-col justify-center items-center flex">
               <div className="flex-col justify-start items-center flex">
                 <div className="text-primaryText font-bold text-xl">
-                  Username Goes Here
+                  {user?.username}
                 </div>
               </div>
               <div className="flex-col justify-start items-center flex">
-                <div className="text-secondaryText">teamquestrip@gmail.com</div>
+                <div className="text-secondaryText">{user?.email}</div>
               </div>
             </div>
           </div>
