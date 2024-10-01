@@ -10,10 +10,12 @@ const MyPage = () => {
   const [language, setLanguage] = useState<Value>([]);
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
+  const setUser = useUserStore((state) => state.setUser);
 
   const handleSignOut = () => {
     logout();
-    navigate('/sign-in');
+    setUser(null);
+    navigate('/welcome');
   };
 
   return (

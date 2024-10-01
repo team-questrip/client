@@ -5,6 +5,10 @@ export interface APIResponse<T> {
 }
 
 export interface APIErrorResponse {
+  data: APIErrorMessage[];
+}
+
+export interface APIErrorMessage {
   message: string;
   [key: string]: unknown;
 }
