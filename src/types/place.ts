@@ -35,14 +35,6 @@ export interface Place {
   category: string;
 }
 
-export interface Address {
-  status: string;
-  message: string;
-  data: {
-    formattedAddress: string;
-  };
-}
-
 export interface PlaceDetailData {
   status: string;
   message: string;
@@ -61,7 +53,7 @@ export interface PlaceDetailData {
         {
           sequence: number;
           url: string;
-        }
+        },
       ];
       location: {
         latitude: number;
