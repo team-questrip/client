@@ -16,6 +16,8 @@ const usePlaceInfiniteQuery = ({
     fetchNextPage,
     hasNextPage,
     isLoading: isPlaceDataLoading,
+    error: placeDataError,
+    isError: isPlaceDataError,
   } = useInfiniteQuery({
     staleTime: 1000 * 120,
     queryKey: ['place', latitude, longitude, category],
@@ -33,6 +35,8 @@ const usePlaceInfiniteQuery = ({
     fetchNextPage,
     hasNextPage,
     isPlaceDataLoading,
+    isPlaceDataError,
+    placeDataError,
   };
 };
 
