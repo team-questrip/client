@@ -1,20 +1,25 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Frame from '../components/ui/design/Frame';
-import PlaceDetailPage from '../pages/PlaceDetailPage';
-import LocationSearch from '../pages/LocationSearch';
-import Inquiry from '../pages/Inquiry';
-import Survey from '../pages/Survey';
 import NavLayout from '../components/ui/design/NavLayout';
 import Welcome from '../pages/Welcome';
-import SignIn from '../pages/SignIn';
-import SignUp from '../pages/SignUp';
 import NotFound from '../pages/NotFound';
 import Home from '../pages/Home';
-import MyPage from '../pages/MyPage';
-import NPSForm from '../pages/NPS';
-import Discover from '../pages/Discover';
-import MapPage from '../pages/MapPage';
 import ProtectedRoute from '../pages/ProtectedRoute';
+import { lazy, Suspense } from 'react';
+
+const SignIn = lazy(() => import('../pages/SignIn'));
+const SignUp = lazy(() => import('../pages/SignUp'));
+const MyPage = lazy(() => import('../pages/MyPage'));
+const Discover = lazy(() => import('../pages/Discover'));
+
+const MapPage = lazy(() => import('../pages/MapPage'));
+const PlaceDetailPage = lazy(() => import('../pages/PlaceDetailPage'));
+const LocationSearch = lazy(() => import('../pages/LocationSearch'));
+const Inquiry = lazy(() => import('../pages/Inquiry'));
+const Survey = lazy(() => import('../pages/Survey'));
+const NPSForm = lazy(() => import('../pages/NPS'));
+
+const PageLoadingFallback = () => <p>loading...</p>;
 
 export default function Router() {
   return (
@@ -22,14 +27,30 @@ export default function Router() {
       <Routes>
         <Route element={<Frame />}>
           <Route path="/welcome" element={<Welcome />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
+          <Route
+            path="/sign-in"
+            element={
+              <Suspense fallback={<PageLoadingFallback />}>
+                <SignIn />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/sign-up"
+            element={
+              <Suspense fallback={<PageLoadingFallback />}>
+                <SignUp />
+              </Suspense>
+            }
+          />
           <Route element={<NavLayout />}>
             <Route
               path="/my-page"
               element={
                 <ProtectedRoute>
-                  <MyPage />
+                  <Suspense fallback={<PageLoadingFallback />}>
+                    <MyPage />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />
@@ -45,7 +66,9 @@ export default function Router() {
               path="/discover"
               element={
                 <ProtectedRoute>
-                  <Discover />
+                  <Suspense fallback={<PageLoadingFallback />}>
+                    <Discover />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />
@@ -53,7 +76,9 @@ export default function Router() {
               path="/map"
               element={
                 <ProtectedRoute>
-                  <MapPage />
+                  <Suspense fallback={<PageLoadingFallback />}>
+                    <MapPage />
+                  </Suspense>
                 </ProtectedRoute>
               }
             />
@@ -62,7 +87,9 @@ export default function Router() {
             path="/detail/:placeId"
             element={
               <ProtectedRoute>
-                <PlaceDetailPage />
+                <Suspense fallback={<PageLoadingFallback />}>
+                  <PlaceDetailPage />
+                </Suspense>
               </ProtectedRoute>
             }
           />
@@ -70,7 +97,9 @@ export default function Router() {
             path="/location-search"
             element={
               <ProtectedRoute>
-                <LocationSearch />
+                <Suspense fallback={<PageLoadingFallback />}>
+                  <LocationSearch />
+                </Suspense>
               </ProtectedRoute>
             }
           />
@@ -78,7 +107,9 @@ export default function Router() {
             path="/inquiry"
             element={
               <ProtectedRoute>
-                <Inquiry />
+                <Suspense fallback={<PageLoadingFallback />}>
+                  <Inquiry />
+                </Suspense>
               </ProtectedRoute>
             }
           />
@@ -86,7 +117,9 @@ export default function Router() {
             path="/survey"
             element={
               <ProtectedRoute>
-                <Survey />
+                <Suspense fallback={<PageLoadingFallback />}>
+                  <Survey />
+                </Suspense>
               </ProtectedRoute>
             }
           />
@@ -94,7 +127,9 @@ export default function Router() {
             path="/nps"
             element={
               <ProtectedRoute>
-                <NPSForm />
+                <Suspense fallback={<PageLoadingFallback />}>
+                  <NPSForm />
+                </Suspense>
               </ProtectedRoute>
             }
           />

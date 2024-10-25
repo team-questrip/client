@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { InquiryCategory, InquiryInput } from '../types/inquiry';
-import ErrorMessage from '../components/InquiryForm/ErrorMessage';
+import ErrorMessage from '../components/ErrorMessage';
 import { axiosInstance } from '../api/axiosInstance';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import { useNavigate } from 'react-router-dom';
@@ -52,10 +52,10 @@ const Inquiry = () => {
             })}
           />
           {errors.userEmail?.type === 'required' && (
-            <ErrorMessage text={'Please enter your email.'} />
+            <ErrorMessage message={'Please enter your email.'} />
           )}
           {errors.userEmail?.type === 'pattern' && (
-            <ErrorMessage text={'Please enter your email correctely.'} />
+            <ErrorMessage message={'Please enter your email correctely.'} />
           )}
         </div>
         <div className="flex flex-col gap-2">
@@ -79,7 +79,7 @@ const Inquiry = () => {
             <option value={InquiryCategory.FEEDBACK}>Feedback</option>
           </select>
           {errors.category?.type === 'validate' && (
-            <ErrorMessage text={'Please select a valid category.'} />
+            <ErrorMessage message={'Please select a valid category.'} />
           )}
         </div>
 
@@ -97,7 +97,7 @@ const Inquiry = () => {
           />
 
           {errors.content?.type === 'required' && (
-            <ErrorMessage text={'Please fill the space.'} />
+            <ErrorMessage message={'Please fill the space.'} />
           )}
         </div>
         <button
