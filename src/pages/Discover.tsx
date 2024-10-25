@@ -9,6 +9,7 @@ import CategoryGroupTabs from '../components/CategoryGroupTabs';
 import useCategories from '../hooks/useCategory';
 import useCategoriesQuery from '../queries/useCategoryQuery';
 import { useUserCurrentPositionStore } from '../store/userCurrentPosition';
+import { ErrorBoundary } from 'react-error-boundary';
 
 let initialRender = true;
 
@@ -71,7 +72,11 @@ const Discover = () => {
       <h1 className="font-bold text-3xl mb-10">Questrip</h1>
       <div className="flex justify-between items-center my-5 gap-2 h-12">
         {userCurrentPosition ? (
-          <UserAddress userCurrentPosition={userCurrentPosition} />
+          <ErrorBoundary
+            fallback={<p>주소를 가져오는 데 문제가 발생했습니다.</p>}
+          >
+            <UserAddress userCurrentPosition={userCurrentPosition} />
+          </ErrorBoundary>
         ) : (
           <p>Loading......</p> // todo: ssr
         )}

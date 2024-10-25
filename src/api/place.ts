@@ -1,3 +1,4 @@
+import { placeDataSchema, placeDetailDataSchema } from '../schema/placeSchema';
 import { UserCurrentPosition } from '../types/current-position';
 import { PlaceData, PlaceDetailData } from '../types/place';
 import { axiosInstance } from './axiosInstance';
@@ -18,17 +19,17 @@ export async function fetchPlaceDataByPage(
     }`
   );
 
-  if (response.status === 200) {
-    return response.data;
-  } else {
-    throw new Error('Unexpected response status');
-  }
+  placeDataSchema.parse(response.data);
+
+  return response.data;
 }
 
 export async function fetchPlaces(latitude: number, longitude: number) {
   const response = await axiosInstance.get<PlaceData>(
     `api/v1/place?latitude=${latitude}&longitude=${longitude}&page=0&size=10`
   );
+
+  placeDataSchema.parse(response.data);
 
   return response.data.data.content;
 }
@@ -47,9 +48,7 @@ export async function fetchPlaceDetail({
     `api/v1/place/${placeId}?latitude=${latitude}&longitude=${longitude}`
   );
 
-  if (response.status === 200) {
-    return response.data;
-  } else {
-    throw new Error('Unexpected response status');
-  }
+  placeDetailDataSchema.parse(response.data);
+
+  return response.data;
 }

@@ -1,3 +1,35 @@
+// 공통 타입 정의
+interface Location {
+  latitude: number;
+  longitude: number;
+}
+
+interface Image {
+  sequence: number;
+  url: string;
+}
+
+export interface Content {
+  recommendationReason: string;
+  activity: string;
+}
+
+export interface PlaceBase {
+  id: string;
+  googlePlaceId: string;
+  placeName: string;
+  primaryType: string;
+  formattedAddress: string;
+  location: Location;
+  content: Content;
+  images: Image[];
+  openingHours: string[];
+  openNow: string;
+  categoryGroup: string;
+  category: string;
+}
+
+// 리팩토링된 PlaceData 타입
 export interface PlaceData {
   status: string;
   message: string;
@@ -10,68 +42,16 @@ export interface PlaceData {
   };
 }
 
-export interface Place {
-  id: string;
-  googlePlaceId: string;
-  placeName: string;
-  primaryType: string;
-  formattedAddress: string;
-  location: {
-    latitude: number;
-    longitude: number;
-  };
-  content: {
-    recommendationReason: string;
-    activity: string;
-  };
-  images: {
-    sequence: number;
-    url: string;
-  }[];
-  openingHours: string[];
-  openNow: string;
+export interface Place extends PlaceBase {
   distance: number;
-  categoryGroup: string;
-  category: string;
 }
 
-export interface Address {
-  status: string;
-  message: string;
-  data: {
-    formattedAddress: string;
-  };
-}
-
+// 리팩토링된 PlaceDetailData 타입
 export interface PlaceDetailData {
   status: string;
   message: string;
   data: {
-    place: {
-      content: {
-        recommendationReason: string;
-        activity: string;
-      };
-      category: string;
-      categoryGroup: string;
-      formattedAddress: string;
-      googlePlaceId: string;
-      id: string;
-      images: [
-        {
-          sequence: number;
-          url: string;
-        }
-      ];
-      location: {
-        latitude: number;
-        longitude: number;
-      };
-      openNow: string;
-      openingHours: [];
-      placeName: string;
-      primaryType: string;
-    };
+    place: PlaceBase;
     directionSummary: {
       distance: string;
       duration: string;
