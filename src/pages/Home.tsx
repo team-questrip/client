@@ -1,27 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useUserCurrentPositionStore } from '../store/userCurrentPosition';
-import { getUserCurrentPosition } from '../api/address';
-import { useEffect } from 'react';
 import CategoryCards from '../components/CategoryCards';
+import useUserCurrentPosition from '../hooks/useUserCurrentPosition';
 
 function Home() {
-  const userCurrentPosition = useUserCurrentPositionStore(
-    (state) => state.userCurrentPosition
-  );
-  const mutate = useUserCurrentPositionStore(
-    (state) => state.updateUserCurrentPosition
-  );
-
-  useEffect(() => {
-    if (userCurrentPosition === null) {
-      getUserCurrentPosition().then((position) => {
-        mutate({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-      });
-    }
-  }, [mutate, userCurrentPosition]);
+  useUserCurrentPosition();
 
   return (
     <>

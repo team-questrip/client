@@ -1,29 +1,20 @@
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
 import InquiryIcon from '../components/ui/icon/InquiryIcon';
-import { useEffect } from 'react';
-import { getUserCurrentPosition } from '../api/address';
 import UserAddress from '../components/UserAddress';
 import PlaceCardList from '../components/Place/PlaceCardList';
 import CategoryGroupTabs from '../components/CategoryGroupTabs';
 import useCategories from '../hooks/useCategory';
 import useCategoriesQuery from '../queries/useCategoryQuery';
-import { useUserCurrentPositionStore } from '../store/userCurrentPosition';
 import { ErrorBoundary } from 'react-error-boundary';
-
-let initialRender = true;
+import useUserCurrentPosition from '../hooks/useUserCurrentPosition';
 
 const Discover = () => {
   const navigate = useNavigate();
 
   // todo: error boundary + error handling
-  const userCurrentPosition = useUserCurrentPositionStore(
-    (state) => state.userCurrentPosition
-  );
-  const mutate = useUserCurrentPositionStore(
-    (state) => state.updateUserCurrentPosition
-  );
-
+  const { userCurrentPosition, geolocationPositionError } =
+    useUserCurrentPosition();
   const { categoryData } = useCategoriesQuery();
 
   const [searchParam] = useSearchParams();
@@ -38,21 +29,6 @@ const Discover = () => {
       : '0'; // todo: initialTab에 맞게 스크롤까지
 
   const { selectedTab, onCategoryChange } = useCategories(initialTab);
-
-  useEffect(() => {
-    if (!initialRender) return;
-
-    initialRender = false;
-
-    if (userCurrentPosition === null) {
-      getUserCurrentPosition().then((position) => {
-        mutate({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-      });
-    }
-  }, [mutate, userCurrentPosition]);
 
   return (
     <div>
@@ -73,12 +49,16 @@ const Discover = () => {
       <div className="flex justify-between items-center my-5 gap-2 h-12">
         {userCurrentPosition ? (
           <ErrorBoundary
-            fallback={<p>주소를 가져오는 데 문제가 발생했습니다.</p>}
+            fallback={
+              <p>An unexpected error occurred while retrieving the address.</p>
+            }
           >
             <UserAddress userCurrentPosition={userCurrentPosition} />
           </ErrorBoundary>
+        ) : geolocationPositionError ? (
+          <p>{geolocationPositionError.message}</p> // todo: ssr
         ) : (
-          <p>Loading......</p> // todo: ssr
+          <p>loading...</p>
         )}
         <button
           className=" bg-secondaryText text-white rounded-full text-center p-2 px-3 cursor-pointer hover:scale-105"
