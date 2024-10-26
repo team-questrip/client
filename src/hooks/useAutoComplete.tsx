@@ -1,6 +1,6 @@
 import { RefObject, useEffect, useRef } from 'react';
 import { initGoogleLib } from '../service/map-api-load';
-import { defaultBounds } from '../common/map';
+import { defaultBounds } from '../constants/autocomplete';
 
 interface useAutoCompleteParameters {
   inputRef: RefObject<HTMLInputElement>;
