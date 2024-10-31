@@ -12,7 +12,6 @@ import useUserCurrentPosition from '../hooks/useUserCurrentPosition';
 const Discover = () => {
   const navigate = useNavigate();
 
-  // todo: error boundary + error handling
   const { userCurrentPosition, geolocationPositionError } =
     useUserCurrentPosition();
   const { categoryData } = useCategoriesQuery();

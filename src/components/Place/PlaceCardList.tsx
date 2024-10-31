@@ -32,9 +32,6 @@ const PlaceCardList = ({
 
   return (
     <>
-      {isPlaceDataError && (
-        <p className="mt-5">데이터를 가져오는데 문제가 발생했습니다.</p>
-      )}
       {isPlaceDataLoading && <p className="mt-5">loading...</p>}
       {placeData &&
         placeData.pages.flatMap((page) => page.data.content).length === 0 && (
@@ -44,6 +41,9 @@ const PlaceCardList = ({
         placeData.pages
           .flatMap((page) => page.data.content)
           .map((content) => <PlaceCard content={content} key={content.id} />)}
+      {isPlaceDataError && (
+        <p className="mt-5">데이터를 가져오는데 문제가 발생했습니다.</p>
+      )}
       <div ref={setTarget} className="pb-14" />
     </>
   );
