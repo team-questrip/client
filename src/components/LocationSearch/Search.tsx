@@ -1,6 +1,6 @@
-import { ReactElement } from "react";
-import SearchForm from "./SearchForm/SearchForm";
-import CurrentLocation from "./CurrentLocation";
+import { ReactElement } from 'react';
+import SearchForm from './SearchForm';
+import CurrentLocation from './CurrentLocation';
 
 interface SearchProps {
   children: ReactElement;

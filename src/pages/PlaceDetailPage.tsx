@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import PlaceDetailContent from '../components/Place/PlaceDetailContent';
-import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
+import GoBackHeader from '../components/@common/GoBackHeader/GoBackHeader';
 import usePlaceDetailQuery from '../queries/usePlaceDetailQuery';
 import { useUserCurrentPositionStore } from '../store/userCurrentPosition';
 

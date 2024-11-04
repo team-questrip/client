@@ -1,8 +1,8 @@
 import React, { FormEvent, useState } from 'react';
-import Button from '../components/ui/Button';
-import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
+import Button from '../components/@common/Button';
+import GoBackHeader from '../components/@common/GoBackHeader/GoBackHeader';
 import { useNavigate } from 'react-router-dom';
-import ErrorMessage from '../components/ErrorMessage';
+import ErrorMessage from '../components/@common/ErrorMessage';
 
 const NPSForm = () => {
   const [npsScore, setNpsScore] = useState<number>();

@@ -1,14 +1,14 @@
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
-import InquiryIcon from '../components/ui/icon/InquiryIcon';
-import UserAddress from '../components/UserAddress';
+import GoBackHeader from '../components/@common/GoBackHeader/GoBackHeader';
+import InquiryIcon from '../components/@common/icon/InquiryIcon';
+import UserAddress from '../components/UserAddress/UserAddress';
 import PlaceCardList from '../components/Place/PlaceCardList';
-import CategoryGroupTabs from '../components/CategoryGroupTabs';
+import CategoryGroupTabs from '../components/Category/CategoryGroupTabs';
 import useCategories from '../hooks/useCategory';
 import useCategoriesQuery from '../queries/useCategoryQuery';
 import { ErrorBoundary } from 'react-error-boundary';
 import useUserCurrentPosition from '../hooks/useUserCurrentPosition';
-import PlaceListErrorFallback from '../components/PlaceListErrorFallback';
+import PlaceListErrorFallback from '../components/Place/PlaceListErrorFallback';
 
 const Discover = () => {
   const navigate = useNavigate();

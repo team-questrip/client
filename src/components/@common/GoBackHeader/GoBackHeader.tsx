@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import GoBackHeaderTitle from './GoBackHeaderTitle';
-import LeftArrow from '../ui/icon/LeftArrow';
+import LeftArrow from '../icon/LeftArrow';
 
 interface GoBackHeaderProps {
   onBack: () => void;

@@ -1,5 +1,5 @@
-import useCategoriesQuery from '../queries/useCategoryQuery';
-import HomeCard from './HomeCard';
+import useCategoriesQuery from '../../queries/useCategoryQuery';
+import HomeCard from '../Home/HomeCard';
 
 const CategoryCards = () => {
   const { categoryData, isCategoryDataLoading, isCategoryDataError } =

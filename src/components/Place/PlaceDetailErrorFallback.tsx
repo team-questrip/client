@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import NotFound from '../pages/NotFound';
-import GoBackHeader from './GoBackHeader/GoBackHeader';
+import NotFound from '../../pages/NotFound';
+import GoBackHeader from '../@common/GoBackHeader/GoBackHeader';
 
 const PlaceDetailErrorFallback = () => {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { requestUserPosition } from '../api/address';
-import { useUserCurrentPositionStore } from '../store/userCurrentPosition';
-import { useToast } from '../hooks/useContexts';
+import { requestUserPosition } from '../../api/address';
+import { useUserCurrentPositionStore } from '../../store/userCurrentPosition';
+import { useToast } from '../../hooks/useContexts';
 
 interface CurrentLocationProps {
   show?: boolean;

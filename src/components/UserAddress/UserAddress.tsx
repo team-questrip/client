@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { UserCurrentPosition } from '../types/current-position';
-import { fetchAddress } from '../api/address';
+import { UserCurrentPosition } from '../../types/current-position';
+import { fetchAddress } from '../../api/address';
 import { useErrorBoundary } from 'react-error-boundary';
 
 interface UserAddressProps {

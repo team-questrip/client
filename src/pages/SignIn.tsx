@@ -1,16 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
-import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
+import GoBackHeader from '../components/@common/GoBackHeader/GoBackHeader';
 import { AuthenticationData } from '../types/user';
 import { login } from '../api/user';
-import Button from '../components/ui/Button';
-import Input from '../components/Input';
+import Button from '../components/@common/Button';
+import Input from '../components/@common/Input';
 import { AxiosError } from 'axios';
 import { APIErrorMessage } from '../types/api';
 import { storeAuthenticationResponseDataToLocalStorage } from '../utils/user';
 import { useToast } from '../hooks/useContexts';
 import useAuthenticatedRedirect from '../hooks/useAuthenticatedRedirect';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import ErrorMessage from '../components/ErrorMessage';
+import ErrorMessage from '../components/@common/ErrorMessage';
 import { useUserStore } from '../store/user';
 
 const SignIn = () => {

@@ -1,13 +1,13 @@
 import { PlaceDetailData } from '../../types/place';
-import OpenNow from '../OpenNow';
-import LocationIcon from '../ui/icon/LocationIcon';
-import ThumsUpIcon from '../ui/icon/ThumsUpIcon';
-import CheckCircleIcon from '../ui/icon/CheckCircleIcon';
-import Slider from '../Slider';
-import VideoContent from '../VideoContent';
+import Tag from '../@common/Tag';
+import LocationIcon from '../@common/icon/LocationIcon';
+import ThumsUpIcon from '../@common/icon/ThumsUpIcon';
+import CheckCircleIcon from '../@common/icon/CheckCircleIcon';
+import Slider from './Slider';
+import VideoContent from './VideoContent';
 import { isVideo as isVideoContent } from '../../utils/video';
 import { useUserCurrentPositionStore } from '../../store/userCurrentPosition';
-import Label from '../ui/Label';
+import Label from '../@common/Label';
 
 interface PlaceDetailContentProps {
   detailPlaceData: PlaceDetailData;
@@ -56,7 +56,7 @@ const PlaceDetailContent = ({
           {data.place.placeName}
         </div>
         <div className="flex">
-          <OpenNow openNow={data.place.openNow} />
+          <Tag openNow={data.place.openNow} />
           <Label className="bg-hintText ml-2">{data.place.categoryGroup}</Label>
         </div>
       </div>

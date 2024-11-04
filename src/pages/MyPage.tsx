@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
+import GoBackHeader from '../components/@common/GoBackHeader/GoBackHeader';
 import { Avatar } from 'baseui/avatar';
 import { Select, Value } from 'baseui/select';
 import { useState } from 'react';

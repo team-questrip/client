@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
-import GoBackHeader from './GoBackHeader/GoBackHeader';
-import InquiryIcon from './ui/icon/InquiryIcon';
+import GoBackHeader from '../@common/GoBackHeader/GoBackHeader';
+import InquiryIcon from '../@common/icon/InquiryIcon';
 
 const DiscoverErrorFallback = () => {
   const navigate = useNavigate();

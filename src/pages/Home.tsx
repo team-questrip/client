@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import CategoryCards from '../components/CategoryCards';
+import CategoryCards from '../components/Category/CategoryCards';
 import useUserCurrentPosition from '../hooks/useUserCurrentPosition';
 import { ErrorBoundary } from 'react-error-boundary';
-import CategoryCardsErrorFallback from '../components/CategoryCardsErrorFallback';
+import CategoryCardsErrorFallback from '../components/Category/CategoryCardsErrorFallback';
 
 function Home() {
   useUserCurrentPosition();

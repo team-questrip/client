@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import Button from '../components/ui/Button';
+import Button from '../components/@common/Button';
 import welcomeImage from '/img/welcome.webp';
 import useAuthenticatedRedirect from '../hooks/useAuthenticatedRedirect';
 
