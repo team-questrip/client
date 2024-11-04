@@ -20,6 +20,7 @@ const usePlaceDetailQuery = ({
     staleTime: 1000 * 60,
     queryFn: () => fetchPlaceDetail({ placeId, userCurrentPosition }),
     enabled: !!placeId && !!userCurrentPosition,
+    throwOnError: true,
   });
 
   return {

@@ -8,6 +8,7 @@ import useCategories from '../hooks/useCategory';
 import useCategoriesQuery from '../queries/useCategoryQuery';
 import { ErrorBoundary } from 'react-error-boundary';
 import useUserCurrentPosition from '../hooks/useUserCurrentPosition';
+import PlaceListErrorFallback from '../components/PlaceListErrorFallback';
 
 const Discover = () => {
   const navigate = useNavigate();
@@ -45,41 +46,37 @@ const Discover = () => {
         </Link>
       </GoBackHeader>
       <h1 className="font-bold text-3xl mb-10">Questrip</h1>
-      <div className="flex justify-between items-center my-5 gap-2 h-12">
-        {userCurrentPosition ? (
-          <ErrorBoundary
-            fallback={
-              <p>An unexpected error occurred while retrieving the address.</p>
-            }
-          >
+      <ErrorBoundary FallbackComponent={PlaceListErrorFallback}>
+        <div className="flex justify-between items-center my-5 gap-2 h-12">
+          {userCurrentPosition ? (
             <UserAddress userCurrentPosition={userCurrentPosition} />
-          </ErrorBoundary>
-        ) : geolocationPositionError ? (
-          <p>{geolocationPositionError.message}</p> // todo: ssr
-        ) : (
-          <p>loading...</p>
-        )}
-        <button
-          className=" bg-secondaryText text-white rounded-full text-center p-2 px-3 cursor-pointer hover:scale-105"
-          onClick={() => navigate('/location-search')}
-        >
-          Change
-        </button>
-      </div>
-      <CategoryGroupTabs
-        onCategoryChange={onCategoryChange}
-        activeKey={selectedTab}
-      />
-      {!userCurrentPosition || !categoryData ? (
-        <p className="mt-5">loading...</p>
-      ) : (
-        <PlaceCardList
-          userCurrentPosition={userCurrentPosition}
-          selectedCategory={
-            categoryData.groupList[Number(selectedTab)]?.enumName
-          }
+          ) : geolocationPositionError ? (
+            <p>{geolocationPositionError.message}</p> // todo: ssr
+          ) : (
+            <p>loading...</p>
+          )}
+          <button
+            className=" bg-secondaryText text-white rounded-full text-center p-2 px-3 cursor-pointer hover:scale-105"
+            onClick={() => navigate('/location-search')}
+          >
+            Change
+          </button>
+        </div>
+        <CategoryGroupTabs
+          onCategoryChange={onCategoryChange}
+          activeKey={selectedTab}
         />
-      )}
+        {!userCurrentPosition || !categoryData ? (
+          <p className="mt-5">loading...</p>
+        ) : (
+          <PlaceCardList
+            userCurrentPosition={userCurrentPosition}
+            selectedCategory={
+              categoryData.groupList[Number(selectedTab)]?.enumName
+            }
+          />
+        )}
+      </ErrorBoundary>
     </div>
   );
 };

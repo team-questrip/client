@@ -42,7 +42,7 @@ const PlaceCardList = ({
           .flatMap((page) => page.data.content)
           .map((content) => <PlaceCard content={content} key={content.id} />)}
       {isPlaceDataError && (
-        <p className="mt-5">데이터를 가져오는데 문제가 발생했습니다.</p>
+        <p className="mt-5">There was an issue retrieving the data.</p>
       )}
       <div ref={setTarget} className="pb-14" />
     </>

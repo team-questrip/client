@@ -12,6 +12,7 @@ const CategoryGroupTabs = ({
   onCategoryChange,
 }: CategoryGroupTabsProps) => {
   const { categoryData } = useCategoriesQuery();
+
   return (
     <Tabs
       activeKey={activeKey}
