@@ -1,4 +1,4 @@
-import { Place } from '../types/place';
+import { Place } from '../../types/place';
 
 interface VideoConentProps {
   videos: Place['images'];

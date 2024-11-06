@@ -1,37 +1,19 @@
 import { APIProvider } from '@vis.gl/react-google-maps';
 import { initGoogleLib } from '../service/map-api-load';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
-import Button from '../components/ui/Button';
+import Button from '../components/@common/Button';
 import { useEffect, useState } from 'react';
 import MapContainer from '../components/Map/MapContainer';
-import { useUserCurrentPositionStore } from '../store/userCurrentPosition';
-import { getUserCurrentPosition } from '../api/address';
+import useUserCurrentPosition from '../hooks/useUserCurrentPosition';
 
 export default function MapPage() {
   const [init, setInit] = useState(false);
-
-  const userCurrentPosition = useUserCurrentPositionStore(
-    (state) => state.userCurrentPosition
-  );
-
-  const mutate = useUserCurrentPositionStore(
-    (state) => state.updateUserCurrentPosition
-  );
 
   useEffect(() => {
     initGoogleLib().then(() => setInit(true));
   }, []);
 
-  useEffect(() => {
-    if (userCurrentPosition === null) {
-      getUserCurrentPosition().then((position) => {
-        mutate({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-      });
-    }
-  }, [mutate, userCurrentPosition]);
+  const { userCurrentPosition } = useUserCurrentPosition();
 
   return (
     <div className="w-full h-screen flex items-center">

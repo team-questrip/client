@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import PlaceDetailContent from '../components/Place/PlaceDetailContent';
-import NotFound from './NotFound';
-import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
+import GoBackHeader from '../components/@common/GoBackHeader/GoBackHeader';
 import usePlaceDetailQuery from '../queries/usePlaceDetailQuery';
 import { useUserCurrentPositionStore } from '../store/userCurrentPosition';
 
@@ -13,18 +12,16 @@ const PlaceDetailPage = () => {
 
   const navigate = useNavigate();
 
-  const { detailPlaceData, isDetailPlaceError, isDetailPlaceLoading } =
-    usePlaceDetailQuery({
-      placeId,
-      userCurrentPosition,
-    });
+  const { detailPlaceData, isDetailPlaceLoading } = usePlaceDetailQuery({
+    placeId,
+    userCurrentPosition,
+  });
 
   return (
     <div>
       <GoBackHeader onBack={() => navigate(-1)} className="mt-2 mb-4" />
       <div>
         {isDetailPlaceLoading && <div className="text-center">Loading...</div>}
-        {isDetailPlaceError && <NotFound />}
         {detailPlaceData ? (
           <PlaceDetailContent detailPlaceData={detailPlaceData} />
         ) : null}

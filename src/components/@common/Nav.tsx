@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import ActiveDiscoverIcon from './ui/icon/ActiveDiscoverIcon';
-import DiscoverIcon from './ui/icon/DiscoverIcon';
-import ActiveHomeIcon from './ui/icon/ActiveHomeIcon';
-import HomeIcon from './ui/icon/HomeIcon';
-import ActiveMyPageIcon from './ui/icon/ActiveMyPageIcon';
-import MyPageIcon from './ui/icon/MyPageIcon';
-import ActiveMapIcon from './ui/icon/ActiveMapIcon';
-import MapIcon from './ui/icon/MapIcon';
+import ActiveDiscoverIcon from './icon/ActiveDiscoverIcon';
+import DiscoverIcon from './icon/DiscoverIcon';
+import ActiveHomeIcon from './icon/ActiveHomeIcon';
+import HomeIcon from './icon/HomeIcon';
+import ActiveMyPageIcon from './icon/ActiveMyPageIcon';
+import MyPageIcon from './icon/MyPageIcon';
+import ActiveMapIcon from './icon/ActiveMapIcon';
+import MapIcon from './icon/MapIcon';
 
 const Nav = () => {
   const navigate = useNavigate();

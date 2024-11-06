@@ -1,11 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Frame from '../components/ui/design/Frame';
-import NavLayout from '../components/ui/design/NavLayout';
+import Frame from '../components/@common/design/Frame';
+import NavLayout from '../components/@common/design/NavLayout';
 import Welcome from '../pages/Welcome';
 import NotFound from '../pages/NotFound';
 import Home from '../pages/Home';
 import ProtectedRoute from '../pages/ProtectedRoute';
 import { lazy, Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import PlaceDetailErrorFallback from '../components/Place/PlaceDetailErrorFallback';
+import DiscoverErrorFallback from '../components/Discover/DiscoverErrorFallback';
 
 const SignIn = lazy(() => import('../pages/SignIn'));
 const SignUp = lazy(() => import('../pages/SignUp'));
@@ -66,9 +69,11 @@ export default function Router() {
               path="/discover"
               element={
                 <ProtectedRoute>
-                  <Suspense fallback={<PageLoadingFallback />}>
-                    <Discover />
-                  </Suspense>
+                  <ErrorBoundary FallbackComponent={DiscoverErrorFallback}>
+                    <Suspense fallback={<PageLoadingFallback />}>
+                      <Discover />
+                    </Suspense>
+                  </ErrorBoundary>
                 </ProtectedRoute>
               }
             />
@@ -87,9 +92,11 @@ export default function Router() {
             path="/detail/:placeId"
             element={
               <ProtectedRoute>
-                <Suspense fallback={<PageLoadingFallback />}>
-                  <PlaceDetailPage />
-                </Suspense>
+                <ErrorBoundary FallbackComponent={PlaceDetailErrorFallback}>
+                  <Suspense fallback={<PageLoadingFallback />}>
+                    <PlaceDetailPage />
+                  </Suspense>
+                </ErrorBoundary>
               </ProtectedRoute>
             }
           />

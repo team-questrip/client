@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SURVEY_FORM } from '../common/survey';
+import { SURVEY_FORM } from '../constants/survey';
 
 const Survey = () => {
   const [language, setLanguage] = useState<string>('English');

@@ -4,7 +4,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Place } from '../types/place';
+import { Place } from '../../types/place';
 
 interface SliderProps {
   images: Place['images'];

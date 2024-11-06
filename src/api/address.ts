@@ -2,12 +2,23 @@ import { addressSchema } from '../schema/addressSchema';
 import { Address } from '../types/address';
 import { axiosInstance } from './axiosInstance';
 
-export function getUserCurrentPosition(): Promise<GeolocationPosition> {
+function getUserCurrentPosition(): Promise<GeolocationPosition> {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 }
 
+export function requestUserPosition(
+  onSuccess: (position: GeolocationPosition) => void,
+  onDenied?: (error: GeolocationPositionError) => void
+) {
+  return getUserCurrentPosition()
+    .then((position) => onSuccess(position))
+    .catch((error) => {
+      const errorObj = error as GeolocationPositionError;
+      onDenied?.(errorObj);
+    });
+}
 // 주소를 가져오는 함수
 export async function fetchAddress(
   latitude: number,

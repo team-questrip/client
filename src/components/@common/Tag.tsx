@@ -1,11 +1,10 @@
-import Label from './ui/Label';
+import Label from './Label';
 
-interface OpenNowProps {
+interface TagProps {
   openNow: string;
 }
 
-// base ui의 Tag로 구현하려고 했는데 타입이 이상해서 작동을 안함;
-const OpenNow = ({ openNow }: OpenNowProps) => {
+const Tag = ({ openNow }: TagProps) => {
   return (
     <>
       <Label
@@ -23,4 +22,4 @@ const OpenNow = ({ openNow }: OpenNowProps) => {
   );
 };
 
-export default OpenNow;
+export default Tag;

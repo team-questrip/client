@@ -1,5 +1,6 @@
-import { ChangeEvent, FormEvent, forwardRef } from "react";
-import "./SearchForm.css";
+import { ChangeEvent, FormEvent, forwardRef } from 'react';
+import './SearchForm.css';
+import CancelIcon from '../@common/icon/CancelIcon';
 
 interface SearchFormProps {
   onChange?: (e?: ChangeEvent<HTMLInputElement>) => void;
@@ -18,21 +19,7 @@ const SearchForm = forwardRef<HTMLInputElement, SearchFormProps>(
         }}
       >
         <button type="reset" className="p-1 mr-3 text-lg">
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 22 22"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M1 1L11 11M21 21L11 11M11 11L20.2982 1M11 11L1 21"
-              stroke="#222222"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <CancelIcon />
         </button>
         <input
           ref={ref}

@@ -1,8 +1,8 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { InquiryCategory, InquiryInput } from '../types/inquiry';
-import ErrorMessage from '../components/ErrorMessage';
+import ErrorMessage from '../components/@common/ErrorMessage';
 import { axiosInstance } from '../api/axiosInstance';
-import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
+import GoBackHeader from '../components/@common/GoBackHeader/GoBackHeader';
 import { useNavigate } from 'react-router-dom';
 
 const Inquiry = () => {

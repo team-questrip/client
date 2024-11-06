@@ -1,5 +1,5 @@
 import { ChangeEvent, useRef, useState } from 'react';
-import Search from '../components/Search';
+import Search from '../components/LocationSearch/Search';
 import useAutoComplete from '../hooks/useAutoComplete';
 import { useNavigate } from 'react-router-dom';
 import { useUserCurrentPositionStore } from '../store/userCurrentPosition';

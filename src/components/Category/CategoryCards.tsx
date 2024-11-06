@@ -1,14 +1,10 @@
-import useCategoriesQuery from '../queries/useCategoryQuery';
-import HomeCard from './HomeCard';
+import useCategoriesQuery from '../../queries/useCategoryQuery';
+import HomeCard from '../Home/HomeCard';
 
 const CategoryCards = () => {
-  const { categoryData, isCategoryDataLoading, isCategoryDataError } =
-    useCategoriesQuery();
+  const { categoryData, isCategoryDataLoading } = useCategoriesQuery();
   return (
     <>
-      {isCategoryDataError && (
-        <p>Something went wrong while category data is loaded.</p>
-      )}
       {isCategoryDataLoading && <p>Loading...</p>}
       {categoryData &&
         categoryData.groupList.map((group) => (

@@ -3,14 +3,14 @@ import { UserRegistrationData } from '../types/user';
 import { join } from '../api/user';
 import { storeAuthenticationResponseDataToLocalStorage } from '../utils/user';
 import useAuthenticatedRedirect from '../hooks/useAuthenticatedRedirect';
-import Input from '../components/Input';
-import GoBackHeader from '../components/GoBackHeader/GoBackHeader';
-import Button from '../components/ui/Button';
+import Input from '../components/@common/Input';
+import GoBackHeader from '../components/@common/GoBackHeader/GoBackHeader';
+import Button from '../components/@common/Button';
 import { APIErrorMessage } from '../types/api';
 import { useToast } from '../hooks/useContexts';
 import { AxiosError } from 'axios';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import ErrorMessage from '../components/ErrorMessage';
+import ErrorMessage from '../components/@common/ErrorMessage';
 import { useUserStore } from '../store/user';
 
 const SignUp = () => {

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { getUserCurrentPosition } from '../api/address';
-import { useUserCurrentPositionStore } from '../store/userCurrentPosition';
+import { requestUserPosition } from '../../api/address';
+import { useUserCurrentPositionStore } from '../../store/userCurrentPosition';
+import { useToast } from '../../hooks/useContexts';
 
 interface CurrentLocationProps {
   show?: boolean;
@@ -13,14 +14,24 @@ const CurrentLocation = ({ show = true }: CurrentLocationProps) => {
     (state) => state.updateUserCurrentPosition
   );
 
+  const { showToast } = useToast();
+
   const handleClick = () => {
-    getUserCurrentPosition().then((position) => {
-      mutate({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      });
-      navigate('/discover');
-    });
+    requestUserPosition(
+      (position) => {
+        mutate({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+        navigate('/discover');
+      },
+      () => {
+        showToast(
+          'You have denied location access. Please allow location access to use this feature.',
+          'warning'
+        );
+      }
+    );
   };
 
   return (
