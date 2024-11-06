@@ -1,7 +1,6 @@
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import GoBackHeader from '../components/@common/GoBackHeader/GoBackHeader';
 import InquiryIcon from '../components/@common/icon/InquiryIcon';
-import UserAddress from '../components/UserAddress/UserAddress';
 import PlaceCardList from '../components/Place/PlaceCardList';
 import CategoryGroupTabs from '../components/Category/CategoryGroupTabs';
 import useCategories from '../hooks/useCategory';
@@ -9,24 +8,16 @@ import useCategoriesQuery from '../queries/useCategoryQuery';
 import { ErrorBoundary } from 'react-error-boundary';
 import useUserCurrentPosition from '../hooks/useUserCurrentPosition';
 import PlaceListErrorFallback from '../components/Place/PlaceListErrorFallback';
+import { UserAddressChange } from '../components/UserAddress/UserAddressChange';
+import { useInitialTab } from '../hooks/useInitialTab';
 
 const Discover = () => {
   const navigate = useNavigate();
 
-  const { userCurrentPosition, geolocationPositionError } =
-    useUserCurrentPosition();
+  const { userCurrentPosition } = useUserCurrentPosition();
   const { categoryData } = useCategoriesQuery();
 
-  const [searchParam] = useSearchParams();
-  const initialCategory = searchParam.get('category');
-  const initialTab =
-    initialCategory && categoryData
-      ? String(
-          categoryData.groupList.findIndex(
-            (g) => g.enumName === initialCategory
-          )
-        )
-      : '0'; // todo: initialTab에 맞게 스크롤까지
+  const initialTab = useInitialTab();
 
   const { selectedTab, onCategoryChange } = useCategories(initialTab);
 
@@ -47,21 +38,7 @@ const Discover = () => {
       </GoBackHeader>
       <h1 className="font-bold text-3xl mb-10">Questrip</h1>
       <ErrorBoundary FallbackComponent={PlaceListErrorFallback}>
-        <div className="flex justify-between items-center my-5 gap-2 h-12">
-          {userCurrentPosition ? (
-            <UserAddress userCurrentPosition={userCurrentPosition} />
-          ) : geolocationPositionError ? (
-            <p>{geolocationPositionError.message}</p> // todo: ssr
-          ) : (
-            <p>loading...</p>
-          )}
-          <button
-            className=" bg-secondaryText text-white rounded-full text-center p-2 px-3 cursor-pointer hover:scale-105"
-            onClick={() => navigate('/location-search')}
-          >
-            Change
-          </button>
-        </div>
+        <UserAddressChange />
         <CategoryGroupTabs
           onCategoryChange={onCategoryChange}
           activeKey={selectedTab}
