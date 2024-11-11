@@ -30,17 +30,18 @@ const PlaceCardList = ({
     fetchNextPage,
   });
 
+  const placeContent =
+    placeData && placeData.pages.flatMap((page) => page.data.content);
   return (
     <>
       {isPlaceDataLoading && <p className="mt-5">loading...</p>}
-      {placeData &&
-        placeData.pages.flatMap((page) => page.data.content).length === 0 && (
-          <div className="mt-8">No places found</div>
-        )}
-      {placeData &&
-        placeData.pages
-          .flatMap((page) => page.data.content)
-          .map((content) => <PlaceCard content={content} key={content.id} />)}
+      {placeContent && placeContent.length === 0 && (
+        <div className="mt-8">No places found</div>
+      )}
+      {placeContent &&
+        placeContent.map((content) => (
+          <PlaceCard content={content} key={content.id} />
+        ))}
       {isPlaceDataError && (
         <p className="mt-5">There was an issue retrieving the data.</p>
       )}

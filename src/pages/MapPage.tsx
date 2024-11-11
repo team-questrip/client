@@ -19,8 +19,10 @@ export default function MapPage() {
     <div className="w-full h-screen flex items-center">
       <ErrorBoundary fallbackRender={fallbackRender}>
         <APIProvider apiKey={import.meta.env.VITE_Google_API_KEY}>
-          {init && userCurrentPosition && (
+          {init && userCurrentPosition ? (
             <MapContainer userCurrentPosition={userCurrentPosition} />
+          ) : (
+            <p>loading...</p>
           )}
         </APIProvider>
       </ErrorBoundary>
