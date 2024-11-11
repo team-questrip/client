@@ -3,12 +3,13 @@ import { Place } from '../../types/place';
 import Slider from '../Place/Slider';
 import VideoContent from '../Place/VideoContent';
 import { isVideo as isVideoContent } from '../../utils/video';
+import { memo } from 'react';
 
 interface PlaceCardProps {
   content: Place;
 }
 
-const PlaceCard = ({ content }: PlaceCardProps) => {
+const PlaceCard = memo(({ content }: PlaceCardProps) => {
   const isVideo = isVideoContent(content.images);
 
   return (
@@ -39,6 +40,6 @@ const PlaceCard = ({ content }: PlaceCardProps) => {
       </Link>
     </div>
   );
-};
+});
 
 export default PlaceCard;
