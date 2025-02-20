@@ -4,6 +4,27 @@
 
 외국인 관광객을 대상으로 한 로컬 여행정보 추천 애플리케이션입니다. 유저의 현재 위치를 감지하고 그 위치를 기반으로 가까운 순으로 정렬하여 관광지를 추천합니다.
 
+## 기능
+
+### 원하는 관광지의 카테고리로 들어갈 수 있습니다
+![1](https://github.com/user-attachments/assets/6fb4c0d2-eef7-4ba3-84b9-6f5f05b180ac)
+
+### 관광지 목록을 스크롤하면서 볼 수 있습니다
+![2](https://github.com/user-attachments/assets/ec47cd7e-71ba-4301-bd8c-0e2671d2479b)
+
+### 목적지까지 어떻게 가는지 구글 지도를 통해 바로 알 수 있습니다
+![3](https://github.com/user-attachments/assets/b68de1e6-4ff3-487b-8046-fecb829968d3)
+
+### 위치를 변경할 수 있습니다
+![4](https://github.com/user-attachments/assets/56f478ad-ce3a-4356-851a-f8275cd152b2)
+
+### 지도를 통해 관광지를 볼 수 있습니다
+![5](https://github.com/user-attachments/assets/b75f3f55-8a85-4753-b9c3-585cb8635686)
+
+### 더 많은 장소들을 볼 수 있으며 카테고리에 따라 다른 장소를 볼 수 있습니다
+![6](https://github.com/user-attachments/assets/b740241a-2b26-4fcc-a6e5-731ba6bc11d6)
+
+
 ## 설치 및 실행 방법
 
 1. 저장소를 복제합니다:
